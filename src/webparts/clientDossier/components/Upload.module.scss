@@ -51,57 +51,58 @@
     margin: 20px 0;
 }
 
-.idTextField{
+.idTextField {
     width: 8%;
-    input{
+    input {
         padding: 0 13px;
-        height:40px;
+        height: 40px;
     }
 }
 
 // modal Styles
-.modalContainer{
+.modalContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    .modalSize{
-        height: 585px;
+    .modalSize {
+        height: 470px;
         width: 30%;
         background-color: #fff;
         // padding: 20px;
         border-radius: 5px;
-        h3{
+        h3 {
             color: #00589A;
         }
-        .header{
+        .header {
             height: 42px;
-         display: flex;
-        //  justify-content: space-between;
-         align-items: center;
-         border-radius: 5px;
-         background: gainsboro;
-         button{
-            padding: 0 5px 0 0;
-         }
+            display: flex;
+            //  justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+            background: gainsboro;
+            button {
+                padding: 0 5px 0 0;
+            }
         }
-        .section{
-            h3{
-                font-size: 18px;
+        .section {
+            h3 {
+                font-size: 16px;
                 margin: 8px 0 0 0;
             }
         }
-        .footerSection{
+        .footerSection {
             display: flex;
+            margin: 10px 0;
             justify-content: flex-end;
         }
     }
 }
 
 // Table Design
-.iconBtnStyle{
+.iconBtnStyle {
     background-color: transparent !important;
-    svg{
+    svg {
         margin: 0px 6px;
     }
 }
