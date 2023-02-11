@@ -125,6 +125,14 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
       title: "Project Work Category Master",
       listName: "Project Work Category Master",
     },
+    {
+      title: "QB Measurable Characteristics Master",
+      listName: "QB Measurable Characteristics Master",
+    },
+    {
+      title: "QB Categories Master",
+      listName: "QB Categories Master",
+    },
   ]);
 
   function editRecord(master) {
@@ -206,13 +214,17 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
       <div className={classes.App}>
         <div className={classes.AppSection}>
           <div className={classes.headerSection}>
-            <Typography variant="h5" color="primary" style={{fontSize:21}}>
+            <Typography variant="h5" color="primary" style={{ fontSize: 21 }}>
               Masters
             </Typography>
 
             <div>
               <div className={classes.dropdownflex}>
-                <FormControl style={{ width: "400px" }} variant="outlined" size='small'>
+                <FormControl
+                  style={{ width: "400px" }}
+                  variant="outlined"
+                  size="small"
+                >
                   <Select
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"

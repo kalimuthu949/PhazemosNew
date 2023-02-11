@@ -14,6 +14,7 @@ import { Geography } from "./Geography";
 import { ProjectWork } from "./ProjectWork";
 import { PrimaryServicesOffered } from "./PrimaryServicesOffered";
 import { Upload } from "./Upload";
+import BioQA from "./BioQA/BioQA";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import ExpertisePlatform from "./ExpertisePlatform";
@@ -54,6 +55,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     primaryServicesOffered: false,
     uploads: false,
     expertisePlatform: false,
+    bioQA: false,
   });
 
   const handleChange = (event, newValue) => {
@@ -125,6 +127,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           data.primaryServicesOffered = res[0].PrimaryServicesOffered;
           data.uploads = res[0].Uploads;
           data.expertisePlatform = res[0].ExpertisePlatform;
+          data.bioQA = res[0].bioMarkerQuals;
 
           let tab = tabIndex;
           let index = 0;
@@ -158,6 +161,10 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           }
           if (data.uploads) {
             tab["uploads"] = index;
+            index++;
+          }
+          if (data.bioQA) {
+            tab["bioQA"] = index;
             index++;
           }
           setTabIndex({ ...tab });
@@ -226,11 +233,23 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           {formData.uploads && (
             <Tab label="Uploads" {...a11yProps(tabIndex["uploads"])} />
           )}
+
+          {formData.bioQA && (
+            <Tab
+              label="Qualified Biomarkers"
+              {...a11yProps(tabIndex["bioQA"])}
+            />
+          )}
         </Tabs>
       </AppBar>
       {formData.companyProfile && (
         <TabPanel value={value} index={tabIndex["companyProfile"]}>
-          <CompanyProfile
+          {/* <CompanyProfile
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          /> */}
+          <BioQA
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
@@ -306,6 +325,16 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyCode={formData.companyCode}
             SiteUrl={props.SiteUrl}
             Domain={props.Domain}
+          />
+        </TabPanel>
+      )}
+
+      {formData.bioQA && (
+        <TabPanel value={value} index={tabIndex["bioQA"]}>
+          <BioQA
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
           />
         </TabPanel>
       )}

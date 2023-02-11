@@ -11,6 +11,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
+import PMEXperience from "./PMExperience";
 
 import { CustomAlert } from "./CustomAlert";
 import { CustomDialog } from "./CustomDialog";
@@ -665,435 +666,436 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      {/* <h3 className={classes.headerTitle}>Uploads</h3> */}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          variant="outlined"
-          size="small"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-      <div className={classes.uploadSection}>
-        <p className={classes.infoTitleSection}>
-          Please upload any of the following (pdf, xls, doc, ppt)
-        </p>
-        {/* <div className={classes.uploadSection}> */}
-        <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
-          {Object.keys(allFile).map((module) => {
-            return (
-              <div className={classes.upload} style={{ width: "20%" }}>
-                <p>{allFile[module].title}</p>
-                <div className={classes.uploadItem}>
-                  <label htmlFor={module}>
-                    <input
-                      style={{ display: "none" }}
-                      id={module}
-                      name={module}
-                      type="file"
-                      // multiple
-                      onChange={(e) => {
-                        handleFileChange(e, allFile[module].objectName);
-                      }}
-                      disabled={readOnly}
-                    />
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      component="span"
-                      disabled={readOnly}
-                    >
-                      Upload File
-                    </Button>
-                  </label>
+    // <ThemeProvider theme={theme}>
+    //   {/* <h3 className={classes.headerTitle}>Uploads</h3> */}
+    //   <div className={`${classes.companyDetails} disableInput`}>
+    //     <TextField
+    //       style={{ width: "38%", marginRight: 32 }}
+    //       id="outlined-basic"
+    //       label="Company Name"
+    //       variant="outlined"
+    //       size="small"
+    //       aria-readonly={true}
+    //       name="CompanyName"
+    //       value={props.CompanyName}
+    //       disabled
+    //     />
+    //     <TextField
+    //       id="outlined-basic"
+    //       size="small"
+    //       label="ID"
+    //       variant="outlined"
+    //       className={classes.idTextField}
+    //       aria-readonly={true}
+    //       value={props.CompanyCode}
+    //       disabled
+    //     />
+    //   </div>
+    //   <div className={classes.uploadSection}>
+    //     <p className={classes.infoTitleSection}>
+    //       Please upload any of the following (pdf, xls, doc, ppt)
+    //     </p>
+    //     {/* <div className={classes.uploadSection}> */}
+    //     <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
+    //       {Object.keys(allFile).map((module) => {
+    //         return (
+    //           <div className={classes.upload} style={{ width: "20%" }}>
+    //             <p>{allFile[module].title}</p>
+    //             <div className={classes.uploadItem}>
+    //               <label htmlFor={module}>
+    //                 <input
+    //                   style={{ display: "none" }}
+    //                   id={module}
+    //                   name={module}
+    //                   type="file"
+    //                   // multiple
+    //                   onChange={(e) => {
+    //                     handleFileChange(e, allFile[module].objectName);
+    //                   }}
+    //                   disabled={readOnly}
+    //                 />
+    //                 <Button
+    //                   color="secondary"
+    //                   variant="contained"
+    //                   component="span"
+    //                   disabled={readOnly}
+    //                 >
+    //                   Upload File
+    //                 </Button>
+    //               </label>
 
-                  {allFile[module].data.map((file: any, index: number) => {
-                    return (
-                      <div className={classes.SelectedFiles}>
-                        <div>
-                          <span className={classes.File}>
-                            <span
-                              className="link"
-                              onClick={(e) => {
-                                openFile(file);
-                              }}
-                            >
-                              {file.Name ? file.Name : file.name}
-                            </span>
+    //               {allFile[module].data.map((file: any, index: number) => {
+    //                 return (
+    //                   <div className={classes.SelectedFiles}>
+    //                     <div>
+    //                       <span className={classes.File}>
+    //                         <span
+    //                           className="link"
+    //                           onClick={(e) => {
+    //                             openFile(file);
+    //                           }}
+    //                         >
+    //                           {file.Name ? file.Name : file.name}
+    //                         </span>
 
-                            {!readOnly && (
-                              <span
-                                className={classes.fileDelete}
-                                onClick={(e) =>
-                                  deleteConfirmation(
-                                    index,
-                                    allFile[module].objectName
-                                  )
-                                }
-                              >
-                                x
-                              </span>
-                            )}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    //                         {!readOnly && (
+    //                           <span
+    //                             className={classes.fileDelete}
+    //                             onClick={(e) =>
+    //                               deleteConfirmation(
+    //                                 index,
+    //                                 allFile[module].objectName
+    //                               )
+    //                             }
+    //                           >
+    //                             x
+    //                           </span>
+    //                         )}
+    //                       </span>
+    //                     </div>
+    //                   </div>
+    //                 );
+    //               })}
+    //             </div>
+    //           </div>
+    //         );
+    //       })}
+    //     </div>
+    //   </div>
 
-      {/* Modal design */}
-      <Modal
-        open={open}
-        // onClose={()=>[<
-        //   setOpen(false);
-        // ]}
-      >
-        <div className={classes.modalContainer}>
-          <div></div>
-          <div className={classes.modalSize}>
-            {/* header section */}
-            <div>
-              <div className={classes.header}>
-                <h3
-                  style={{
-                    margin: "0px 5px",
-                    width: "100%",
-                    textAlign: "center",
-                  }}
-                >
-                  Meta Data Mapping
-                </h3>
-                <IconButton>
-                  <CloseIcon
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  />
-                </IconButton>
-              </div>
-            </div>
+    //   {/* Modal design */}
+    //   <Modal
+    //     open={open}
+    //     // onClose={()=>[<
+    //     //   setOpen(false);
+    //     // ]}
+    //   >
+    //     <div className={classes.modalContainer}>
+    //       <div></div>
+    //       <div className={classes.modalSize}>
+    //         {/* header section */}
+    //         <div>
+    //           <div className={classes.header}>
+    //             <h3
+    //               style={{
+    //                 margin: "0px 5px",
+    //                 width: "100%",
+    //                 textAlign: "center",
+    //               }}
+    //             >
+    //               Meta Data Mapping
+    //             </h3>
+    //             <IconButton>
+    //               <CloseIcon
+    //                 onClick={() => {
+    //                   setOpen(false);
+    //                 }}
+    //               />
+    //             </IconButton>
+    //           </div>
+    //         </div>
 
-            <div style={{ padding: 20 }}>
-              {/* Dropdown Section starts*/}
-              {/* Expertise Therapeutic */}
-              <div className={classes.section}>
-                <h3>Expertise Therapeutic</h3>
-                <div>
-                  <FormControl
-                    variant="outlined"
-                    size="small"
-                    style={{ width: "100%", margin: "10px 0 6px 0" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Expertise Therapeutic
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label="Expertise Therapeutic"
-                      name="ExpertiseTherapeutic"
-                      value={metadata["ExpertiseTherapeutic"]}
-                      onChange={(e) => selHandleChange(e)}
-                    >
-                      {masterData.expertiseTherapeutic.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
+    //         <div style={{ padding: 20 }}>
+    //           {/* Dropdown Section starts*/}
+    //           {/* Expertise Therapeutic */}
+    //           <div className={classes.section}>
+    //             <h3>Expertise Therapeutic</h3>
+    //             <div>
+    //               <FormControl
+    //                 variant="outlined"
+    //                 size="small"
+    //                 style={{ width: "100%", margin: "10px 0 6px 0" }}
+    //               >
+    //                 <InputLabel id="demo-simple-select-outlined-label">
+    //                   Expertise Therapeutic
+    //                 </InputLabel>
+    //                 <Select
+    //                   disabled={readOnly}
+    //                   labelId="demo-controlled-open-select-label"
+    //                   id="demo-controlled-open-select"
+    //                   label="Expertise Therapeutic"
+    //                   name="ExpertiseTherapeutic"
+    //                   value={metadata["ExpertiseTherapeutic"]}
+    //                   onChange={(e) => selHandleChange(e)}
+    //                 >
+    //                   {masterData.expertiseTherapeutic.map((m) => {
+    //                     return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+    //                   })}
+    //                 </Select>
+    //               </FormControl>
+    //             </div>
+    //           </div>
 
-              {/* Regulatory section */}
-              <div className={classes.section}>
-                <h3>Regulatory</h3>
-                <div>
-                  <FormControl
-                    size="small"
-                    variant="outlined"
-                    style={{ width: "100%", margin: "10px 0px 6px 0" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Regulatory
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label=" Regulatory"
-                      name="ExpertiseRegulatory"
-                      value={metadata["ExpertiseRegulatory"]}
-                      onChange={(e) => selHandleChange(e)}
-                    >
-                      {masterData.expertiseRegulatory.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
+    //           {/* Regulatory section */}
+    //           <div className={classes.section}>
+    //             <h3>Regulatory</h3>
+    //             <div>
+    //               <FormControl
+    //                 size="small"
+    //                 variant="outlined"
+    //                 style={{ width: "100%", margin: "10px 0px 6px 0" }}
+    //               >
+    //                 <InputLabel id="demo-simple-select-outlined-label">
+    //                   Regulatory
+    //                 </InputLabel>
+    //                 <Select
+    //                   disabled={readOnly}
+    //                   labelId="demo-controlled-open-select-label"
+    //                   id="demo-controlled-open-select"
+    //                   label=" Regulatory"
+    //                   name="ExpertiseRegulatory"
+    //                   value={metadata["ExpertiseRegulatory"]}
+    //                   onChange={(e) => selHandleChange(e)}
+    //                 >
+    //                   {masterData.expertiseRegulatory.map((m) => {
+    //                     return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+    //                   })}
+    //                 </Select>
+    //               </FormControl>
+    //             </div>
+    //           </div>
 
-              {/* Platform section */}
-              <div className={classes.section}>
-                <h3>Platform</h3>
-                <div>
-                  <FormControl
-                    size="small"
-                    variant="outlined"
-                    style={{ width: "100%", margin: "10px 0px 6px 0" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Platform
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label="Category"
-                      name="ExpertisePlatform"
-                      value={metadata["ExpertisePlatform"]}
-                      onChange={(e) => selHandleChange(e)}
-                    >
-                      {masterData.expertisePlatform.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
-                </div>
-              </div>
+    //           {/* Platform section */}
+    //           <div className={classes.section}>
+    //             <h3>Platform</h3>
+    //             <div>
+    //               <FormControl
+    //                 size="small"
+    //                 variant="outlined"
+    //                 style={{ width: "100%", margin: "10px 0px 6px 0" }}
+    //               >
+    //                 <InputLabel id="demo-simple-select-outlined-label">
+    //                   Platform
+    //                 </InputLabel>
+    //                 <Select
+    //                   disabled={readOnly}
+    //                   labelId="demo-controlled-open-select-label"
+    //                   id="demo-controlled-open-select"
+    //                   label="Category"
+    //                   name="ExpertisePlatform"
+    //                   value={metadata["ExpertisePlatform"]}
+    //                   onChange={(e) => selHandleChange(e)}
+    //                 >
+    //                   {masterData.expertisePlatform.map((m) => {
+    //                     return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+    //                   })}
+    //                 </Select>
+    //               </FormControl>
+    //             </div>
+    //           </div>
 
-              {/* geography section */}
-              <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
-                Geography
-              </h3>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  margin: "5px 0 6px 0",
-                }}
-              >
-                <div
-                  className={classes.section}
-                  style={{ width: "50%", marginRight: 10 }}
-                >
-                  {/* <h3>Country of Residence</h3> */}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl
-                      size="small"
-                      variant="outlined"
-                      style={{ width: "100%", margin: "6px 0px" }}
-                    >
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Country of Residence
-                      </InputLabel>
-                      <Select
-                        disabled={readOnly}
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        label="Country of Residence"
-                        name="CountryofResidence"
-                        value={metadata["CountryofResidence"]}
-                        onChange={(e) => selHandleChange(e)}
-                      >
-                        {masterData.countryofResidence.map((m) => {
-                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                        })}
-                      </Select>
-                    </FormControl>
-                  </div>
-                </div>
+    //           {/* geography section */}
+    //           <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
+    //             Geography
+    //           </h3>
+    //           <div
+    //             style={{
+    //               display: "flex",
+    //               alignItems: "center",
+    //               margin: "5px 0 6px 0",
+    //             }}
+    //           >
+    //             <div
+    //               className={classes.section}
+    //               style={{ width: "50%", marginRight: 10 }}
+    //             >
+    //               {/* <h3>Country of Residence</h3> */}
+    //               <div style={{ display: "flex", alignItems: "center" }}>
+    //                 <FormControl
+    //                   size="small"
+    //                   variant="outlined"
+    //                   style={{ width: "100%", margin: "6px 0px" }}
+    //                 >
+    //                   <InputLabel id="demo-simple-select-outlined-label">
+    //                     Country of Residence
+    //                   </InputLabel>
+    //                   <Select
+    //                     disabled={readOnly}
+    //                     labelId="demo-controlled-open-select-label"
+    //                     id="demo-controlled-open-select"
+    //                     label="Country of Residence"
+    //                     name="CountryofResidence"
+    //                     value={metadata["CountryofResidence"]}
+    //                     onChange={(e) => selHandleChange(e)}
+    //                   >
+    //                     {masterData.countryofResidence.map((m) => {
+    //                       return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+    //                     })}
+    //                   </Select>
+    //                 </FormControl>
+    //               </div>
+    //             </div>
 
-                <div className={classes.section} style={{ width: "50%" }}>
-                  {/* <h3>Countries Worked</h3> */}
-                  <div style={{ display: "flex", alignItems: "center" }}>
-                    <FormControl
-                      size="small"
-                      variant="outlined"
-                      style={{ width: "100%", margin: "6px 0px" }}
-                    >
-                      <InputLabel id="demo-simple-select-outlined-label">
-                        Countries Worked
-                      </InputLabel>
-                      <Select
-                        disabled={readOnly}
-                        labelId="demo-controlled-open-select-label"
-                        id="demo-controlled-open-select"
-                        label="Countries Worked"
-                        name="CountriesWorked"
-                        value={metadata["CountriesWorked"]}
-                        onChange={(e) => selHandleChange(e)}
-                      >
-                        {masterData.countriesWorked.map((m) => {
-                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                        })}
-                      </Select>
-                    </FormControl>
-                  </div>
-                </div>
-              </div>
+    //             <div className={classes.section} style={{ width: "50%" }}>
+    //               {/* <h3>Countries Worked</h3> */}
+    //               <div style={{ display: "flex", alignItems: "center" }}>
+    //                 <FormControl
+    //                   size="small"
+    //                   variant="outlined"
+    //                   style={{ width: "100%", margin: "6px 0px" }}
+    //                 >
+    //                   <InputLabel id="demo-simple-select-outlined-label">
+    //                     Countries Worked
+    //                   </InputLabel>
+    //                   <Select
+    //                     disabled={readOnly}
+    //                     labelId="demo-controlled-open-select-label"
+    //                     id="demo-controlled-open-select"
+    //                     label="Countries Worked"
+    //                     name="CountriesWorked"
+    //                     value={metadata["CountriesWorked"]}
+    //                     onChange={(e) => selHandleChange(e)}
+    //                   >
+    //                     {masterData.countriesWorked.map((m) => {
+    //                       return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+    //                     })}
+    //                   </Select>
+    //                 </FormControl>
+    //               </div>
+    //             </div>
+    //           </div>
 
-              {/* Dropdown section ends */}
+    //           {/* Dropdown section ends */}
 
-              <div className={classes.footerSection}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  onClick={(e) => submitMetadata()}
-                >
-                  Submit
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Modal>
+    //           <div className={classes.footerSection}>
+    //             <Button
+    //               variant="contained"
+    //               color="primary"
+    //               size="large"
+    //               onClick={(e) => submitMetadata()}
+    //             >
+    //               Submit
+    //             </Button>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </Modal>
 
-      {!readOnly && (
-        <div className={classes.bottomBtnSection}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            onClick={(e) => submitFiles()}
-          >
-            Submit
-          </Button>
-          {loader && <CircularProgress />}
-        </div>
-      )}
+    //   {!readOnly && (
+    //     <div className={classes.bottomBtnSection}>
+    //       <Button
+    //         variant="contained"
+    //         color="primary"
+    //         size="large"
+    //         onClick={(e) => submitFiles()}
+    //       >
+    //         Submit
+    //       </Button>
+    //       {loader && <CircularProgress />}
+    //     </div>
+    //   )}
 
-      {otherUploadMetadata.length > 0 && (
-        <TableContainer component={Paper}>
-          <Table aria-label="customized table">
-            <TableHead>
-              <StyledTableRow>
-                <StyledTableCell>Document Name</StyledTableCell>
-                <StyledTableCell>Expertise-Therapeutic</StyledTableCell>
-                <StyledTableCell>Regulatory</StyledTableCell>
-                <StyledTableCell>Platform</StyledTableCell>
-                <StyledTableCell>Country of Residence</StyledTableCell>
-                <StyledTableCell>Countries Worked</StyledTableCell>
-                <StyledTableCell>Created On</StyledTableCell>
-                <StyledTableCell>Action</StyledTableCell>
-              </StyledTableRow>
-            </TableHead>
+    //   {otherUploadMetadata.length > 0 && (
+    //     <TableContainer component={Paper}>
+    //       <Table aria-label="customized table">
+    //         <TableHead>
+    //           <StyledTableRow>
+    //             <StyledTableCell>Document Name</StyledTableCell>
+    //             <StyledTableCell>Expertise-Therapeutic</StyledTableCell>
+    //             <StyledTableCell>Regulatory</StyledTableCell>
+    //             <StyledTableCell>Platform</StyledTableCell>
+    //             <StyledTableCell>Country of Residence</StyledTableCell>
+    //             <StyledTableCell>Countries Worked</StyledTableCell>
+    //             <StyledTableCell>Created On</StyledTableCell>
+    //             <StyledTableCell>Action</StyledTableCell>
+    //           </StyledTableRow>
+    //         </TableHead>
 
-            <TableBody>
-              {otherUploadMetadata.map((res) => {
-                return (
-                  <StyledTableRow>
-                    <StyledTableCell>{res.Title}</StyledTableCell>
-                    <StyledTableCell>
-                      {res.ExpertiseTherapeutic}
-                    </StyledTableCell>
-                    <StyledTableCell>{res.ExpertiseRegulatory}</StyledTableCell>
-                    <StyledTableCell>{res.ExpertisePlatform}</StyledTableCell>
-                    <StyledTableCell>{res.CountryofResidence}</StyledTableCell>
-                    <StyledTableCell>{res.CountriesWorked}</StyledTableCell>
+    //         <TableBody>
+    //           {otherUploadMetadata.map((res) => {
+    //             return (
+    //               <StyledTableRow>
+    //                 <StyledTableCell>{res.Title}</StyledTableCell>
+    //                 <StyledTableCell>
+    //                   {res.ExpertiseTherapeutic}
+    //                 </StyledTableCell>
+    //                 <StyledTableCell>{res.ExpertiseRegulatory}</StyledTableCell>
+    //                 <StyledTableCell>{res.ExpertisePlatform}</StyledTableCell>
+    //                 <StyledTableCell>{res.CountryofResidence}</StyledTableCell>
+    //                 <StyledTableCell>{res.CountriesWorked}</StyledTableCell>
 
-                    <StyledTableCell>
-                      {_commonService.formattedDate(new Date(res.Created))}
-                    </StyledTableCell>
+    //                 <StyledTableCell>
+    //                   {_commonService.formattedDate(new Date(res.Created))}
+    //                 </StyledTableCell>
 
-                    <StyledTableCell>
-                      <Button disableRipple className={classes.iconBtnStyle}>
-                        <EditIcon
-                          color="primary"
-                          style={{ margin: 0 }}
-                          onClick={(e) => editMetadata(res)}
-                        />
-                        <DeleteIcon
-                          color="error"
-                          onClick={(e) => showDeleteDialog(res)}
-                        />
-                      </Button>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
+    //                 <StyledTableCell>
+    //                   <Button disableRipple className={classes.iconBtnStyle}>
+    //                     <EditIcon
+    //                       color="primary"
+    //                       style={{ margin: 0 }}
+    //                       onClick={(e) => editMetadata(res)}
+    //                     />
+    //                     <DeleteIcon
+    //                       color="error"
+    //                       onClick={(e) => showDeleteDialog(res)}
+    //                     />
+    //                   </Button>
+    //                 </StyledTableCell>
+    //               </StyledTableRow>
+    //             );
+    //           })}
+    //         </TableBody>
+    //       </Table>
+    //     </TableContainer>
+    //   )}
 
-      <CustomAlert
-        open={cusalert.open}
-        message={cusalert.message}
-        severity={cusalert.severity}
-        handleClose={(e) => {
-          setAlert({
-            open: false,
-            severity: "",
-            message: "",
-          });
-        }}
-      ></CustomAlert>
+    //   <CustomAlert
+    //     open={cusalert.open}
+    //     message={cusalert.message}
+    //     severity={cusalert.severity}
+    //     handleClose={(e) => {
+    //       setAlert({
+    //         open: false,
+    //         severity: "",
+    //         message: "",
+    //       });
+    //     }}
+    //   ></CustomAlert>
 
-      <CustomDialog
-        open={cusDialog}
-        message={
-          "Are you sure? Do you want to delete this file from " +
-          props.CompanyName +
-          " document library?"
-        }
-        title="Delete"
-        closeDialog={(e) => {
-          setCusDialog(false);
-        }}
-        disagree={(e) => {
-          let delData = {
-            index: 0,
-            objectName: "",
-          };
-          setDeleteData({ ...delData });
-          setCusDialog(false);
-        }}
-        agree={(e) => {
-          deleteFile();
-          setCusDialog(false);
-        }}
-      ></CustomDialog>
+    //   <CustomDialog
+    //     open={cusDialog}
+    //     message={
+    //       "Are you sure? Do you want to delete this file from " +
+    //       props.CompanyName +
+    //       " document library?"
+    //     }
+    //     title="Delete"
+    //     closeDialog={(e) => {
+    //       setCusDialog(false);
+    //     }}
+    //     disagree={(e) => {
+    //       let delData = {
+    //         index: 0,
+    //         objectName: "",
+    //       };
+    //       setDeleteData({ ...delData });
+    //       setCusDialog(false);
+    //     }}
+    //     agree={(e) => {
+    //       deleteFile();
+    //       setCusDialog(false);
+    //     }}
+    //   ></CustomDialog>
 
-      <CustomDialog
-        open={deleteDialog}
-        message={"Are you sure? Do you want to delete this meta data?"}
-        title="Delete"
-        closeDialog={(e) => {
-          setDeleteDialog(false);
-        }}
-        disagree={(e) => {
-          let delData = metadata;
-          delData = {};
-          setDeleteMeta({ ...delData });
-          setDeleteDialog(false);
-        }}
-        agree={(e) => {
-          deleteMetadata();
-        }}
-      ></CustomDialog>
-    </ThemeProvider>
+    //   <CustomDialog
+    //     open={deleteDialog}
+    //     message={"Are you sure? Do you want to delete this meta data?"}
+    //     title="Delete"
+    //     closeDialog={(e) => {
+    //       setDeleteDialog(false);
+    //     }}
+    //     disagree={(e) => {
+    //       let delData = metadata;
+    //       delData = {};
+    //       setDeleteMeta({ ...delData });
+    //       setDeleteDialog(false);
+    //     }}
+    //     agree={(e) => {
+    //       deleteMetadata();
+    //     }}
+    //   ></CustomDialog>
+    // </ThemeProvider>
+    <PMEXperience />
   );
 };
