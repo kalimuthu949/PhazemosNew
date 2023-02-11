@@ -14,7 +14,7 @@ import { Geography } from "./Geography";
 import { ProjectWork } from "./ProjectWork";
 import { PrimaryServicesOffered } from "./PrimaryServicesOffered";
 import { Upload } from "./Upload";
-import BioQA from "./BioQA/BioQA";
+import { BioQA } from "./BioQA/BioQA";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import ExpertisePlatform from "./ExpertisePlatform";
@@ -177,7 +177,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
   useEffect((): any => {
     init();
   }, []);
-  console.log(formData.uploads);
+  // console.log(formData.uploads);
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static" color="default">
