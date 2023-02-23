@@ -184,7 +184,7 @@ export const CompanyProfile: React.FunctionComponent<ICompanyProfile> = (
     let isValidForm = true;
     for (let index = 0; index < formKeys.length; index++) {
       if (!companyPostData[formKeys[index]]) {
-        console.log(formKeys[index] + " is required");
+        // console.log(formKeys[index] + " is required");
         isValidForm = false;
       }
     }
@@ -295,22 +295,30 @@ export const CompanyProfile: React.FunctionComponent<ICompanyProfile> = (
           _commonService.bulkInsert(
             { listName: _primaryMap },
             addItem,
-            (bulkres: any) => {}
+            (bulkres: any) => {
+              init();
+              setAlert({
+                open: true,
+                severity: "success",
+                message: "Updated successfully",
+              });
+            }
           );
         }
         if (editItem.length) {
           _commonService.bulkUpdate(
             { listName: _primaryMap },
             editItem,
-            (bulkres: any) => {}
+            (bulkres: any) => {
+              init();
+              setAlert({
+                open: true,
+                severity: "success",
+                message: "Updated successfully",
+              });
+            }
           );
         }
-        init();
-        setAlert({
-          open: true,
-          severity: "success",
-          message: "Updated successfully",
-        });
       }
     );
     insertOrUpdateServiceOfferTab();

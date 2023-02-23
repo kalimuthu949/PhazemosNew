@@ -51,7 +51,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 export const App: React.FunctionComponent<IApp> = (props: IApp) => {
-  var _commonService: CommonService;
+  let _commonService: CommonService;
 
   const [cusalert, setAlert] = useState({
     open: false,
@@ -124,6 +124,42 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     {
       title: "Project Work Category Master",
       listName: "Project Work Category Master",
+    },
+    {
+      title: "QB Measurable Characteristics Master",
+      listName: "QB Measurable Characteristics Master",
+    },
+    {
+      title: "QB Categories Master",
+      listName: "QB Categories Master",
+    },
+    {
+      title: "In House Tools Master",
+      listName: "In House Tools Master",
+    },
+    {
+      title: "PM Experience Platforms Master",
+      listName: "PM Experience Platforms Master",
+    },
+    {
+      title: "PM Experience CNS Disease Types Master",
+      listName: "PM Experience CNS Disease Types Master",
+    },
+    {
+      title: "PM Experience Ophthalmology Disease Types Master",
+      listName: "PM Experience Ophthalmology Disease Types Master",
+    },
+    {
+      title: "PM Experience Rare Disease Types Master",
+      listName: "PM Experience Rare Disease Types Master",
+    },
+    {
+      title: "PM Experience Oncology Disease Types Master",
+      listName: "PM Experience Oncology Disease Types Master",
+    },
+    {
+      title: "Site Network Master",
+      listName: "Site Network Master",
     },
   ]);
 
@@ -206,13 +242,17 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
       <div className={classes.App}>
         <div className={classes.AppSection}>
           <div className={classes.headerSection}>
-            <Typography variant="h5" color="primary" style={{fontSize:21}}>
+            <Typography variant="h5" color="primary" style={{ fontSize: 21 }}>
               Masters
             </Typography>
 
             <div>
               <div className={classes.dropdownflex}>
-                <FormControl style={{ width: "400px" }} variant="outlined" size='small'>
+                <FormControl
+                  style={{ width: "400px" }}
+                  variant="outlined"
+                  size="small"
+                >
                   <Select
                     labelId="demo-controlled-open-select-label"
                     id="demo-controlled-open-select"

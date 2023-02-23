@@ -126,7 +126,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
           } else if (currentField == "CountriesWorked") {
             label = "Countries Worked";
           }
-          console.log(label + " is required");
+          // console.log(label + " is required");
 
           setAlert({
             open: true,
@@ -154,23 +154,74 @@ export const Geography: React.FunctionComponent<IGeography> = (
     let addData = allData.filter((c) => c.ID == 0);
     let editData = allData.filter((c) => c.ID != 0);
 
-    updateGeographyDetails();
-    if (addData.length) {
-      _commonService.bulkInsert(
-        { listName: _geography },
-        addData,
-        (bulkres: any) => {
-          if (editData.length == 0) {
-            init();
-            setAlert({
-              open: true,
-              severity: "success",
-              message: "Inserted successfully",
-            });
+    let _editData = editData.concat(deleteGeographyDetails);
+
+    if (allData && allData.length > 0) {
+      if (_editData && _editData.length > 0) {
+        _commonService.bulkUpdate(
+          { listName: _geography },
+          _editData,
+          (updateRes: any) => {
+            if (addData && addData.length > 0) {
+              _commonService.bulkInsert(
+                { listName: _geography },
+                addData,
+                (createRes: any) => {
+                  setAlert({
+                    open: true,
+                    severity: "success",
+                    message: "Updated successfully",
+                  });
+                  init();
+                }
+              );
+            }
           }
+        );
+      } else {
+        if (addData && addData.length > 0) {
+          _commonService.bulkInsert(
+            { listName: _geography },
+            addData,
+            (createRes: any) => {
+              setAlert({
+                open: true,
+                severity: "success",
+                message: "Inserted successfully",
+              });
+              init();
+            }
+          );
         }
-      );
+      }
+    } else {
+      setAlert({
+        open: true,
+        severity: "success",
+        message: "Submitted successfully",
+      });
+      init();
     }
+
+    // updateGeographyDetails();
+    // if (addData.length) {
+    //   _commonService.bulkInsert(
+    //     { listName: _geography },
+    //     addData,
+    //     (bulkres: any) => {
+    //       if (editData.length == 0) {
+    //         setAlert({
+    //           open: true,
+    //           severity: "success",
+    //           message: "Inserted successfully",
+    //         });
+    //         setTimeout(() => {
+    //           init();
+    //         }, 1000);
+    //       }
+    //     }
+    //   );
+    // }
   }
 
   function updateGeographyDetails() {
@@ -182,14 +233,16 @@ export const Geography: React.FunctionComponent<IGeography> = (
         { listName: _geography },
         editData,
         (bulkres: any) => {
-          init();
+          setAlert({
+            open: true,
+            severity: "success",
+            message: "Updated successfully",
+          });
+          setTimeout(() => {
+            init();
+          }, 1000);
         }
       );
-      setAlert({
-        open: true,
-        severity: "success",
-        message: "Updated successfully",
-      });
     }
   }
 

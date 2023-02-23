@@ -56,13 +56,13 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
 ) => {
   const [viewMode, setViewMode] = useState(false);
 
-  var _commonService: CommonService = new CommonService();
+  let _commonService: CommonService = new CommonService();
 
   const _companyRegistration: string = "Company Registration";
   const _userDetails: string = "User Details";
 
   const _acceptInviteUrl: string =
-    "https://douglas-phazemos.azurewebsites.net/Phazemos/Index?id=";
+    "https://douglas-phazemos-new.azurewebsites.net/Phazemos/Index?id=";
 
   // const _acceptInviteUrl: string =
   // "http://localhost:51130/Phazemos/Index?id=";
@@ -84,6 +84,10 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
     PrimaryServicesOffered: true,
     Uploads: true,
     ExpertisePlatform: true,
+    bioMarkerQuals: true,
+    InHouseTools: true,
+    PMExperience: true,
+    SiteNetwork: true,
     users: [""],
   });
 
@@ -155,7 +159,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
 
   function registerNewCompany() {
     let data = formData;
-    var companyData = {
+    let companyData = {
       Title: data.companyName,
       CompanyID: "",
       CompanyProfile: data.CompanyProfile,
@@ -166,6 +170,10 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
       PrimaryServicesOffered: data.PrimaryServicesOffered,
       ExpertisePlatform: data.ExpertisePlatform,
       Uploads: data.Uploads,
+      bioMarkerQuals: data.bioMarkerQuals,
+      InHouseTools: data.InHouseTools,
+      PMExperience: data.PMExperience,
+      SiteNetwork: data.SiteNetwork,
     };
 
     let customProperty = {
@@ -193,7 +201,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
             customProperty,
             userData,
             (userres: any) => {
-              var graphProperty = {
+              let graphProperty = {
                 UserEmailID: users[index],
                 InviteRedirectUrl:
                   _acceptInviteUrl +
@@ -260,6 +268,10 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
     data.PrimaryServicesOffered = true;
     data.ExpertisePlatform = true;
     data.Uploads = true;
+    data.bioMarkerQuals = true;
+    data.InHouseTools = true;
+    data.PMExperience = true;
+    data.SiteNetwork = true;
     setFormData({ ...data });
   }
 
@@ -324,6 +336,10 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
     data.PrimaryServicesOffered = formData.PrimaryServicesOffered;
     data.ExpertisePlatform = formData.ExpertisePlatform;
     data.Uploads = formData.Uploads;
+    data.bioMarkerQuals = formData.bioMarkerQuals;
+    data.InHouseTools = formData.InHouseTools;
+    data.PMExperience = formData.PMExperience;
+    data.SiteNetwork = formData.SiteNetwork;
 
     _commonService.updateList(customProperty, data, (companyres: any) => {
       setAlert({
@@ -400,7 +416,6 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
           <Fade in={open}>
             <div className={styles.paper}>
               <div className={classes.modalHeader}>
-                {" "}
                 <Typography
                   variant="h6"
                   color="primary"
@@ -534,6 +549,21 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                     <FormControlLabel
                       control={
                         <Checkbox
+                          checked={formData.ExpertisePlatform}
+                          name="ExpertisePlatform"
+                          color="primary"
+                          onChange={(e) => checkboxChangeHandler(e)}
+                          disabled={viewMode}
+                        />
+                      }
+                      label="Expertise - Platform"
+                    />
+                  </div>
+
+                  <div className={classes.CheckBox}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
                           checked={formData.Geography}
                           name="Geography"
                           color="primary"
@@ -587,6 +617,62 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                         />
                       }
                       label="Uploads"
+                    />
+                  </div>
+                  <div className={classes.CheckBox}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formData.bioMarkerQuals}
+                          name="bioMarkerQuals"
+                          color="primary"
+                          onChange={(e) => checkboxChangeHandler(e)}
+                          disabled={viewMode}
+                        />
+                      }
+                      label="Bio Marker Quals"
+                    />
+                  </div>
+                  <div className={classes.CheckBox}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formData.InHouseTools}
+                          name="InHouseTools"
+                          color="primary"
+                          onChange={(e) => checkboxChangeHandler(e)}
+                          disabled={viewMode}
+                        />
+                      }
+                      label="In House Tools"
+                    />
+                  </div>
+                  <div className={classes.CheckBox}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formData.PMExperience}
+                          name="PMExperience"
+                          color="primary"
+                          onChange={(e) => checkboxChangeHandler(e)}
+                          disabled={viewMode}
+                        />
+                      }
+                      label="PM Experience"
+                    />
+                  </div>
+                  <div className={classes.CheckBox}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={formData.SiteNetwork}
+                          name="SiteNetwork"
+                          color="primary"
+                          onChange={(e) => checkboxChangeHandler(e)}
+                          disabled={viewMode}
+                        />
+                      }
+                      label="Site Network"
                     />
                   </div>
                 </div>

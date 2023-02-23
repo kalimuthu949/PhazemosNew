@@ -169,14 +169,14 @@ export const RegulatoryExpertise: React.FunctionComponent<
 
   function submitData() {
     let checkedDatas = regulatoryExpertises.filter((d) => d.IsChecked == true);
-    if (checkedDatas.length == 0) {
-      setAlert({
-        open: true,
-        severity: "warning",
-        message: "Select any once expertise",
-      });
-      return;
-    }
+    // if (checkedDatas.length == 0) {
+    //   setAlert({
+    //     open: true,
+    //     severity: "warning",
+    //     message: "Select any once expertise",
+    //   });
+    //   return;
+    // }
     if (othersComment.isChecked) {
       if (!othersComment.comments) {
         setAlert({
@@ -187,19 +187,18 @@ export const RegulatoryExpertise: React.FunctionComponent<
         return;
       }
     }
-    if (others.length) {
-      for (let index = 0; index < others.length; index++) {
-        if (!others[index]) {
-          setAlert({
-            open: true,
-            severity: "warning",
-            message: "Please enter the value",
-          });
-          return;
-        }
-      }
-    }
-
+    // if (others.length) {
+    //   for (let index = 0; index < others.length; index++) {
+    //     if (!others[index]) {
+    //       setAlert({
+    //         open: true,
+    //         severity: "warning",
+    //         message: "Please enter the value",
+    //       });
+    //       return;
+    //     }
+    //   }
+    // }
     if (!companyRegulatoryExpertise.regulatoryExpertise) {
       insertNewRegulatoryExpertise();
     } else {
@@ -373,32 +372,47 @@ export const RegulatoryExpertise: React.FunctionComponent<
     regulatoryRegimeExperienceID: any,
     newInHouseRegulatoryMaster: any[]
   ) {
-    _commonService.insertIntoList(
-      { listName: _regulatoryExpertiseMaster },
-      { Title: newInHouseRegulatoryMaster[index].Title, IsActive: true },
-      (res) => {
-        var postData = {
-          RegulatoryExpertiseIDId: regulatoryRegimeExperienceID,
-          InHouseRegulatoryRegimeExperiencId: res.data.Id,
-        };
-        _commonService.insertIntoList(
-          { listName: _regulatoryExpertiseMap },
-          postData,
-          (res) => {}
-        );
-
-        index++;
-        if (index != newInHouseRegulatoryMaster.length) {
-          insertNewInHouseRegulatoryMaster(
-            index,
-            regulatoryRegimeExperienceID,
-            newInHouseRegulatoryMaster
+    if (
+      newInHouseRegulatoryMaster.length > 0 &&
+      newInHouseRegulatoryMaster[index].Title
+    ) {
+      _commonService.insertIntoList(
+        { listName: _regulatoryExpertiseMaster },
+        { Title: newInHouseRegulatoryMaster[index].Title, IsActive: true },
+        (res) => {
+          var postData = {
+            RegulatoryExpertiseIDId: regulatoryRegimeExperienceID,
+            InHouseRegulatoryRegimeExperiencId: res.data.Id,
+          };
+          _commonService.insertIntoList(
+            { listName: _regulatoryExpertiseMap },
+            postData,
+            (res) => {}
           );
-        } else {
-          init();
+
+          index++;
+          if (index != newInHouseRegulatoryMaster.length) {
+            insertNewInHouseRegulatoryMaster(
+              index,
+              regulatoryRegimeExperienceID,
+              newInHouseRegulatoryMaster
+            );
+          } else {
+            init();
+          }
         }
+      );
+    } else {
+      if (index != newInHouseRegulatoryMaster.length) {
+        insertNewInHouseRegulatoryMaster(
+          index,
+          regulatoryRegimeExperienceID,
+          newInHouseRegulatoryMaster
+        );
+      } else {
+        init();
       }
-    );
+    }
   }
 
   function toggleOther(event) {

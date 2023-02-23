@@ -98,7 +98,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
 
   const [open, setOpen] = useState(false);
 
-  var _commonService: CommonService = new CommonService();
+  let _commonService: CommonService = new CommonService();
 
   const [allFile, setAllFile] = useState({
     experienceSpreadsheets: {
@@ -660,7 +660,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
 
   useEffect((): any => {
     _commonService = new CommonService();
-    console.log("Loaded");
+    // console.log("Loaded");
     init();
   }, []);
 
@@ -802,7 +802,8 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                 <div>
                   <FormControl
                     variant="outlined"
-                    style={{ width: "100%", margin: "6px 0px" }}
+                    size="small"
+                    style={{ width: "100%", margin: "10px 0 6px 0" }}
                   >
                     <InputLabel id="demo-simple-select-outlined-label">
                       Expertise Therapeutic
@@ -811,7 +812,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                       disabled={readOnly}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
-                      label="Category"
+                      label="Expertise Therapeutic"
                       name="ExpertiseTherapeutic"
                       value={metadata["ExpertiseTherapeutic"]}
                       onChange={(e) => selHandleChange(e)}
@@ -829,8 +830,9 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                 <h3>Regulatory</h3>
                 <div>
                   <FormControl
+                    size="small"
                     variant="outlined"
-                    style={{ width: "100%", margin: "6px 0px" }}
+                    style={{ width: "100%", margin: "10px 0px 6px 0" }}
                   >
                     <InputLabel id="demo-simple-select-outlined-label">
                       Regulatory
@@ -839,7 +841,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                       disabled={readOnly}
                       labelId="demo-controlled-open-select-label"
                       id="demo-controlled-open-select"
-                      label="Category"
+                      label=" Regulatory"
                       name="ExpertiseRegulatory"
                       value={metadata["ExpertiseRegulatory"]}
                       onChange={(e) => selHandleChange(e)}
@@ -857,8 +859,9 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                 <h3>Platform</h3>
                 <div>
                   <FormControl
+                    size="small"
                     variant="outlined"
-                    style={{ width: "100%", margin: "6px 0px" }}
+                    style={{ width: "100%", margin: "10px 0px 6px 0" }}
                   >
                     <InputLabel id="demo-simple-select-outlined-label">
                       Platform
@@ -880,58 +883,74 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                 </div>
               </div>
 
-              
-              <div className={classes.section}>
-                <h3>Country of Residence</h3>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <FormControl
-                    variant="outlined"
-                    style={{ width: "100%", margin: "6px 0px" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Country of Residence
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label="Category"
-                      name="CountryofResidence"
-                      value={metadata["CountryofResidence"]}
-                      onChange={(e) => selHandleChange(e)}
+              {/* geography section */}
+              <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
+                Geography
+              </h3>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  margin: "5px 0 6px 0",
+                }}
+              >
+                <div
+                  className={classes.section}
+                  style={{ width: "50%", marginRight: 10 }}
+                >
+                  {/* <h3>Country of Residence</h3> */}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl
+                      size="small"
+                      variant="outlined"
+                      style={{ width: "100%", margin: "6px 0px" }}
                     >
-                      {masterData.countryofResidence.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Country of Residence
+                      </InputLabel>
+                      <Select
+                        disabled={readOnly}
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        label="Country of Residence"
+                        name="CountryofResidence"
+                        value={metadata["CountryofResidence"]}
+                        onChange={(e) => selHandleChange(e)}
+                      >
+                        {masterData.countryofResidence.map((m) => {
+                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
-              </div>
 
-              <div className={classes.section}>
-                <h3>Countries Worked</h3>
-                <div style={{ display: "flex", alignItems: "center" }}>
-                  <FormControl
-                    variant="outlined"
-                    style={{ width: "100%", margin: "6px 0px" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Countries Worked
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label="Category"
-                      name="CountriesWorked"
-                      value={metadata["CountriesWorked"]}
-                      onChange={(e) => selHandleChange(e)}
+                <div className={classes.section} style={{ width: "50%" }}>
+                  {/* <h3>Countries Worked</h3> */}
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl
+                      size="small"
+                      variant="outlined"
+                      style={{ width: "100%", margin: "6px 0px" }}
                     >
-                      {masterData.countriesWorked.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Countries Worked
+                      </InputLabel>
+                      <Select
+                        disabled={readOnly}
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        label="Countries Worked"
+                        name="CountriesWorked"
+                        value={metadata["CountriesWorked"]}
+                        onChange={(e) => selHandleChange(e)}
+                      >
+                        {masterData.countriesWorked.map((m) => {
+                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
               </div>
 
@@ -971,14 +990,30 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
           <Table aria-label="customized table">
             <TableHead>
               <StyledTableRow>
-                <StyledTableCell>Document Name</StyledTableCell>
-                <StyledTableCell>Expertise-Therapeutic</StyledTableCell>
-                <StyledTableCell>Regulatory</StyledTableCell>
-                <StyledTableCell>Platform</StyledTableCell>
-                <StyledTableCell>Country of Residence</StyledTableCell>
-                <StyledTableCell>Countries Worked</StyledTableCell>
-                <StyledTableCell>Created On</StyledTableCell>
-                <StyledTableCell>Action</StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Document Name
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Expertise-Therapeutic
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Regulatory
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Platform
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Country of Residence
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Countries Worked
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Created On
+                </StyledTableCell>
+                <StyledTableCell className={classes.HeaderBottomBorder}>
+                  Action
+                </StyledTableCell>
               </StyledTableRow>
             </TableHead>
 

@@ -196,11 +196,11 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
 
   function updateExpertisePlatform() {
     updateExpertisePlatformMap();
-    setAlert({
-      open: true,
-      severity: "success",
-      message: "Updated successfully",
-    });
+    // setAlert({
+    //   open: true,
+    //   severity: "success",
+    //   message: "Updated successfully",
+    // });
   }
 
   function updateExpertisePlatformMap() {
@@ -225,6 +225,11 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
         addExpertise,
         (bulkres: any) => {
           init();
+          setAlert({
+            open: true,
+            severity: "success",
+            message: "Updated successfully",
+          });
         }
       );
     }
@@ -239,6 +244,11 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
         removedExpertise,
         (bulkres: any) => {
           init();
+          setAlert({
+            open: true,
+            severity: "success",
+            message: "Updated successfully",
+          });
         }
       );
     }
@@ -249,14 +259,11 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
     init();
   }, []);
 
-
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   return (
     <ThemeProvider theme={theme}>
-     
-
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}

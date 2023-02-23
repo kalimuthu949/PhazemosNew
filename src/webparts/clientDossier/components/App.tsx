@@ -14,6 +14,10 @@ import { Geography } from "./Geography";
 import { ProjectWork } from "./ProjectWork";
 import { PrimaryServicesOffered } from "./PrimaryServicesOffered";
 import { Upload } from "./Upload";
+import { BioQA } from "./BioQA/BioQA";
+import { InHouseTools } from "./InHouseTools/InHouseTools";
+import { PMExperience } from "./PMExperience/PMExperience";
+import { SiteNetwork } from "./SiteNetwork/SiteNetwork";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import ExpertisePlatform from "./ExpertisePlatform";
@@ -36,8 +40,8 @@ export interface IApp {
 }
 
 export const App: React.FunctionComponent<IApp> = (props: IApp) => {
-  var _userDetails: string = "User Details";
-  var _companyRegistration: string = "Company Registration";
+  let _userDetails: string = "User Details";
+  let _companyRegistration: string = "Company Registration";
 
   const [value, setValue] = useState(0);
   const [tabIndex, setTabIndex] = useState({});
@@ -54,6 +58,10 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     primaryServicesOffered: false,
     uploads: false,
     expertisePlatform: false,
+    bioQA: false,
+    inHouseTools: false,
+    PMExperience: false,
+    SiteNetwork: false,
   });
 
   const handleChange = (event, newValue) => {
@@ -125,6 +133,10 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           data.primaryServicesOffered = res[0].PrimaryServicesOffered;
           data.uploads = res[0].Uploads;
           data.expertisePlatform = res[0].ExpertisePlatform;
+          data.bioQA = res[0].bioMarkerQuals;
+          data.inHouseTools = res[0].InHouseTools;
+          data.PMExperience = res[0].PMExperience;
+          data.SiteNetwork = res[0].SiteNetwork;
 
           let tab = tabIndex;
           let index = 0;
@@ -160,6 +172,22 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             tab["uploads"] = index;
             index++;
           }
+          if (data.bioQA) {
+            tab["bioQA"] = index;
+            index++;
+          }
+          if (data.inHouseTools) {
+            tab["inHouseTools"] = index;
+            index++;
+          }
+          if (data.PMExperience) {
+            tab["PMExperience"] = index;
+            index++;
+          }
+          if (data.SiteNetwork) {
+            tab["SiteNetwork"] = index;
+            index++;
+          }
           setTabIndex({ ...tab });
           setFormData({ ...data });
         });
@@ -170,7 +198,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
   useEffect((): any => {
     init();
   }, []);
-  console.log(formData.uploads);
+  // console.log(formData.uploads);
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="static" color="default">
@@ -225,6 +253,28 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
 
           {formData.uploads && (
             <Tab label="Uploads" {...a11yProps(tabIndex["uploads"])} />
+          )}
+
+          {formData.bioQA && (
+            <Tab
+              label="Qualified Biomarkers"
+              {...a11yProps(tabIndex["bioQA"])}
+            />
+          )}
+          {formData.inHouseTools && (
+            <Tab
+              label="In House Tools"
+              {...a11yProps(tabIndex["inHouseTools"])}
+            />
+          )}
+          {formData.PMExperience && (
+            <Tab
+              label="PM Experience"
+              {...a11yProps(tabIndex["PMExperience"])}
+            />
+          )}
+          {formData.SiteNetwork && (
+            <Tab label="Site Network" {...a11yProps(tabIndex["SiteNetwork"])} />
           )}
         </Tabs>
       </AppBar>
@@ -306,6 +356,43 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyCode={formData.companyCode}
             SiteUrl={props.SiteUrl}
             Domain={props.Domain}
+          />
+        </TabPanel>
+      )}
+
+      {formData.bioQA && (
+        <TabPanel value={value} index={tabIndex["bioQA"]}>
+          <BioQA
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          />
+        </TabPanel>
+      )}
+      {formData.inHouseTools && (
+        <TabPanel value={value} index={tabIndex["inHouseTools"]}>
+          <InHouseTools
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          />
+        </TabPanel>
+      )}
+      {formData.PMExperience && (
+        <TabPanel value={value} index={tabIndex["PMExperience"]}>
+          <PMExperience
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          />
+        </TabPanel>
+      )}
+      {formData.SiteNetwork && (
+        <TabPanel value={value} index={tabIndex["SiteNetwork"]}>
+          <SiteNetwork
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
           />
         </TabPanel>
       )}

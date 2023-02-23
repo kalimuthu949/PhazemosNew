@@ -151,7 +151,7 @@ export default class CommonService {
                     if (callBack) {
                         callBack(createdResponse);
                     }
-                    console.log("All Item Added")
+                    // console.log("All Item Added")
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -178,7 +178,7 @@ export default class CommonService {
                     if (callBack) {
                         callBack(createdResponse);
                     }
-                    console.log("All Item Updated")
+                    // console.log("All Item Updated")
                 }).catch((error) => {
                     console.log(error);
                 });
