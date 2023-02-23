@@ -23,7 +23,7 @@ export default class CompanyProfileService {
             .expand("PrimaryServicesMasterID,CompanyID")
             .get()
             .then((res: any) => {
-                debugger;
+                // debugger;
             });
     };
 
@@ -34,7 +34,7 @@ export default class CompanyProfileService {
             .filter("IsActive eq '1'")
             .get()
             .then((res: any) => {
-                debugger;
+                // debugger;
             });
     };
 
@@ -46,7 +46,7 @@ export default class CompanyProfileService {
 
             })
             .then((res: any) => {
-                debugger;
+                // debugger;
             });
     };
 

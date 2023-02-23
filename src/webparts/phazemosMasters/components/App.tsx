@@ -51,7 +51,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 export const App: React.FunctionComponent<IApp> = (props: IApp) => {
-  var _commonService: CommonService;
+  let _commonService: CommonService;
 
   const [cusalert, setAlert] = useState({
     open: false,
@@ -132,6 +132,34 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     {
       title: "QB Categories Master",
       listName: "QB Categories Master",
+    },
+    {
+      title: "In House Tools Master",
+      listName: "In House Tools Master",
+    },
+    {
+      title: "PM Experience Platforms Master",
+      listName: "PM Experience Platforms Master",
+    },
+    {
+      title: "PM Experience CNS Disease Types Master",
+      listName: "PM Experience CNS Disease Types Master",
+    },
+    {
+      title: "PM Experience Ophthalmology Disease Types Master",
+      listName: "PM Experience Ophthalmology Disease Types Master",
+    },
+    {
+      title: "PM Experience Rare Disease Types Master",
+      listName: "PM Experience Rare Disease Types Master",
+    },
+    {
+      title: "PM Experience Oncology Disease Types Master",
+      listName: "PM Experience Oncology Disease Types Master",
+    },
+    {
+      title: "Site Network Master",
+      listName: "Site Network Master",
     },
   ]);
 

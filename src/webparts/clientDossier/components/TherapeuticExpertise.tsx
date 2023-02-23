@@ -332,28 +332,40 @@ export const TherapeuticExpertise: React.FunctionComponent<
     therapeuticExpertiseIDId: any,
     newDisease: any[]
   ) {
-    _commonService.insertIntoList(
-      { listName: _diseaseAreaMaster },
-      { Title: newDisease[index].serviceName, IsActive: true },
-      (res) => {
-        var postData = {
-          TherapeuticExpertiseIDId: therapeuticExpertiseIDId,
-          DiseaseAreaExperienceIDId: res.data.Id,
-        };
-        _commonService.insertIntoList(
-          { listName: _diseaseAreaMap },
-          postData,
-          (res) => {}
-        );
+    if (newDisease.length > 0 && newDisease[index].serviceName) {
+      _commonService.insertIntoList(
+        { listName: _diseaseAreaMaster },
+        { Title: newDisease[index].serviceName, IsActive: true },
+        (res) => {
+          var postData = {
+            TherapeuticExpertiseIDId: therapeuticExpertiseIDId,
+            DiseaseAreaExperienceIDId: res.data.Id,
+          };
+          _commonService.insertIntoList(
+            { listName: _diseaseAreaMap },
+            postData,
+            (res) => {}
+          );
 
-        index++;
-        if (index != newDisease.length) {
-          insertNewDieaseMaterData(index, therapeuticExpertiseIDId, newDisease);
-        } else {
-          init();
+          index++;
+          if (index != newDisease.length) {
+            insertNewDieaseMaterData(
+              index,
+              therapeuticExpertiseIDId,
+              newDisease
+            );
+          } else {
+            init();
+          }
         }
+      );
+    } else {
+      if (index != newDisease.length) {
+        insertNewDieaseMaterData(index, therapeuticExpertiseIDId, newDisease);
+      } else {
+        init();
       }
-    );
+    }
   }
 
   function updateTherapeuticExpertise() {

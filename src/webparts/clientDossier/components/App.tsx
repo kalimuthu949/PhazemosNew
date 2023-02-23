@@ -15,6 +15,9 @@ import { ProjectWork } from "./ProjectWork";
 import { PrimaryServicesOffered } from "./PrimaryServicesOffered";
 import { Upload } from "./Upload";
 import { BioQA } from "./BioQA/BioQA";
+import { InHouseTools } from "./InHouseTools/InHouseTools";
+import { PMExperience } from "./PMExperience/PMExperience";
+import { SiteNetwork } from "./SiteNetwork/SiteNetwork";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import ExpertisePlatform from "./ExpertisePlatform";
@@ -37,8 +40,8 @@ export interface IApp {
 }
 
 export const App: React.FunctionComponent<IApp> = (props: IApp) => {
-  var _userDetails: string = "User Details";
-  var _companyRegistration: string = "Company Registration";
+  let _userDetails: string = "User Details";
+  let _companyRegistration: string = "Company Registration";
 
   const [value, setValue] = useState(0);
   const [tabIndex, setTabIndex] = useState({});
@@ -56,6 +59,9 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     uploads: false,
     expertisePlatform: false,
     bioQA: false,
+    inHouseTools: false,
+    PMExperience: false,
+    SiteNetwork: false,
   });
 
   const handleChange = (event, newValue) => {
@@ -128,6 +134,9 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           data.uploads = res[0].Uploads;
           data.expertisePlatform = res[0].ExpertisePlatform;
           data.bioQA = res[0].bioMarkerQuals;
+          data.inHouseTools = res[0].InHouseTools;
+          data.PMExperience = res[0].PMExperience;
+          data.SiteNetwork = res[0].SiteNetwork;
 
           let tab = tabIndex;
           let index = 0;
@@ -165,6 +174,18 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           }
           if (data.bioQA) {
             tab["bioQA"] = index;
+            index++;
+          }
+          if (data.inHouseTools) {
+            tab["inHouseTools"] = index;
+            index++;
+          }
+          if (data.PMExperience) {
+            tab["PMExperience"] = index;
+            index++;
+          }
+          if (data.SiteNetwork) {
+            tab["SiteNetwork"] = index;
             index++;
           }
           setTabIndex({ ...tab });
@@ -240,16 +261,26 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
               {...a11yProps(tabIndex["bioQA"])}
             />
           )}
+          {formData.inHouseTools && (
+            <Tab
+              label="In House Tools"
+              {...a11yProps(tabIndex["inHouseTools"])}
+            />
+          )}
+          {formData.PMExperience && (
+            <Tab
+              label="PM Experience"
+              {...a11yProps(tabIndex["PMExperience"])}
+            />
+          )}
+          {formData.SiteNetwork && (
+            <Tab label="Site Network" {...a11yProps(tabIndex["SiteNetwork"])} />
+          )}
         </Tabs>
       </AppBar>
       {formData.companyProfile && (
         <TabPanel value={value} index={tabIndex["companyProfile"]}>
-          {/* <CompanyProfile
-            CompanyName={formData.companyName}
-            CompanyID={formData.companyID}
-            CompanyCode={formData.companyCode}
-          /> */}
-          <BioQA
+          <CompanyProfile
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
@@ -332,6 +363,33 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
       {formData.bioQA && (
         <TabPanel value={value} index={tabIndex["bioQA"]}>
           <BioQA
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          />
+        </TabPanel>
+      )}
+      {formData.inHouseTools && (
+        <TabPanel value={value} index={tabIndex["inHouseTools"]}>
+          <InHouseTools
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          />
+        </TabPanel>
+      )}
+      {formData.PMExperience && (
+        <TabPanel value={value} index={tabIndex["PMExperience"]}>
+          <PMExperience
+            CompanyName={formData.companyName}
+            CompanyID={formData.companyID}
+            CompanyCode={formData.companyCode}
+          />
+        </TabPanel>
+      )}
+      {formData.SiteNetwork && (
+        <TabPanel value={value} index={tabIndex["SiteNetwork"]}>
+          <SiteNetwork
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}

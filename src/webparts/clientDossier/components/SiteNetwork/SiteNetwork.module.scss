@@ -1,0 +1,36 @@
+.HeaderBottomBorder {
+    text-align: center;
+    border: 1px solid #fff !important;
+}
+
+.HeaderColBorder {
+    text-align: center;
+    border-right: 1px solid #fff !important;
+}
+
+.SectionHeader {
+    font-weight: 600;
+    background-color: #f9ffd5;
+    text-align: center !important;
+    font-weight: 600 !important;
+}
+
+.subHeader {
+    font-weight: 600;
+    background-color: #f3f3f3;
+    text-align: left !important;
+    font-weight: 500 !important;
+}
+
+.companyDetails {
+    display: flex;
+    margin: 20px 0;
+}
+
+.idTextField {
+    width: 8%;
+    input {
+        padding: 0 13px;
+        height: 40px;
+    }
+}

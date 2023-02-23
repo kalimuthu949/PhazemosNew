@@ -248,7 +248,7 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
           formKeys[j] != "ProjectIDId" &&
           !keyCompanies[index][formKeys[j]]
         ) {
-          console.log(formKeys[j] + " is required");
+          // console.log(formKeys[j] + " is required");
           isValidForm = false;
           break;
         }

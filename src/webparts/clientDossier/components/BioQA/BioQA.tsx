@@ -8,13 +8,15 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Checkbox } from "@material-ui/core";
-import styles from "../PMEXperience.module.scss";
+import styles from "./BioQA.module.scss";
 import { useState, useEffect, useRef } from "react";
 import CommonService from "../../services/CommonService";
 import { Button } from "@material-ui/core";
 import { CustomAlert } from "../CustomAlert";
+import TextField from "@material-ui/core/TextField";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
-export interface IBioQuals {
+export interface IProps {
   CompanyName: string;
   CompanyCode: string;
   CompanyID: string;
@@ -24,6 +26,8 @@ interface IRowData {
   heading: string;
   masterID: number;
   mappingID: number;
+
+  masterType: string;
 
   Design: boolean;
   Qualification: boolean;
@@ -64,16 +68,21 @@ const StyledTableCell = withStyles((theme) => ({
   },
 }))(TableCell);
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#00589A",
+    },
   },
 });
 
-export const BioQA = (props: IBioQuals) => {
-  var _commonService: any = {};
-  var _bioQualsMeasureMaster = "QB Measurable Characteristics Master";
-  var _bioQualsMapping = "BioMarkers";
+let isUpdated: boolean = false;
+
+export const BioQA = (props: IProps): JSX.Element => {
+  let _commonService: any = {};
+  let _bioQualsMeasureMaster = "QB Measurable Characteristics Master";
+  let _bioQualsCategoriesMaster = "QB Categories Master";
+  let _bioQualsMapping = "BioMarkers";
 
   const tableHeadings: IHeading[] = [
     {
@@ -120,12 +129,16 @@ export const BioQA = (props: IBioQuals) => {
     severity: "error",
   });
   const [qualsMeasureMaster, setQualsMeasureMaster] = useState<IRowData[]>([]);
+  const [qualsCategoriesMaster, setQualsCategoriesMaster] = useState<
+    IRowData[]
+  >([]);
   const [readOnly, setReadOnly] = useState<boolean>(false);
 
   const loadBioQualsMeasureMaster = (): void => {
     let customProperty = {
       listName: _bioQualsMeasureMaster,
       properties: "ID,Title,IsActive",
+      filter: "IsActive eq '1'",
       orderby: "ID",
       orderbyAsc: true,
     };
@@ -137,6 +150,8 @@ export const BioQA = (props: IBioQuals) => {
           heading: res[index].Title,
           masterID: res[index].ID,
           mappingID: null,
+
+          masterType: "Characteristics",
 
           Design: false,
           Qualification: false,
@@ -178,112 +193,213 @@ export const BioQA = (props: IBioQuals) => {
           }
         }
         setQualsMeasureMaster([...bioQualsMeasureMaster]);
+        loadBioQualsCategoriesMaster();
       } else {
         setQualsMeasureMaster([...bioQualsMeasureMaster]);
+        loadBioQualsCategoriesMaster();
       }
     });
   };
 
-  const handler = (value: boolean, key: string, index: number): void => {
-    let _qualsMeasureMaster: IRowData[] = [...qualsMeasureMaster];
-    _qualsMeasureMaster[index][key] = value;
+  const loadBioQualsCategoriesMaster = (): void => {
+    let customProperty = {
+      listName: _bioQualsCategoriesMaster,
+      properties: "ID,Title,IsActive",
+      filter: "IsActive eq '1'",
+      orderby: "ID",
+      orderbyAsc: true,
+    };
 
-    _qualsMeasureMaster[index].isvalid =
-      _qualsMeasureMaster[index].mappingID != null ||
-      _qualsMeasureMaster[index].Design ||
-      _qualsMeasureMaster[index].Qualification ||
-      _qualsMeasureMaster[index].Validation ||
-      _qualsMeasureMaster[index].Inclusion ||
-      _qualsMeasureMaster[index].StudyDesign ||
-      _qualsMeasureMaster[index].DataCapture ||
-      _qualsMeasureMaster[index].ClinicalRollout ||
-      _qualsMeasureMaster[index].ClinicalCompliance ||
-      _qualsMeasureMaster[index].ClinicalLogistics
+    _commonService.getList(customProperty, (res: any[]) => {
+      let bioQualsCategoriesMaster: IRowData[] = [];
+      for (let index = 0; index < res.length; index++) {
+        bioQualsCategoriesMaster.push({
+          heading: res[index].Title,
+          masterID: res[index].ID,
+          mappingID: null,
+
+          masterType: "Categories",
+
+          Design: false,
+          Qualification: false,
+          Validation: false,
+          Inclusion: false,
+          StudyDesign: false,
+          DataCapture: false,
+          ClinicalRollout: false,
+          ClinicalCompliance: false,
+          ClinicalLogistics: false,
+
+          isvalid: false,
+        });
+      }
+
+      loadBioQualsCategories(bioQualsCategoriesMaster);
+    });
+  };
+
+  const loadBioQualsCategories = (
+    bioQualsCategoriesMaster: IRowData[]
+  ): void => {
+    let customProperty = {
+      listName: _bioQualsMapping,
+      filter: "CompanyIDId eq '" + props.CompanyID + "'",
+    };
+    _commonService.getList(customProperty, (res: any) => {
+      if (res && res.length > 0) {
+        for (let i = 0; i < res.length; i++) {
+          let targetIndex = bioQualsCategoriesMaster.findIndex(
+            (_data) => _data.masterID == res[i].BioQualsCategoriesIDId
+          );
+
+          if (targetIndex != -1) {
+            bioQualsCategoriesMaster[targetIndex].mappingID = res[i].ID;
+
+            for (let j = 0; j < tableHeadings.length; j++) {
+              bioQualsCategoriesMaster[targetIndex][tableHeadings[j].key] =
+                res[i][tableHeadings[j].key];
+            }
+          }
+        }
+        setQualsCategoriesMaster([...bioQualsCategoriesMaster]);
+      } else {
+        setQualsCategoriesMaster([...bioQualsCategoriesMaster]);
+      }
+    });
+  };
+
+  const onChangeHandler = (
+    value: boolean,
+    key: string,
+    index: number,
+    type: string
+  ): void => {
+    let _tempData: IRowData[] =
+      type == "Characteristics"
+        ? [...qualsMeasureMaster]
+        : [...qualsCategoriesMaster];
+    _tempData[index][key] = value;
+
+    _tempData[index].isvalid =
+      _tempData[index].mappingID != null ||
+      _tempData[index].Design ||
+      _tempData[index].Qualification ||
+      _tempData[index].Validation ||
+      _tempData[index].Inclusion ||
+      _tempData[index].StudyDesign ||
+      _tempData[index].DataCapture ||
+      _tempData[index].ClinicalRollout ||
+      _tempData[index].ClinicalCompliance ||
+      _tempData[index].ClinicalLogistics
         ? true
         : false;
 
-    setQualsMeasureMaster([..._qualsMeasureMaster]);
+    type == "Characteristics"
+      ? setQualsMeasureMaster([..._tempData])
+      : setQualsCategoriesMaster([..._tempData]);
   };
 
   const submitData = (): void => {
     _commonService = new CommonService();
     let processCount: number = 0;
 
-    for (let i = 0; i < qualsMeasureMaster.length; i++) {
-      if (qualsMeasureMaster[i].isvalid) {
-        if (qualsMeasureMaster[i].mappingID != null) {
-          let respones = {
-            Design: qualsMeasureMaster[i].Design,
-            Qualification: qualsMeasureMaster[i].Qualification,
-            Validation: qualsMeasureMaster[i].Validation,
-            Inclusion: qualsMeasureMaster[i].Inclusion,
-            StudyDesign: qualsMeasureMaster[i].StudyDesign,
-            DataCapture: qualsMeasureMaster[i].DataCapture,
-            ClinicalRollout: qualsMeasureMaster[i].ClinicalRollout,
-            ClinicalCompliance: qualsMeasureMaster[i].ClinicalCompliance,
-            ClinicalLogistics: qualsMeasureMaster[i].ClinicalLogistics,
-          };
-          _commonService.updateList(
-            {
-              listName: _bioQualsMapping,
-              ID: qualsMeasureMaster[i].mappingID,
-            },
-            respones,
-            (res: any) => {
-              processCount++;
-              if (
-                processCount ==
-                qualsMeasureMaster.filter((_d) => _d.isvalid).length
-              ) {
-                setAlert({
-                  open: true,
-                  severity: "success",
-                  message: "Submitted successfully",
-                });
-                init();
+    let resData: IRowData[] = [...qualsMeasureMaster, ...qualsCategoriesMaster];
+
+    if (
+      resData &&
+      resData.length > 0 &&
+      resData.filter((_d) => _d.isvalid).length > 0
+    ) {
+      for (let i = 0; i < resData.length; i++) {
+        if (resData[i].isvalid) {
+          if (resData[i].mappingID != null) {
+            let respones = {
+              Design: resData[i].Design,
+              Qualification: resData[i].Qualification,
+              Validation: resData[i].Validation,
+              Inclusion: resData[i].Inclusion,
+              StudyDesign: resData[i].StudyDesign,
+              DataCapture: resData[i].DataCapture,
+              ClinicalRollout: resData[i].ClinicalRollout,
+              ClinicalCompliance: resData[i].ClinicalCompliance,
+              ClinicalLogistics: resData[i].ClinicalLogistics,
+            };
+            _commonService.updateList(
+              {
+                listName: _bioQualsMapping,
+                ID: resData[i].mappingID,
+              },
+              respones,
+              (res: any) => {
+                isUpdated = true;
+                processCount++;
+                if (processCount == resData.filter((_d) => _d.isvalid).length) {
+                  setAlert({
+                    open: true,
+                    severity: "success",
+                    message: isUpdated
+                      ? "Updated successfully"
+                      : "Created successfully",
+                  });
+                  init();
+                }
               }
-            }
-          );
-        } else {
-          let respones = {
-            CompanyIDId: props.CompanyID,
-            BioQualsCharacteristicsIDId: qualsMeasureMaster[i].masterID,
-            Design: qualsMeasureMaster[i].Design,
-            Qualification: qualsMeasureMaster[i].Qualification,
-            Validation: qualsMeasureMaster[i].Validation,
-            Inclusion: qualsMeasureMaster[i].Inclusion,
-            StudyDesign: qualsMeasureMaster[i].StudyDesign,
-            DataCapture: qualsMeasureMaster[i].DataCapture,
-            ClinicalRollout: qualsMeasureMaster[i].ClinicalRollout,
-            ClinicalCompliance: qualsMeasureMaster[i].ClinicalCompliance,
-            ClinicalLogistics: qualsMeasureMaster[i].ClinicalLogistics,
-          };
-          _commonService.insertIntoList(
-            {
-              listName: _bioQualsMapping,
-            },
-            respones,
-            (res: any) => {
-              processCount++;
-              if (
-                processCount ==
-                qualsMeasureMaster.filter((_d) => _d.isvalid).length
-              ) {
-                setAlert({
-                  open: true,
-                  severity: "success",
-                  message: "Submitted successfully",
-                });
-                init();
+            );
+          } else {
+            let respones = {
+              CompanyIDId: props.CompanyID,
+              BioQualsCharacteristicsIDId:
+                resData[i].masterType == "Characteristics"
+                  ? resData[i].masterID
+                  : null,
+              BioQualsCategoriesIDId:
+                resData[i].masterType == "Categories"
+                  ? resData[i].masterID
+                  : null,
+              Design: resData[i].Design,
+              Qualification: resData[i].Qualification,
+              Validation: resData[i].Validation,
+              Inclusion: resData[i].Inclusion,
+              StudyDesign: resData[i].StudyDesign,
+              DataCapture: resData[i].DataCapture,
+              ClinicalRollout: resData[i].ClinicalRollout,
+              ClinicalCompliance: resData[i].ClinicalCompliance,
+              ClinicalLogistics: resData[i].ClinicalLogistics,
+            };
+            _commonService.insertIntoList(
+              {
+                listName: _bioQualsMapping,
+              },
+              respones,
+              (res: any) => {
+                processCount++;
+                if (processCount == resData.filter((_d) => _d.isvalid).length) {
+                  setAlert({
+                    open: true,
+                    severity: "success",
+                    message: isUpdated
+                      ? "Updated successfully"
+                      : "Created successfully",
+                  });
+                  init();
+                }
               }
-            }
-          );
+            );
+          }
         }
       }
+    } else {
+      setAlert({
+        open: true,
+        severity: "success",
+        message: "Submitted successfully",
+      });
+      init();
     }
   };
 
   function init() {
+    isUpdated = false;
     if (localStorage.getItem("_IsReadOnly_")) {
       setReadOnly(true);
     } else {
@@ -298,7 +414,30 @@ export const BioQA = (props: IBioQuals) => {
   }, []);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <div className={`${styles.companyDetails} disableInput`}>
+        <TextField
+          style={{ width: "38%", marginRight: 32 }}
+          id="outlined-basic"
+          label="Company Name"
+          size="small"
+          variant="outlined"
+          aria-readonly={true}
+          name="CompanyName"
+          value={props.CompanyName}
+          disabled
+        />
+        <TextField
+          id="outlined-basic"
+          size="small"
+          label="ID"
+          variant="outlined"
+          className={styles.idTextField}
+          aria-readonly={true}
+          value={props.CompanyCode}
+          disabled
+        />
+      </div>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
@@ -330,7 +469,9 @@ export const BioQA = (props: IBioQuals) => {
             {qualsMeasureMaster.map((row: IRowData, index: number) => {
               return (
                 <TableRow>
-                  <StyledTableCell>{row.heading}</StyledTableCell>
+                  <StyledTableCell style={{ textAlign: "left" }}>
+                    {row.heading}
+                  </StyledTableCell>
                   {tableHeadings.map((heading: IHeading) => {
                     return (
                       <StyledTableCell>
@@ -338,7 +479,12 @@ export const BioQA = (props: IBioQuals) => {
                           color="primary"
                           checked={row[heading.key]}
                           onChange={(ev) => {
-                            handler(!row[heading.key], `${heading.key}`, index);
+                            onChangeHandler(
+                              !row[heading.key],
+                              `${heading.key}`,
+                              index,
+                              "Characteristics"
+                            );
                           }}
                         />
                       </StyledTableCell>
@@ -352,6 +498,33 @@ export const BioQA = (props: IBioQuals) => {
                 Categories
               </StyledTableCell>
             </TableRow>
+            {qualsCategoriesMaster.map((row: IRowData, index: number) => {
+              return (
+                <TableRow>
+                  <StyledTableCell style={{ textAlign: "left" }}>
+                    {row.heading}
+                  </StyledTableCell>
+                  {tableHeadings.map((heading: IHeading) => {
+                    return (
+                      <StyledTableCell>
+                        <Checkbox
+                          color="primary"
+                          checked={row[heading.key]}
+                          onChange={(ev) => {
+                            onChangeHandler(
+                              !row[heading.key],
+                              `${heading.key}`,
+                              index,
+                              "Categories"
+                            );
+                          }}
+                        />
+                      </StyledTableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -386,6 +559,6 @@ export const BioQA = (props: IBioQuals) => {
           });
         }}
       ></CustomAlert>
-    </>
+    </ThemeProvider>
   );
 };
