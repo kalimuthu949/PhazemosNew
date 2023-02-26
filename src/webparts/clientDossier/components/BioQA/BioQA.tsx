@@ -50,8 +50,8 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     // backgroundColor: theme.palette.primary.main,
     // color: theme.palette.common.white,
-    background: "#d3e5f4",
-    color: "#00589A",
+    background: "rgb(0,88,154) ",
+    color: "#fff",
     fontSize: 16,
     fontWeight: 600,
     minWidth: "82px !important",
@@ -75,6 +75,29 @@ const theme = createTheme({
     },
   },
 });
+
+// checkbox Style
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 2,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 13,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
 
 let isUpdated: boolean = false;
 
@@ -192,15 +215,22 @@ export const BioQA = (props: IProps): JSX.Element => {
             }
           }
         }
+        bioQualsMeasureMaster = sortData(bioQualsMeasureMaster);
         setQualsMeasureMaster([...bioQualsMeasureMaster]);
         loadBioQualsCategoriesMaster();
       } else {
+        bioQualsMeasureMaster = sortData(bioQualsMeasureMaster);
         setQualsMeasureMaster([...bioQualsMeasureMaster]);
         loadBioQualsCategoriesMaster();
       }
     });
   };
-
+  function sortData(Data) {
+    Data.sort((a, b) =>
+      a.heading > b.heading ? 1 : b.heading > a.heading ? -1 : 0
+    );
+    return Data;
+  }
   const loadBioQualsCategoriesMaster = (): void => {
     let customProperty = {
       listName: _bioQualsCategoriesMaster,
@@ -261,8 +291,10 @@ export const BioQA = (props: IProps): JSX.Element => {
             }
           }
         }
+        bioQualsCategoriesMaster = sortData(bioQualsCategoriesMaster);
         setQualsCategoriesMaster([...bioQualsCategoriesMaster]);
       } else {
+        bioQualsCategoriesMaster = sortData(bioQualsCategoriesMaster);
         setQualsCategoriesMaster([...bioQualsCategoriesMaster]);
       }
     });
@@ -475,8 +507,7 @@ export const BioQA = (props: IProps): JSX.Element => {
                   {tableHeadings.map((heading: IHeading) => {
                     return (
                       <StyledTableCell>
-                        <Checkbox
-                          color="primary"
+                        <CheckboxStyle
                           checked={row[heading.key]}
                           onChange={(ev) => {
                             onChangeHandler(
@@ -507,8 +538,7 @@ export const BioQA = (props: IProps): JSX.Element => {
                   {tableHeadings.map((heading: IHeading) => {
                     return (
                       <StyledTableCell>
-                        <Checkbox
-                          color="primary"
+                        <CheckboxStyle
                           checked={row[heading.key]}
                           onChange={(ev) => {
                             onChangeHandler(
@@ -539,7 +569,10 @@ export const BioQA = (props: IProps): JSX.Element => {
         >
           <Button
             variant="contained"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             size="large"
             onClick={(e) => submitData()}
           >

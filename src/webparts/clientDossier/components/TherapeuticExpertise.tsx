@@ -11,7 +11,11 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  withStyles,
+} from "@material-ui/core/styles";
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 
 import CommonService from "../services/CommonService";
@@ -31,6 +35,29 @@ const theme = createTheme({
     },
   },
 });
+
+// checkbox Style
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 2,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 13,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
 
 export const TherapeuticExpertise: React.FunctionComponent<
   ITherapeuticExpertise
@@ -94,9 +121,17 @@ export const TherapeuticExpertise: React.FunctionComponent<
           therapeuticAreas.push(data);
         }
       }
+      therapeuticAreas = sortData(therapeuticAreas);
       setTherapeuticArea([...therapeuticAreas]);
       loadActiveDiseaseAreaExperience(editData);
     });
+  }
+
+  function sortData(Data) {
+    Data.sort((a, b) =>
+      a.serviceName > b.serviceName ? 1 : b.serviceName > a.serviceName ? -1 : 0
+    );
+    return Data;
   }
 
   function loadActiveDiseaseAreaExperience(editData: any) {
@@ -131,6 +166,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
           diseaseAreas.push(data);
         }
       }
+      diseaseAreas = sortData(diseaseAreas);
       setDiseaseArea([...diseaseAreas]);
       setSelDiseaseArea([...selectedDiseases]);
       setEditDiseaseArea([...selectedDiseases]);
@@ -561,11 +597,10 @@ export const TherapeuticExpertise: React.FunctionComponent<
               <div className={classes.Checkbox}>
                 <FormControlLabel
                   control={
-                    <Checkbox
+                    <CheckboxStyle
                       checked={service.IsChecked}
                       onChange={(e) => therapeuticAreaChangeHandler(index, e)}
                       name="IsChecked"
-                      color="primary"
                       disabled={readOnly}
                     />
                   }
@@ -609,12 +644,11 @@ export const TherapeuticExpertise: React.FunctionComponent<
           }}
           renderOption={(option, { selected }) => (
             <React.Fragment>
-              <Checkbox
+              <CheckboxStyle
                 icon={icon}
                 checkedIcon={checkedIcon}
                 style={{ marginRight: 8 }}
                 checked={selected}
-                color="primary"
               />
               {option.serviceName}
             </React.Fragment>
@@ -633,7 +667,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
       {/* Other CheckBox */}
       <div style={{ marginTop: 20 }}>
         <FormControlLabel
-          control={<Checkbox name="" disableRipple color="primary" />}
+          control={<CheckboxStyle name="" disableRipple color="primary" />}
           onChange={(e) => toggleOther(e)}
           checked={showOther}
           label="Others"
@@ -694,7 +728,10 @@ export const TherapeuticExpertise: React.FunctionComponent<
           <Button
             variant="contained"
             size="large"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             onClick={(e) => submitData()}
           >
             Submit

@@ -163,10 +163,14 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
           categories.push(data);
         }
       }
+      categories = sortData(categories);
       setAllCategories([...categories]);
     });
   }
-
+  function sortData(Data) {
+    Data.sort((a, b) => (a.Title > b.Title ? 1 : b.Title > a.Title ? -1 : 0));
+    return Data;
+  }
   function loadCompanyData() {
     let customProperty = {
       listName: _project,
@@ -463,7 +467,10 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
         <div className={classes.bottomBtnSection}>
           <Button
             variant="contained"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             size="large"
             onClick={(e) => submitData()}
           >

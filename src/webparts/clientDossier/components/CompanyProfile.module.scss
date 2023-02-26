@@ -104,3 +104,64 @@
         
     }
 }
+
+.modal{
+    width: 40%;
+    background-color: aliceblue;
+    position: absolute;
+    left:30%;
+    top:30%;
+    outline: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.modalContainer {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    .modalSize {
+        height: 200px;
+        width: 30%;
+        background-color: #fff;
+        // padding: 20px;
+        border-radius: 5px;
+
+        h3 {
+            color: #00589A;
+        }
+
+        .header {
+            text-align: center;
+            height: 42px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            background: gainsboro;
+            button {
+                padding: 0 5px 0 0;
+            }
+        }
+
+        .section {
+            h3 {
+                font-size: 16px;
+                margin: 8px 0 0 0;
+                padding: 15px 0px 10px 0px;
+            }
+        }
+
+        .footerSection {
+            display: flex;
+            margin: 10px 0;
+            justify-content: flex-end;
+        }
+        .popupBtn{
+            padding-top: 15px;
+        }
+    }
+}

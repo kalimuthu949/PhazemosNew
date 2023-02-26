@@ -231,44 +231,54 @@ export const PrimaryServicesOffered: React.FunctionComponent<
         />
       </div>
       <div className={classes.NoAndSizeSection}>
-        {allTicketSizes.map((ticket: any, index: number) => {
-          return (
-            <div className={classes.NoAndSizeItem}>
-              <p>{ticket.Title}</p>
-              <div className={classes.InputSection}>
-                <TextField
-                  id="outlined-basic"
-                  size="small"
-                  label="#"
-                  variant="outlined"
-                  className={classes.TextInput}
-                  value={ticket.Year}
-                  name="Year"
-                  onChange={(e) => inputChangeHandler(e, index)}
-                  disabled={readOnly}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="Size"
-                  size="small"
-                  variant="outlined"
-                  className={ticket.Size}
-                  style={{ width: "24%" }}
-                  value={ticket.Size}
-                  name="Size"
-                  onChange={(e) => inputChangeHandler(e, index)}
-                  disabled={readOnly}
-                />
+        {allTicketSizes.length == 0 ? (
+          <div>
+            <strong>Note :</strong> No primary services offered selected in
+            company profile
+          </div>
+        ) : (
+          allTicketSizes.map((ticket: any, index: number) => {
+            return (
+              <div className={classes.NoAndSizeItem}>
+                <p>{ticket.Title}</p>
+                <div className={classes.InputSection}>
+                  <TextField
+                    id="outlined-basic"
+                    size="small"
+                    label="#"
+                    variant="outlined"
+                    className={classes.TextInput}
+                    value={ticket.Year}
+                    name="Year"
+                    onChange={(e) => inputChangeHandler(e, index)}
+                    disabled={readOnly}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Size"
+                    size="small"
+                    variant="outlined"
+                    className={ticket.Size}
+                    style={{ width: "24%" }}
+                    value={ticket.Size}
+                    name="Size"
+                    onChange={(e) => inputChangeHandler(e, index)}
+                    disabled={readOnly}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
       {!readOnly && (
         <div className={classes.bottomBtnSection}>
           <Button
             variant="contained"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             size="large"
             onClick={(e) => submitData()}
           >
