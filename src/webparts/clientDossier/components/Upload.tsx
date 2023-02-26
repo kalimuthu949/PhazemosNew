@@ -56,8 +56,8 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     // backgroundColor: theme.palette.primary.main,
     // color: theme.palette.common.white,
-    background: "#d3e5f4",
-    color: "#00589A",
+    background: "rgb(0,88,154) ",
+    color: "#fff",
     fontSize: 16,
     fontWeight: 600,
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
@@ -107,12 +107,12 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       data: [],
       objectName: "experienceSpreadsheets",
     },
-    recentMarketingCollateral: {
-      title: "Recent marketing collateral",
-      path: props.CompanyName + "/Recent marketing collateral",
-      data: [],
-      objectName: "recentMarketingCollateral",
-    },
+    // recentMarketingCollateral: {
+    //   title: "Recent marketing collateral",
+    //   path: props.CompanyName + "/Recent marketing collateral",
+    //   data: [],
+    //   objectName: "recentMarketingCollateral",
+    // },
     recentWinningProposal: {
       title: "Recent winning proposal",
       path: props.CompanyName + "/Recent winning proposal",
@@ -138,7 +138,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       objectName: "anystrategicanalysesperformedtodate",
     },
     others: {
-      title: "Others",
+      title: "Recent marketing collateral",
       path: props.CompanyName + "/Others",
       data: [],
       objectName: "others",
@@ -543,7 +543,6 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
     let alldata = otherUploadMetadata;
     let postData = metadata;
     postData["CompanyIDId"] = props.CompanyID;
-
     if (index >= 0) {
       alldata[index]["ExpertiseTherapeutic"] = postData["ExpertiseTherapeutic"];
       alldata[index]["ExpertiseRegulatory"] = postData["ExpertiseRegulatory"];
@@ -698,7 +697,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
         <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
           {Object.keys(allFile).map((module) => {
             return (
-              <div className={classes.upload} style={{ width: "20%" }}>
+              <div className={classes.upload} style={{ width: "25%" }}>
                 <p>{allFile[module].title}</p>
                 <div className={classes.uploadItem}>
                   <label htmlFor={module}>
@@ -959,7 +958,10 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
               <div className={classes.footerSection}>
                 <Button
                   variant="contained"
-                  color="primary"
+                  style={{
+                    backgroundColor: "rgb(253, 204, 67)",
+                    color: "rgb(0,88,154) ",
+                  }}
                   size="large"
                   onClick={(e) => submitMetadata()}
                 >
@@ -975,7 +977,10 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
         <div className={classes.bottomBtnSection}>
           <Button
             variant="contained"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             size="large"
             onClick={(e) => submitFiles()}
           >

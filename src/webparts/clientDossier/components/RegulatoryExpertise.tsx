@@ -8,7 +8,11 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  withStyles,
+} from "@material-ui/core/styles";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
 
@@ -29,6 +33,29 @@ const theme = createTheme({
     },
   },
 });
+
+// checkbox Style
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 2,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 13,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
 
 export const RegulatoryExpertise: React.FunctionComponent<
   IRegulatoryExpertise
@@ -155,12 +182,16 @@ export const RegulatoryExpertise: React.FunctionComponent<
           regulatoryExpertises.push(data);
         }
       }
+      regulatoryExpertises = sortData(regulatoryExpertises);
       setRegulatoryExpertises([...regulatoryExpertises]);
       setSelRegulatoryExpertises([...editRegulatoryExpertises]);
       setEditRegulatoryExpertises([...editRegulatoryExpertises]);
     });
   }
-
+  function sortData(Data) {
+    Data.sort((a, b) => (a.Title > b.Title ? 1 : b.Title > a.Title ? -1 : 0));
+    return Data;
+  }
   function changeHandler(event: any): any {
     let comment = othersComment;
     comment.comments = event.target.value;
@@ -523,12 +554,11 @@ export const RegulatoryExpertise: React.FunctionComponent<
           }}
           renderOption={(option, { selected }) => (
             <React.Fragment>
-              <Checkbox
+              <CheckboxStyle
                 icon={icon}
                 checkedIcon={checkedIcon}
                 style={{ marginRight: 8 }}
                 checked={selected}
-                color="primary"
               />
               {option.Title}
             </React.Fragment>
@@ -549,7 +579,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
       {/* <div style={{ display: "flex" }}> */}
       <div>
         <FormControlLabel
-          control={<Checkbox name="" disableRipple color="primary" />}
+          control={<CheckboxStyle name="" disableRipple />}
           onChange={(e) => toggleOther(e)}
           checked={showOther}
           label="Others"
@@ -625,7 +655,10 @@ export const RegulatoryExpertise: React.FunctionComponent<
         <div className={classes.bottomBtnSection}>
           <Button
             variant="contained"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             size="large"
             onClick={submitData}
           >

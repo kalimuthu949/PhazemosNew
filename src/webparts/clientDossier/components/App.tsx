@@ -1,5 +1,11 @@
 import * as React from "react";
-import { useState, useEffect, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
@@ -7,7 +13,7 @@ import Tab from "@material-ui/core/Tab";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { CompanyProfile } from "./CompanyProfile";
+import CompanyProfile from "./CompanyProfile";
 import TherapeuticExpertise from "./TherapeuticExpertise";
 import { RegulatoryExpertise } from "./RegulatoryExpertise";
 import { Geography } from "./Geography";
@@ -24,7 +30,9 @@ import ExpertisePlatform from "./ExpertisePlatform";
 
 import CommonService from "../services/CommonService";
 import { UserCustomActionRegistrationType } from "@pnp/sp/user-custom-actions";
-
+import classes from "./CompanyProfile.module.scss";
+import Modal from "@material-ui/core/Modal";
+import Button from "@material-ui/core/Button";
 const theme = createTheme({
   palette: {
     primary: {
@@ -39,12 +47,16 @@ export interface IApp {
   Domain: any;
 }
 
+let pageChanges = false;
+let clickedTabNumber = 0;
 export const App: React.FunctionComponent<IApp> = (props: IApp) => {
   let _userDetails: string = "User Details";
   let _companyRegistration: string = "Company Registration";
 
   const [value, setValue] = useState(0);
   const [tabIndex, setTabIndex] = useState({});
+  //const [pageChanges, setPageChanges] = useState(false);
+  const ref = useRef(null);
 
   const [formData, setFormData] = useState({
     companyID: null,
@@ -65,8 +77,16 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
   });
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    clickedTabNumber = newValue;
+
+    if (!pageChanges) setValue(newValue);
+    else ref.current.pageAlert();
   };
+
+  function changePageValue(value) {
+    pageChanges = value;
+    setValue(clickedTabNumber);
+  }
 
   function TabPanel(props) {
     const { children, value, index, CurrentContext, ...other } = props;
@@ -238,7 +258,10 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           )}
 
           {formData.geography && (
-            <Tab label="Geography" {...a11yProps(tabIndex["geography"])} />
+            <Tab
+              label="Resource Locations"
+              {...a11yProps(tabIndex["geography"])}
+            />
           )}
           {formData.projectWork && (
             <Tab label="Project Work" {...a11yProps(tabIndex["projectWork"])} />
@@ -274,16 +297,22 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             />
           )}
           {formData.SiteNetwork && (
-            <Tab label="Site Network" {...a11yProps(tabIndex["SiteNetwork"])} />
+            <Tab
+              label="Site Relationships"
+              {...a11yProps(tabIndex["SiteNetwork"])}
+            />
           )}
         </Tabs>
       </AppBar>
+
       {formData.companyProfile && (
         <TabPanel value={value} index={tabIndex["companyProfile"]}>
           <CompanyProfile
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}

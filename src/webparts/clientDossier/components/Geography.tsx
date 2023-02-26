@@ -7,6 +7,10 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Button from "@material-ui/core/Button";
 import { green } from "@material-ui/core/colors";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import Checkbox from "@material-ui/core/Checkbox";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 import CommonService from "../services/CommonService";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -34,6 +38,12 @@ export const Geography: React.FunctionComponent<IGeography> = (
     severity: "error",
   });
 
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const _therapeuticAreaMaster: string = "Therapeutic Area Experience Master";
+  const [therapeuticArea, setTherapeuticArea] = useState([]);
+  const [selTherapeuticArea, setSelTherapeuticArea] = useState([]);
+
   var _commonService: any = {};
   const _geography: string = "Geographic";
 
@@ -52,7 +62,9 @@ export const Geography: React.FunctionComponent<IGeography> = (
 
     let customProperty = {
       listName: _geography,
+      properties: "*,TherapaticExperience/Title,TherapaticExperience/ID",
       filter: "CompanyIDId eq '" + props.CompanyID + "' and IsDeleted eq '0'",
+      expand: "TherapaticExperience",
       orderby: "ID",
       orderbyAsc: true,
     };
@@ -65,19 +77,32 @@ export const Geography: React.FunctionComponent<IGeography> = (
         addGeographyDetails();
       }
     });
+
+    loadActiveTherapeuticAreaExperience();
   }
 
   function loadGeographyDetails(companyData: any[]) {
     let geographyDetailsModel = [];
+    var selectedAreas = [];
     for (let index = 0; index < companyData.length; index++) {
+      selectedAreas = [];
+      for (let i = 0; i < companyData[index].TherapaticExperience.length; i++) {
+        selectedAreas.push({
+          therapeuticAreaID: companyData[index].TherapaticExperience[i].ID,
+          therapeuticAreaTitle:
+            companyData[index].TherapaticExperience[i].Title,
+        });
+      }
       geographyDetailsModel.push({
         CompanyIDId: props.CompanyID,
         Title: companyData[index].Title,
         CountryofResidence: companyData[index].CountryofResidence,
-        Year: companyData[index].Year,
+        //Year: companyData[index].Year,
+        Year: "N/A",
         CountriesWorked: companyData[index].CountriesWorked,
         IsDeleted: false,
         ID: companyData[index].ID,
+        TherapaticExperienceId: selectedAreas,
       });
     }
     setGeographyDetails([...geographyDetailsModel]);
@@ -89,10 +114,11 @@ export const Geography: React.FunctionComponent<IGeography> = (
       CompanyIDId: props.CompanyID,
       Title: "",
       CountryofResidence: "",
-      Year: "",
+      Year: "N/A",
       CountriesWorked: "",
       IsDeleted: false,
       ID: 0,
+      TherapaticExperienceId: [],
     });
     setGeographyDetails([...geographyDetailsModel]);
   }
@@ -126,7 +152,6 @@ export const Geography: React.FunctionComponent<IGeography> = (
           } else if (currentField == "CountriesWorked") {
             label = "Countries Worked";
           }
-          // console.log(label + " is required");
 
           setAlert({
             open: true,
@@ -149,6 +174,24 @@ export const Geography: React.FunctionComponent<IGeography> = (
     }
 
     _commonService = new CommonService();
+
+    /* start for multiple area update */
+    for (let i = 0; i < geographyDetails.length; i++) {
+      let newValues = [];
+      for (
+        let j = 0;
+        j < geographyDetails[i].TherapaticExperienceId.length;
+        j++
+      ) {
+        newValues.push(
+          geographyDetails[i].TherapaticExperienceId[j].therapeuticAreaID
+        );
+      }
+      geographyDetails[i].TherapaticExperienceId = {
+        results: newValues,
+      };
+    }
+    /* end for multiple area update */
 
     let allData = geographyDetails.slice();
     let addData = allData.filter((c) => c.ID == 0);
@@ -175,6 +218,13 @@ export const Geography: React.FunctionComponent<IGeography> = (
                   init();
                 }
               );
+            } else {
+              setAlert({
+                open: true,
+                severity: "success",
+                message: "Updated successfully",
+              });
+              init();
             }
           }
         );
@@ -252,6 +302,25 @@ export const Geography: React.FunctionComponent<IGeography> = (
     setGeographyDetails([...geographyDetailsModel]);
   }
 
+  function loadActiveTherapeuticAreaExperience() {
+    let customProperty = {
+      listName: _therapeuticAreaMaster,
+      properties: "ID,Title,IsActive",
+      orderby: "OrderNo",
+      orderbyAsc: true,
+    };
+    _commonService.getList(customProperty, (res: any[]) => {
+      let therapeuticAreas = [];
+      for (let index = 0; index < res.length; index++) {
+        therapeuticAreas.push({
+          therapeuticAreaID: res[index].ID,
+          therapeuticAreaTitle: res[index].Title,
+        });
+      }
+      setTherapeuticArea([...therapeuticAreas]);
+    });
+  }
+
   useEffect((): any => {
     _commonService = new CommonService();
     init();
@@ -323,10 +392,48 @@ export const Geography: React.FunctionComponent<IGeography> = (
                 variant="outlined"
                 size="small"
                 name="Year"
-                value={details.Year}
+                value={"TestData"}
                 onChange={(e) => inputChangeHandler(e, index)}
                 disabled={readOnly}
+                style={{ display: "none" }}
               />
+
+              <Autocomplete
+                multiple
+                disableCloseOnSelect
+                id="free-solo-with-text-demo"
+                size="small"
+                options={therapeuticArea}
+                style={{ width: "23%" }}
+                freeSolo
+                value={details.TherapaticExperienceId}
+                getOptionLabel={(option) => option.therapeuticAreaTitle}
+                onChange={(event: any, newValue: any[]) => {
+                  let tmpGeographyDetails = geographyDetails;
+                  tmpGeographyDetails[index].TherapaticExperienceId = newValue;
+                  setGeographyDetails([...tmpGeographyDetails]);
+                }}
+                renderOption={(option, { selected }) => (
+                  <React.Fragment>
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                      color="primary"
+                    />
+                    {option.therapeuticAreaTitle}
+                  </React.Fragment>
+                )}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Therapeutic Area Experience"
+                    variant="outlined"
+                  />
+                )}
+              />
+
               <TextField
                 required
                 className={classes.NTIWork}
@@ -362,7 +469,10 @@ export const Geography: React.FunctionComponent<IGeography> = (
         <div className={classes.bottomBtnSection}>
           <Button
             variant="contained"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             size="large"
             onClick={submitData}
           >

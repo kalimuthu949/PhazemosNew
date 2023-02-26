@@ -11,7 +11,11 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  withStyles,
+} from "@material-ui/core/styles";
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 
 import CommonService from "../services/CommonService";
@@ -32,6 +36,29 @@ const theme = createTheme({
     },
   },
 });
+
+// checkbox Style
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 2,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 13,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
 
 export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
   props: IExpertisePlatform
@@ -86,10 +113,16 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
           expertisePlatforms.push(data);
         }
       }
+      expertisePlatforms = sortData(expertisePlatforms);
       setExpertisePlatform([...expertisePlatforms]);
     });
   }
-
+  function sortData(Data) {
+    Data.sort((a, b) =>
+      a.serviceName > b.serviceName ? 1 : b.serviceName > a.serviceName ? -1 : 0
+    );
+    return Data;
+  }
   function loadCompanyExpertisePlatform() {
     let customProperty = {
       listName: _expertisePlatform,
@@ -297,7 +330,7 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
               <div className={classes.Checkbox}>
                 <FormControlLabel
                   control={
-                    <Checkbox
+                    <CheckboxStyle
                       checked={service.IsChecked}
                       onChange={(e) => expertisePlatformChangeHandler(index, e)}
                       name="IsChecked"
@@ -318,7 +351,10 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
           <Button
             variant="contained"
             size="large"
-            color="primary"
+            style={{
+              backgroundColor: "rgb(253, 204, 67)",
+              color: "rgb(0,88,154) ",
+            }}
             onClick={(e) => submitData()}
           >
             Submit
