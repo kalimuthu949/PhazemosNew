@@ -1,5 +1,12 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Modal from "@material-ui/core/Modal";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
@@ -19,6 +26,7 @@ export interface IProjectWork {
   CompanyName: string;
   CompanyID: string;
   CompanyCode: string;
+  changefunction?: any;
 }
 
 const theme = createTheme({
@@ -28,9 +36,10 @@ const theme = createTheme({
     },
   },
 });
-export const ProjectWork: React.FunctionComponent<IProjectWork> = (
-  props: IProjectWork
-) => {
+// export const ProjectWork: React.FunctionComponent<IProjectWork> = (
+//   props: IProjectWork
+// ) => {
+const ProjectWork = forwardRef((props: IProjectWork, ref) => {
   const [cusalert, setAlert] = useState({
     open: false,
     message: "Success",
@@ -88,6 +97,23 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
   //     setAllTicketSizes([...ticketSizes]);
   //   });
   // }
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   function loadCompanyProjectWork(editData: any) {
     let customProperty = {
@@ -232,12 +258,14 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
     let allKeyCompanies = keyCompanies;
     allKeyCompanies[index].CategoryIDId = event.target.value;
     setKeyCompanies([...allKeyCompanies]);
+    props.changefunction(true);
   }
 
   function inputChangeHandler(event: any, index: number): any {
     let allKeyCompanies = keyCompanies;
     allKeyCompanies[index][event.target.name] = event.target.value;
     setKeyCompanies([...allKeyCompanies]);
+    props.changefunction(true);
   }
 
   function submitData() {
@@ -311,6 +339,7 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
         addData,
         (res) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -323,6 +352,7 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
         editData,
         (res) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -371,6 +401,49 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
     <ThemeProvider theme={theme}>
       {" "}
       {/* <h3 className={classes.headerTitle}>Company Profile</h3> */}
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={classes.modalContainer}>
+            <div className={classes.modalSize}>
+              <div className={classes.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={classes.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={classes.popupBtn}>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -492,4 +565,5 @@ export const ProjectWork: React.FunctionComponent<IProjectWork> = (
       ></CustomAlert>
     </ThemeProvider>
   );
-};
+});
+export default ProjectWork;

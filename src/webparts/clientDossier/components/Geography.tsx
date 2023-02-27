@@ -1,5 +1,12 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Modal from "@material-ui/core/Modal";
 import classes from "./Geography.module.scss";
 import TextField from "@material-ui/core/TextField";
 import Icon from "@material-ui/core/Icon";
@@ -21,6 +28,7 @@ export interface IGeography {
   CompanyName: string;
   CompanyID: string;
   CompanyCode: string;
+  changefunction?: any;
 }
 const theme = createTheme({
   palette: {
@@ -29,9 +37,10 @@ const theme = createTheme({
     },
   },
 });
-export const Geography: React.FunctionComponent<IGeography> = (
-  props: IGeography
-) => {
+// export const Geography: React.FunctionComponent<IGeography> = (
+//   props: IGeography
+// ) => {
+const Geography = forwardRef((props: IGeography, ref) => {
   const [cusalert, setAlert] = useState({
     open: false,
     message: "Success",
@@ -52,6 +61,23 @@ export const Geography: React.FunctionComponent<IGeography> = (
   const [deleteGeographyDetails, setDeleteGeographyDetails] = useState([]);
 
   const [readOnly, setReadOnly] = useState(false);
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   function init() {
     if (localStorage.getItem("_IsReadOnly_")) {
@@ -216,6 +242,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
                     message: "Updated successfully",
                   });
                   init();
+                  successAfterPageSave();
                 }
               );
             } else {
@@ -225,6 +252,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
                 message: "Updated successfully",
               });
               init();
+              successAfterPageSave();
             }
           }
         );
@@ -240,6 +268,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
                 message: "Inserted successfully",
               });
               init();
+              successAfterPageSave();
             }
           );
         }
@@ -251,6 +280,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
         message: "Submitted successfully",
       });
       init();
+      successAfterPageSave();
     }
 
     // updateGeographyDetails();
@@ -300,6 +330,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
     let geographyDetailsModel = geographyDetails;
     geographyDetailsModel[index][event.target.name] = event.target.value;
     setGeographyDetails([...geographyDetailsModel]);
+    props.changefunction(true);
   }
 
   function loadActiveTherapeuticAreaExperience() {
@@ -329,6 +360,49 @@ export const Geography: React.FunctionComponent<IGeography> = (
   return (
     <ThemeProvider theme={theme}>
       {/* <h3 className={classes.headerTitle}>Company Profile</h3> */}
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={classes.modalContainer}>
+            <div className={classes.modalSize}>
+              <div className={classes.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={classes.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={classes.popupBtn}>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -409,6 +483,7 @@ export const Geography: React.FunctionComponent<IGeography> = (
                 value={details.TherapaticExperienceId}
                 getOptionLabel={(option) => option.therapeuticAreaTitle}
                 onChange={(event: any, newValue: any[]) => {
+                  props.changefunction(true);
                   let tmpGeographyDetails = geographyDetails;
                   tmpGeographyDetails[index].TherapaticExperienceId = newValue;
                   setGeographyDetails([...tmpGeographyDetails]);
@@ -495,4 +570,5 @@ export const Geography: React.FunctionComponent<IGeography> = (
       ></CustomAlert>
     </ThemeProvider>
   );
-};
+});
+export default Geography;

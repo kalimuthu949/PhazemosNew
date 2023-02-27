@@ -9,7 +9,14 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Checkbox } from "@material-ui/core";
 import styles from "./InHouseTools.module.scss";
-import { useState, useEffect, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Modal from "@material-ui/core/Modal";
 import CommonService from "../../services/CommonService";
 import { Button } from "@material-ui/core";
 import { CustomAlert } from "../CustomAlert";
@@ -20,6 +27,7 @@ export interface IProps {
   CompanyName: string;
   CompanyCode: string;
   CompanyID: string;
+  changefunction?: any;
 }
 
 interface IRowData {
@@ -94,7 +102,8 @@ const CheckboxStyle = withStyles({
 
 let isUpdated: boolean = false;
 
-export const InHouseTools = (props: IProps): JSX.Element => {
+// export const InHouseTools = (props: IProps): JSX.Element => {
+const InHouseTools = forwardRef((props: IProps, ref) => {
   let _commonService: any = {};
   let _inHouseToolsMaster = "In House Tools Master";
   let _inHouseToolsMapping = "In House Tools Mapping";
@@ -125,6 +134,23 @@ export const InHouseTools = (props: IProps): JSX.Element => {
   });
   const [inHouseToolsMaster, setInHouseToolsMaster] = useState<IRowData[]>([]);
   const [readOnly, setReadOnly] = useState<boolean>(false);
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   const loadInHouseToolsMaster = (): void => {
     let customProperty = {
@@ -206,6 +232,7 @@ export const InHouseTools = (props: IProps): JSX.Element => {
         : false;
 
     setInHouseToolsMaster([..._tempData]);
+    props.changefunction(true);
   };
 
   const submitData = (): void => {
@@ -246,6 +273,7 @@ export const InHouseTools = (props: IProps): JSX.Element => {
                       : "Created successfully",
                   });
                   init();
+                  successAfterPageSave();
                 }
               }
             );
@@ -274,6 +302,7 @@ export const InHouseTools = (props: IProps): JSX.Element => {
                       : "Created successfully",
                   });
                   init();
+                  successAfterPageSave();
                 }
               }
             );
@@ -287,6 +316,7 @@ export const InHouseTools = (props: IProps): JSX.Element => {
         message: "Submitted successfully",
       });
       init();
+      successAfterPageSave();
     }
   };
 
@@ -307,6 +337,49 @@ export const InHouseTools = (props: IProps): JSX.Element => {
 
   return (
     <ThemeProvider theme={theme}>
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={styles.modalContainer}>
+            <div className={styles.modalSize}>
+              <div className={styles.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={styles.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={styles.popupBtn}>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${styles.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -413,4 +486,5 @@ export const InHouseTools = (props: IProps): JSX.Element => {
       ></CustomAlert>
     </ThemeProvider>
   );
-};
+});
+export default InHouseTools;

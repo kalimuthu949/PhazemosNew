@@ -9,7 +9,14 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Checkbox } from "@material-ui/core";
-import { useState, useEffect, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Modal from "@material-ui/core/Modal";
 import { CustomAlert } from "../CustomAlert";
 import CommonService from "../../services/CommonService";
 import { Button } from "@material-ui/core";
@@ -21,6 +28,7 @@ export interface IProps {
   CompanyName: string;
   CompanyCode: string;
   CompanyID: string;
+  changefunction?: any;
 }
 
 interface IRowData {
@@ -123,7 +131,8 @@ const CheckboxStyle = withStyles({
 
 let isUpdated: boolean = false;
 
-export const PMExperience = (props: IProps): JSX.Element => {
+// export const PMExperience = (props: IProps): JSX.Element => {
+const PMExperience = forwardRef((props: IProps, ref) => {
   let _commonService: any = {};
 
   let _platformMaster: string = "PM Experience Platforms Master";
@@ -223,6 +232,23 @@ export const PMExperience = (props: IProps): JSX.Element => {
   });
   const [loader, setLoader] = useState<boolean>(false);
   const [readOnly, setReadOnly] = useState<boolean>(false);
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   const loadPlatformMaster = (): void => {
     const customMasterProperty = {
@@ -661,7 +687,7 @@ export const PMExperience = (props: IProps): JSX.Element => {
       data[arrName][index].DMCSupport
         ? true
         : false;
-
+    props.changefunction(true);
     setData({ ..._data });
   };
 
@@ -804,6 +830,7 @@ export const PMExperience = (props: IProps): JSX.Element => {
       });
       setLoader(true);
       init();
+      successAfterPageSave();
     }
   };
 
@@ -826,6 +853,49 @@ export const PMExperience = (props: IProps): JSX.Element => {
   return (
     <>
       <ThemeProvider theme={theme}>
+        {isPageChanged ? (
+          <Modal open={open}>
+            <div className={styles.modalContainer}>
+              <div className={styles.modalSize}>
+                <div className={styles.header}>
+                  <h3
+                    style={{
+                      margin: "0px 5px",
+                      width: "100%",
+                      textAlign: "center",
+                    }}
+                  >
+                    Alert
+                  </h3>
+                </div>
+                <div className={styles.section}>
+                  <span>
+                    Please click submit before moving to another tab or your
+                    work will be lost
+                  </span>
+                </div>
+                <div className={styles.popupBtn}>
+                  <Button
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      successAfterPageSave();
+                    }}
+                  >
+                    Yes
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </Modal>
+        ) : (
+          ""
+        )}
         <div className={`${styles.companyDetails} disableInput`}>
           <TextField
             style={{ width: "38%", marginRight: 32 }}
@@ -1250,4 +1320,5 @@ export const PMExperience = (props: IProps): JSX.Element => {
       </ThemeProvider>
     </>
   );
-};
+});
+export default PMExperience;

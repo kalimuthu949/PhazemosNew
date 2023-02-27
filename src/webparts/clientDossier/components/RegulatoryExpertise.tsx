@@ -1,5 +1,12 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Modal from "@material-ui/core/Modal";
 import classes from "./RegulatoryExpertise.module.scss";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -24,6 +31,7 @@ export interface IRegulatoryExpertise {
   CompanyName: string;
   CompanyCode: string;
   CompanyID: string;
+  changefunction?: any;
 }
 
 const theme = createTheme({
@@ -57,9 +65,11 @@ const CheckboxStyle = withStyles({
   checked: {},
 })(Checkbox);
 
-export const RegulatoryExpertise: React.FunctionComponent<
-  IRegulatoryExpertise
-> = (props: IRegulatoryExpertise) => {
+// export const RegulatoryExpertise: React.FunctionComponent<
+//   IRegulatoryExpertise
+//   > = (props: IRegulatoryExpertise) => {
+
+const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
   const [cusalert, setAlert] = useState({
     open: false,
     message: "Success",
@@ -92,6 +102,23 @@ export const RegulatoryExpertise: React.FunctionComponent<
   });
 
   const [readOnly, setReadOnly] = useState(false);
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   function init() {
     if (localStorage.getItem("_IsReadOnly_")) {
@@ -196,6 +223,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
     let comment = othersComment;
     comment.comments = event.target.value;
     setOthersComment({ ...comment });
+    props.changefunction(true);
   }
 
   function submitData() {
@@ -292,6 +320,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
             regulatoryExpertisePostData,
             (bulkres: any) => {
               init();
+              successAfterPageSave();
             }
           );
         }
@@ -360,6 +389,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
         newRegulatoryExpertises,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -388,6 +418,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
         removedRegulatoryExpertises,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -442,6 +473,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
         );
       } else {
         init();
+        successAfterPageSave();
       }
     }
   }
@@ -454,6 +486,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
       let allothers = others;
       allothers = [""];
       setOthers([...allothers]);
+      props.changefunction(true);
     }
   }
 
@@ -485,6 +518,49 @@ export const RegulatoryExpertise: React.FunctionComponent<
   return (
     <ThemeProvider theme={theme}>
       {/* <h3 className={classes.headerTitle}>Expertise - Regulatory </h3> */}
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={classes.modalContainer}>
+            <div className={classes.modalSize}>
+              <div className={classes.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={classes.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={classes.popupBtn}>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -521,6 +597,7 @@ export const RegulatoryExpertise: React.FunctionComponent<
           getOptionLabel={(option) => option.Title}
           value={selExpertises}
           onChange={(event: any, newValue: any[]) => {
+            props.changefunction(true);
             let othersChecked = false;
             var datas = [];
             newValue.map((d) => {
@@ -681,4 +758,6 @@ export const RegulatoryExpertise: React.FunctionComponent<
       ></CustomAlert>
     </ThemeProvider>
   );
-};
+});
+
+export default RegulatoryExpertise;
