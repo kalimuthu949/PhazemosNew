@@ -11,23 +11,23 @@
     // display: flex;
     // align-items: center;
     margin: 10px 0;
-    div{
+    div {
         height: 40px !important;
-        div{
-            div{
-                padding:0 10px;
+        div {
+            div {
+                padding: 0 10px;
                 display: flex;
                 align-items: center;
             }
         }
     }
-    .multiText{
+    .multiText {
         width: 30%;
         margin: 25px 0 20px 0;
-        height: 90px !important; 
-        div{
+        height: 90px !important;
+        div {
             height: 90px !important;
-            textarea{
+            textarea {
                 height: 60px !important;
                 overflow: auto !important;
             }
@@ -62,61 +62,59 @@
     }
 }
 
-.idTextField{
+.idTextField {
     width: 8%;
-    input{
+    input {
         padding: 0 13px;
-        height:40px;
+        height: 40px;
     }
 }
 
-
-.smalltext{
+.smalltext {
     margin: 0px 10px 0px 0px !important;
     width: 250px;
 }
 
-@media only screen and (min-width:1280px){
-    .smalltext{
+@media only screen and (min-width:1280px) {
+    .smalltext {
         width: 173px;
     }
 }
 
-@media only screen and (min-width:1536px){
-    .smalltext{
+@media only screen and (min-width:1536px) {
+    .smalltext {
         width: 227px;
     }
 }
 
-@media only screen and (min-width:1745px){
-    .smalltext{
+@media only screen and (min-width:1745px) {
+    .smalltext {
         width: 258px;
     }
 }
 
-@media only screen and (min-width:1920px){
-    .smalltext{
+@media only screen and (min-width:1920px) {
+    .smalltext {
         width: 284px;
     }
 }
+
 .modalContainer {
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
     height: 100vh;
-
     .modalSize {
         height: 190px;
         width: 30%;
         background-color: #fff;
         // padding: 20px;
         border-radius: 5px;
-
         h3 {
             color: #00589A;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         .header {
             text-align: center;
             height: 42px;
@@ -125,28 +123,27 @@
             align-items: center;
             border-radius: 5px;
             background: gainsboro;
-
             button {
                 padding: 0 5px 0 0;
             }
-
         }
-
         .section {
             display: block;
             font-size: 16px;
             width: 70%;
             margin: 0 auto;
             line-height: 25px;
-
             span {
                 display: inline-block;
                 margin-top: 20px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
         }
-
         .popupBtn {
             padding-top: 15px;
+            button {
+                margin-right: 10px;
+            }
         }
     }
 }

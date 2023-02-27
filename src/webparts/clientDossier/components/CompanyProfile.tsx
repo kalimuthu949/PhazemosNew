@@ -503,6 +503,10 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
                 </div>
                 <div className={classes.popupBtn}>
                   <Button
+                    style={{
+                      backgroundColor: "rgb(0,88,154)",
+                      color: "rgb(253, 204, 67)",
+                    }}
                     onClick={() => {
                       setOpen(false);
                     }}
@@ -510,6 +514,10 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
                     No
                   </Button>
                   <Button
+                    style={{
+                      backgroundColor: "rgb(253, 204, 67)",
+                      color: "rgb(0,88,154) ",
+                    }}
                     onClick={() => {
                       successAfterPageSave();
                     }}

@@ -8,9 +8,8 @@
 }
 
 .NumberTypeSection {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
+    width: 80%;
+    margin: 10px 0 30px 0;
     // .NTItem {
     //     width: 22%;
     //     margin: 10px;
@@ -18,34 +17,31 @@
     //         margin-left: 0;
     //     }
     // }
-    .NTITitle{
-      width:19%;
-      margin: 10px;
+    .NTITitle {
+        width: 31%;
+        margin: 10px;
     }
-    .NTICountry{
-        width:27.5%;
+    .NTICountry {
+        width: 30%;
         margin: 10px;
-      }
-      .NTINum{
-        width:12%;
+    }
+    .NTINum {
+        width: 32%;
         margin: 10px;
-      }
-      .NTIWork{
-        width: 26.5%;
-        margin: 10px;
-      }
+    }
+    .NTIWork {
+        width: 33%;
+        margin: 10px 0px 10px 10px;
+    }
 }
+
 // Title
 // .NTITitle{
-
 // }
-
-
-
-@media only screen and (min-width:1280px){
-    .NTIWork{
-        width: 20.5% !important;
-      }
+@media only screen and (min-width:1280px) {
+    .NTIWork {
+        // width: 20.5% !important;
+    }
 }
 
 // @media only screen and (min-width:1536px){
@@ -53,43 +49,40 @@
 //         width: 21% !important;
 //     }
 // }
-
 // @media only screen and (min-width:1745px){
 //     .NTItem {
 //         width: 22% !important;
 //     }
 // }
-
 // @media only screen and (min-width:1920px){
 //     .NTItem {
 //         width: 22% !important;
 //     }
 // }
-
 .bottomBtnSection {
     display: flex;
     justify-content: flex-end;
     margin: 20px 0;
 }
 
-.idTextField{
+.idTextField {
     width: 8%;
-    input{
+    input {
         padding: 0 13px;
-        height:40px;
+        height: 40px;
     }
 }
 
-.cancelBtn{
+.cancelBtn {
     font-size: 34px !important;
     cursor: pointer;
-    color:rgb(244, 67, 54);
+    color: rgb(244, 67, 54);
 }
 
-.addBtn{
+.addBtn {
     font-size: 34px !important;
     cursor: pointer;
-    color:rgb(0, 88, 154);
+    color: rgb(0, 88, 154);
 }
 
 // @media only screen and (min-width:1280px){
@@ -97,19 +90,16 @@
 //         font-size: 40px !important;
 //     }
 // }
-
 // @media only screen and (min-width:1536px){
 //     .addBtn{
 //         font-size: 25px !important;
 //     }
 // }
-
 // @media only screen and (min-width:1745px){
 //     .addBtn{
 //         font-size: 40px !important;
 //     }
 // }
-
 // @media only screen and (min-width:1920px){
 //     .addBtn{
 //         font-size: 40px !important;
@@ -121,18 +111,16 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-
     .modalSize {
         height: 190px;
         width: 30%;
         background-color: #fff;
         // padding: 20px;
         border-radius: 5px;
-
         h3 {
             color: #00589A;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         .header {
             text-align: center;
             height: 42px;
@@ -141,28 +129,27 @@
             align-items: center;
             border-radius: 5px;
             background: gainsboro;
-
             button {
                 padding: 0 5px 0 0;
             }
-
         }
-
         .section {
             display: block;
             font-size: 16px;
             width: 70%;
             margin: 0 auto;
             line-height: 25px;
-
             span {
                 display: inline-block;
                 margin-top: 20px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
         }
-
         .popupBtn {
             padding-top: 15px;
+            button {
+                margin-right: 10px;
+            }
         }
     }
 }
