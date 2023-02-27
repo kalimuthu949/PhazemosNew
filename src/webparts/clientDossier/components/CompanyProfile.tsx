@@ -6,6 +6,8 @@ import {
   forwardRef,
   useImperativeHandle,
 } from "react";
+import Modal from "@material-ui/core/Modal";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import TextField from "@material-ui/core/TextField";
 import classes from "./CompanyProfile.module.scss";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,7 +18,6 @@ import {
   ThemeProvider,
   withStyles,
 } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
 
 import CommonService from "../services/CommonService";
 
@@ -80,6 +81,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
     Facebook: "",
     Twitter: "",
   });
+  const [loader, setLoader] = useState(false);
 
   const [primaryServices, setPrimaryServices] = useState([]);
 
@@ -93,7 +95,6 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
     companyProfile: null,
     primaryServiceMapping: [],
   });
-
   const [readOnly, setReadOnly] = useState(false);
 
   const [open, setOpen] = useState(true);
@@ -237,9 +238,11 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
     let allPrimaryServices = primaryServices as any[];
     allPrimaryServices[index][event.target.name] = event.target.checked;
     setPrimaryServices([...allPrimaryServices]);
+    props.changefunction(true);
   }
 
   function submitData() {
+    setLoader(true);
     let companyPostData = companyProfile as any;
     let formKeys = _requiredCompanyDetails as [];
 
@@ -313,6 +316,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
           (bulkres: any) => {
             init();
             successAfterPageSave();
+            setLoader(false);
             setAlert({
               open: true,
               severity: "success",
@@ -361,6 +365,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
             (bulkres: any) => {
               init();
               successAfterPageSave();
+              setLoader(false);
               setAlert({
                 open: true,
                 severity: "success",
@@ -376,6 +381,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
             (bulkres: any) => {
               init();
               successAfterPageSave();
+              setLoader(false);
               setAlert({
                 open: true,
                 severity: "success",
@@ -486,12 +492,14 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
                       textAlign: "center",
                     }}
                   >
-                    Meta Data Mapping
+                    Alert
                   </h3>
                 </div>
                 <div className={classes.section}>
-                  <h3>Alert</h3>
-                  <span>Are you sure to leave this page</span>
+                  <span>
+                    Please click submit before moving to another tab or your
+                    work will be lost
+                  </span>
                 </div>
                 <div className={classes.popupBtn}>
                   <Button
@@ -684,6 +692,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
             >
               Submit
             </Button>
+            {loader && <CircularProgress />}
           </div>
         )}
 

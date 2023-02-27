@@ -1,7 +1,13 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField";
 import classes from "./TherapeuticExpertise.module.scss";
-import { useState, useEffect, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -11,6 +17,7 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
+import Modal from "@material-ui/core/Modal";
 import {
   createTheme,
   ThemeProvider,
@@ -26,6 +33,7 @@ export interface ITherapeuticExpertise {
   CompanyName: string;
   CompanyCode: string;
   CompanyID: string;
+  changefunction?: any;
 }
 
 const theme = createTheme({
@@ -59,9 +67,10 @@ const CheckboxStyle = withStyles({
   checked: {},
 })(Checkbox);
 
-export const TherapeuticExpertise: React.FunctionComponent<
-  ITherapeuticExpertise
-> = (props: ITherapeuticExpertise) => {
+// export const TherapeuticExpertise: React.FunctionComponent<
+//   ITherapeuticExpertise
+//   > = (props: ITherapeuticExpertise) => {
+const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
   var _commonService: any = {};
 
   const [cusalert, setAlert] = useState({
@@ -91,6 +100,23 @@ export const TherapeuticExpertise: React.FunctionComponent<
 
   const [showOther, setShowOther] = useState(false);
   const [others, setOthers] = useState([]);
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   function loadActiveTherapeuticAreaExperience(editData: any) {
     let customProperty = {
@@ -251,6 +277,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
     let therapeuticAreas = therapeuticArea;
     therapeuticAreas[index][event.target.name] = event.target.checked;
     setTherapeuticArea([...therapeuticAreas]);
+    props.changefunction(true);
   }
 
   // function diseaseAreaChangeHandler(index: number, event: any) {
@@ -308,6 +335,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
             therapeuticAreaPostData,
             (bulkres: any) => {
               init();
+              successAfterPageSave();
             }
           );
         }
@@ -350,6 +378,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
     });
     setTimeout(() => {
       init();
+      successAfterPageSave();
     }, 3000);
   }
 
@@ -436,6 +465,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
         addTherapetic,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -450,6 +480,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
         removedTherapetic,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -506,6 +537,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
         addDiseaseArea,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -520,6 +552,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
         removedDiseaseArea,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -533,6 +566,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
       let allothers = others;
       allothers = [""];
       setOthers([...allothers]);
+      props.changefunction(true);
     }
   }
 
@@ -565,6 +599,49 @@ export const TherapeuticExpertise: React.FunctionComponent<
   return (
     <ThemeProvider theme={theme}>
       {/* <h3 className={classes.headerTitle}>Expertise - Therapeutic </h3> */}
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={classes.modalContainer}>
+            <div className={classes.modalSize}>
+              <div className={classes.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={classes.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={classes.popupBtn}>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -624,6 +701,7 @@ export const TherapeuticExpertise: React.FunctionComponent<
           getOptionLabel={(option) => option.serviceName}
           value={selDiseaseArea}
           onChange={(event: any, newValue: any[]) => {
+            props.changefunction(true);
             var datas = [];
             newValue.map((d) => {
               if (!d.DiseaseAreaExperienceIDId) {
@@ -753,5 +831,5 @@ export const TherapeuticExpertise: React.FunctionComponent<
       ></CustomAlert>
     </ThemeProvider>
   );
-};
+});
 export default TherapeuticExpertise;

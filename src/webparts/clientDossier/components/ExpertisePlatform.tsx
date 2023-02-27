@@ -1,7 +1,14 @@
 import * as React from "react";
 import TextField from "@material-ui/core/TextField";
 import classes from "./ExpertisePlatform.module.scss";
-import { useState, useEffect, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import Modal from "@material-ui/core/Modal";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -27,6 +34,7 @@ export interface IExpertisePlatform {
   CompanyName: string;
   CompanyCode: string;
   CompanyID: string;
+  changefunction?: any;
 }
 
 const theme = createTheme({
@@ -60,9 +68,10 @@ const CheckboxStyle = withStyles({
   checked: {},
 })(Checkbox);
 
-export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
-  props: IExpertisePlatform
-) => {
+// export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
+//   props: IExpertisePlatform
+// ) => {
+const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
   var _commonService: any = {};
 
   const [cusalert, setAlert] = useState({
@@ -83,6 +92,23 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
     expertisePlatform: null,
     expertisePlatformMapping: [],
   });
+
+  const [open, setOpen] = useState(true);
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   function loadActiveExpertisePlatformExperience(editData: any) {
     let customProperty = {
@@ -175,6 +201,7 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
     let expertisePlatforms = expertisePlatform;
     expertisePlatforms[index][event.target.name] = event.target.checked;
     setExpertisePlatform([...expertisePlatforms]);
+    props.changefunction(true);
   }
 
   function submitData() {
@@ -212,6 +239,7 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
             expertisePlatformPostData,
             (bulkres: any) => {
               init();
+              successAfterPageSave();
             }
           );
         }
@@ -224,6 +252,7 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
     });
     setTimeout(() => {
       init();
+      successAfterPageSave();
     }, 3000);
   }
 
@@ -258,6 +287,7 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
         addExpertise,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
           setAlert({
             open: true,
             severity: "success",
@@ -277,6 +307,7 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
         removedExpertise,
         (bulkres: any) => {
           init();
+          successAfterPageSave();
           setAlert({
             open: true,
             severity: "success",
@@ -297,6 +328,49 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
 
   return (
     <ThemeProvider theme={theme}>
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={classes.modalContainer}>
+            <div className={classes.modalSize}>
+              <div className={classes.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={classes.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={classes.popupBtn}>
+                <Button
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -376,5 +450,5 @@ export const ExpertisePlatform: React.FunctionComponent<IExpertisePlatform> = (
       ></CustomAlert>
     </ThemeProvider>
   );
-};
+});
 export default ExpertisePlatform;

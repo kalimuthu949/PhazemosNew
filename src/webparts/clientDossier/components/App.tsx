@@ -15,15 +15,15 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import CompanyProfile from "./CompanyProfile";
 import TherapeuticExpertise from "./TherapeuticExpertise";
-import { RegulatoryExpertise } from "./RegulatoryExpertise";
-import { Geography } from "./Geography";
-import { ProjectWork } from "./ProjectWork";
-import { PrimaryServicesOffered } from "./PrimaryServicesOffered";
+import RegulatoryExpertise from "./RegulatoryExpertise";
+import Geography from "./Geography";
+import ProjectWork from "./ProjectWork";
+import PrimaryServicesOffered from "./PrimaryServicesOffered";
 import { Upload } from "./Upload";
-import { BioQA } from "./BioQA/BioQA";
-import { InHouseTools } from "./InHouseTools/InHouseTools";
-import { PMExperience } from "./PMExperience/PMExperience";
-import { SiteNetwork } from "./SiteNetwork/SiteNetwork";
+import BioQA from "./BioQA/BioQA";
+import InHouseTools from "./InHouseTools/InHouseTools";
+import PMExperience from "./PMExperience/PMExperience";
+import SiteNetwork from "./SiteNetwork/SiteNetwork";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 import ExpertisePlatform from "./ExpertisePlatform";
@@ -85,7 +85,9 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
 
   function changePageValue(value) {
     pageChanges = value;
-    setValue(clickedTabNumber);
+    if (!value) {
+      setValue(clickedTabNumber);
+    }
   }
 
   function TabPanel(props) {
@@ -323,6 +325,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -333,6 +337,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -343,6 +349,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -353,6 +361,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -363,6 +373,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -373,6 +385,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -395,6 +409,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -404,6 +420,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -413,6 +431,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
@@ -422,6 +442,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}
