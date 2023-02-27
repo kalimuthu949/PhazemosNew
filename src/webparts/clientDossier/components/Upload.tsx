@@ -976,6 +976,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       {!readOnly && (
         <div className={classes.bottomBtnSection}>
           <Button
+            disabled={loader}
             variant="contained"
             style={{
               backgroundColor: "rgb(253, 204, 67)",

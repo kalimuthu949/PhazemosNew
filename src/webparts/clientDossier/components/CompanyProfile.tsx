@@ -682,6 +682,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
         {!readOnly && (
           <div className={classes.bottomBtnSection}>
             <Button
+              disabled={loader}
               variant="contained"
               size="large"
               style={{
