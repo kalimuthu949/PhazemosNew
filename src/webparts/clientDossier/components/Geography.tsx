@@ -13,7 +13,11 @@ import Icon from "@material-ui/core/Icon";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import Button from "@material-ui/core/Button";
 import { green } from "@material-ui/core/colors";
-import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  createTheme,
+  ThemeProvider,
+  withStyles,
+} from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
@@ -37,6 +41,29 @@ const theme = createTheme({
     },
   },
 });
+
+// checkbox Style
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 1,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 12,
+        height: 13,
+        width: 13,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
 // export const Geography: React.FunctionComponent<IGeography> = (
 //   props: IGeography
 // ) => {
@@ -385,24 +412,26 @@ const Geography = forwardRef((props: IGeography, ref) => {
                 <Button
                   style={{
                     backgroundColor: "rgb(0,88,154)",
-                    color: "rgb(253, 204, 67)",
+                    color: "#fff",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     setOpen(false);
                   }}
                 >
-                  No
+                  Stay Here
                 </Button>
                 <Button
                   style={{
                     backgroundColor: "rgb(253, 204, 67)",
                     color: "rgb(0,88,154) ",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     successAfterPageSave();
                   }}
                 >
-                  Yes
+                  Move to New Tab
                 </Button>
               </div>
             </div>
@@ -471,19 +500,19 @@ const Geography = forwardRef((props: IGeography, ref) => {
                       onChange={(e) => inputChangeHandler(e, index)}
                       disabled={readOnly}
                     />
-                    <TextField
-                      required
-                      className={classes.NTINum}
-                      id="outlined-basic"
-                      label="#"
-                      variant="outlined"
-                      size="small"
-                      name="Year"
-                      value={"TestData"}
-                      onChange={(e) => inputChangeHandler(e, index)}
-                      disabled={readOnly}
-                      style={{ display: "none" }}
-                    />
+                    {/* <TextField
+                        required
+                        className={classes.NTINum}
+                        id="outlined-basic"
+                        label="#"
+                        variant="outlined"
+                        size="small"
+                        name="Year"
+                        value={"TestData"}
+                        onChange={(e) => inputChangeHandler(e, index)}
+                        disabled={readOnly}
+                        style={{ display: "none" }}
+                      /> */}
 
                     {/* <Autocomplete
                 multiple
@@ -535,13 +564,14 @@ const Geography = forwardRef((props: IGeography, ref) => {
                       disabled={readOnly}
                     />
                   </div>
+
                   <Autocomplete
                     multiple
                     disableCloseOnSelect
                     id="free-solo-with-text-demo"
                     size="small"
                     options={therapeuticArea}
-                    style={{ width: "98%", marginLeft: 10 }}
+                    style={{ width: "calc(100% - 20px)", marginLeft: 10 }}
                     freeSolo
                     value={details.TherapaticExperienceId}
                     getOptionLabel={(option) => option.therapeuticAreaTitle}
@@ -554,7 +584,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
                     }}
                     renderOption={(option, { selected }) => (
                       <React.Fragment>
-                        <Checkbox
+                        <CheckboxStyle
                           icon={icon}
                           checkedIcon={checkedIcon}
                           style={{ marginRight: 8 }}
@@ -600,6 +630,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
             style={{
               backgroundColor: "rgb(253, 204, 67)",
               color: "rgb(0,88,154) ",
+              fontWeight: 700,
             }}
             size="large"
             onClick={submitData}
