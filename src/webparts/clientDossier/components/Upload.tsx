@@ -545,7 +545,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
   }
 
   function submitMetadata() {
-    successAfterPageSave();
     let index = -1;
     for (let k = 0; k < otherUploadMetadata.length; k++) {
       if (
@@ -580,7 +579,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
       alldata[index]["CountriesWorked"] = postData["CountriesWorked"];
       alldata[index]["CompanyIDId"] = props.CompanyID;
       setOtherUploadMetadata([...alldata]);
-      successAfterPageSave();
     } else if (editindex >= 0) {
       alldata[editindex]["ExpertiseTherapeutic"] =
         postData["ExpertiseTherapeutic"];
@@ -591,11 +589,9 @@ const Upload = forwardRef((props: IUpload, ref) => {
       alldata[editindex]["CountriesWorked"] = postData["CountriesWorked"];
       alldata[editindex]["CompanyIDId"] = props.CompanyID;
       setOtherUploadMetadata([...alldata]);
-      successAfterPageSave();
     } else {
       alldata.push(postData);
       setOtherUploadMetadata([...alldata]);
-      successAfterPageSave();
     }
 
     if (index > 0) {
@@ -616,8 +612,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
     }
 
     setSuccessOpen(false);
-    successAfterPageSave();
-
     // if (!postData["ID"]) {
     //   _commonService.insertIntoList(
     //     {
@@ -674,7 +668,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
         newMetadata,
         (res) => {
           init();
-          successAfterPageSave();
         }
       );
     }
@@ -686,7 +679,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
         updateMetadata,
         (res) => {
           init();
-          successAfterPageSave();
         }
       );
     }
