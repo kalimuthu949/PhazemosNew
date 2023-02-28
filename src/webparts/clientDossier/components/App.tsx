@@ -19,7 +19,7 @@ import RegulatoryExpertise from "./RegulatoryExpertise";
 import Geography from "./Geography";
 import ProjectWork from "./ProjectWork";
 import PrimaryServicesOffered from "./PrimaryServicesOffered";
-import { Upload } from "./Upload";
+import Upload from "./Upload";
 import BioQA from "./BioQA/BioQA";
 import InHouseTools from "./InHouseTools/InHouseTools";
 import PMExperience from "./PMExperience/PMExperience";
@@ -399,6 +399,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             CompanyCode={formData.companyCode}
             SiteUrl={props.SiteUrl}
             Domain={props.Domain}
+            changefunction={changePageValue}
+            ref={ref}
           />
         </TabPanel>
       )}

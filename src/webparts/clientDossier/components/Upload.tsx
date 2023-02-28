@@ -2,7 +2,13 @@ import * as React from "react";
 import TextField from "@material-ui/core/TextField";
 import classes from "./Upload.module.scss";
 import Button from "@material-ui/core/Button";
-import { useState, useEffect, useRef } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from "@material-ui/core/Modal";
@@ -38,6 +44,7 @@ export interface IUpload {
   CompanyCode: string;
   SiteUrl: string;
   Domain: any;
+  changefunction?: any;
 }
 
 const theme = createTheme({
@@ -80,7 +87,8 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
+// export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
+const Upload = forwardRef((props: IUpload, ref) => {
   const [cusalert, setAlert] = useState({
     open: false,
     message: "Success",
@@ -96,9 +104,26 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
 
   const [readOnly, setReadOnly] = useState(false);
 
-  const [open, setOpen] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   let _commonService: CommonService = new CommonService();
+
+  const [isPageChanged, setIsPageChanged] = useState(false);
+  function pageAlert() {
+    setIsPageChanged(true);
+    setOpen(true);
+  }
+
+  useImperativeHandle(ref, () => {
+    return { pageAlert: pageAlert };
+  });
+
+  function successAfterPageSave() {
+    props.changefunction(false);
+    setOpen(false);
+    setIsPageChanged(false);
+  }
 
   const [allFile, setAllFile] = useState({
     experienceSpreadsheets: {
@@ -358,6 +383,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
     setTimeout(() => {
       setLoader(false);
       init();
+      successAfterPageSave();
       setAlert({
         open: true,
         severity: "success",
@@ -415,6 +441,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
     let data = metadata;
     data[event.target.name] = event.target.value;
     setMetadata({ ...data });
+    props.changefunction(true);
   }
 
   function editMetadata(obj) {
@@ -428,7 +455,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
     data["CountriesWorked"] = obj.CountriesWorked;
     data["CompanyIDId"] = props.CompanyID;
     setMetadata({ ...data });
-    setOpen(true);
+    setSuccessOpen(true);
   }
 
   const handleFileChange = (e: any, objectName: string) => {
@@ -439,7 +466,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
     }
     setAllFile({ ...objAllFile });
     if (objectName == "others") {
-      setOpen(true);
+      setSuccessOpen(true);
       let data = metadata;
       data = {};
       data["Title"] = files[0].name;
@@ -451,6 +478,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       data["CompanyIDId"] = props.CompanyID;
       setMetadata({ ...data });
     }
+    props.changefunction(true);
   };
 
   function loadMasterData() {
@@ -517,6 +545,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
   }
 
   function submitMetadata() {
+    successAfterPageSave();
     let index = -1;
     for (let k = 0; k < otherUploadMetadata.length; k++) {
       if (
@@ -551,6 +580,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       alldata[index]["CountriesWorked"] = postData["CountriesWorked"];
       alldata[index]["CompanyIDId"] = props.CompanyID;
       setOtherUploadMetadata([...alldata]);
+      successAfterPageSave();
     } else if (editindex >= 0) {
       alldata[editindex]["ExpertiseTherapeutic"] =
         postData["ExpertiseTherapeutic"];
@@ -561,9 +591,11 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       alldata[editindex]["CountriesWorked"] = postData["CountriesWorked"];
       alldata[editindex]["CompanyIDId"] = props.CompanyID;
       setOtherUploadMetadata([...alldata]);
+      successAfterPageSave();
     } else {
       alldata.push(postData);
       setOtherUploadMetadata([...alldata]);
+      successAfterPageSave();
     }
 
     if (index > 0) {
@@ -583,7 +615,8 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       setMetaDatatoSubmit([...sdata]);
     }
 
-    setOpen(false);
+    setSuccessOpen(false);
+    successAfterPageSave();
 
     // if (!postData["ID"]) {
     //   _commonService.insertIntoList(
@@ -641,6 +674,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
         newMetadata,
         (res) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -652,6 +686,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
         updateMetadata,
         (res) => {
           init();
+          successAfterPageSave();
         }
       );
     }
@@ -666,6 +701,57 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
   return (
     <ThemeProvider theme={theme}>
       {/* <h3 className={classes.headerTitle}>Uploads</h3> */}
+      {isPageChanged ? (
+        <Modal open={open}>
+          <div className={classes.modalContainer}>
+            <div className={classes.modalSize}>
+              <div className={classes.header}>
+                <h3
+                  style={{
+                    margin: "0px 5px",
+                    width: "100%",
+                    textAlign: "center",
+                  }}
+                >
+                  Alert
+                </h3>
+              </div>
+              <div className={classes.section}>
+                <span>
+                  Please click submit before moving to another tab or your work
+                  will be lost
+                </span>
+              </div>
+              <div className={classes.popupBtn}>
+                <Button
+                  style={{
+                    backgroundColor: "rgb(0,88,154)",
+                    color: "rgb(253, 204, 67)",
+                  }}
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  No
+                </Button>
+                <Button
+                  style={{
+                    backgroundColor: "rgb(253, 204, 67)",
+                    color: "rgb(0,88,154) ",
+                  }}
+                  onClick={() => {
+                    successAfterPageSave();
+                  }}
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      ) : (
+        ""
+      )}
       <div className={`${classes.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -763,14 +849,14 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
 
       {/* Modal design */}
       <Modal
-        open={open}
+        open={successOpen}
         // onClose={()=>[<
         //   setOpen(false);
         // ]}
       >
-        <div className={classes.modalContainer}>
+        <div className={classes.tablemodalContainer}>
           <div></div>
-          <div className={classes.modalSize}>
+          <div className={classes.tablemodalSize}>
             {/* header section */}
             <div>
               <div className={classes.header}>
@@ -786,7 +872,7 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
                 <IconButton>
                   <CloseIcon
                     onClick={() => {
-                      setOpen(false);
+                      setSuccessOpen(false);
                     }}
                   />
                 </IconButton>
@@ -1118,4 +1204,5 @@ export const Upload: React.FunctionComponent<IUpload> = (props: IUpload) => {
       ></CustomDialog>
     </ThemeProvider>
   );
-};
+});
+export default Upload;
