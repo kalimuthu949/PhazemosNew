@@ -383,6 +383,10 @@ const Geography = forwardRef((props: IGeography, ref) => {
               </div>
               <div className={classes.popupBtn}>
                 <Button
+                  style={{
+                    backgroundColor: "rgb(0,88,154)",
+                    color: "rgb(253, 204, 67)",
+                  }}
                   onClick={() => {
                     setOpen(false);
                   }}
@@ -390,6 +394,10 @@ const Geography = forwardRef((props: IGeography, ref) => {
                   No
                 </Button>
                 <Button
+                  style={{
+                    backgroundColor: "rgb(253, 204, 67)",
+                    color: "rgb(0,88,154) ",
+                  }}
                   onClick={() => {
                     successAfterPageSave();
                   }}
@@ -434,45 +442,50 @@ const Geography = forwardRef((props: IGeography, ref) => {
         {geographyDetails.map((details: any, index: number) => {
           return (
             <div className={classes.NumberTypeSection}>
-              <TextField
-                required
-                className={classes.NTITitle}
-                id="outlined-basic"
-                label="Employee Title"
-                size="small"
-                variant="outlined"
-                name="Title"
-                value={details.Title}
-                onChange={(e) => inputChangeHandler(e, index)}
-                disabled={readOnly}
-              />
-              <TextField
-                required
-                className={classes.NTICountry}
-                id="outlined-basic"
-                label="Country of Residence"
-                size="small"
-                variant="outlined"
-                name="CountryofResidence"
-                value={details.CountryofResidence}
-                onChange={(e) => inputChangeHandler(e, index)}
-                disabled={readOnly}
-              />
-              <TextField
-                required
-                className={classes.NTINum}
-                id="outlined-basic"
-                label="#"
-                variant="outlined"
-                size="small"
-                name="Year"
-                value={"TestData"}
-                onChange={(e) => inputChangeHandler(e, index)}
-                disabled={readOnly}
-                style={{ display: "none" }}
-              />
+              <div
+                style={{ display: "flex", alignItems: "center", width: "100%" }}
+              >
+                <div style={{ width: "92%" }}>
+                  <div style={{ width: "100%" }}>
+                    <TextField
+                      required
+                      className={classes.NTITitle}
+                      id="outlined-basic"
+                      label="Employee Title"
+                      size="small"
+                      variant="outlined"
+                      name="Title"
+                      value={details.Title}
+                      onChange={(e) => inputChangeHandler(e, index)}
+                      disabled={readOnly}
+                    />
+                    <TextField
+                      required
+                      className={classes.NTICountry}
+                      id="outlined-basic"
+                      label="Country of Residence"
+                      size="small"
+                      variant="outlined"
+                      name="CountryofResidence"
+                      value={details.CountryofResidence}
+                      onChange={(e) => inputChangeHandler(e, index)}
+                      disabled={readOnly}
+                    />
+                    <TextField
+                      required
+                      className={classes.NTINum}
+                      id="outlined-basic"
+                      label="#"
+                      variant="outlined"
+                      size="small"
+                      name="Year"
+                      value={"TestData"}
+                      onChange={(e) => inputChangeHandler(e, index)}
+                      disabled={readOnly}
+                      style={{ display: "none" }}
+                    />
 
-              <Autocomplete
+                    {/* <Autocomplete
                 multiple
                 disableCloseOnSelect
                 id="free-solo-with-text-demo"
@@ -507,34 +520,74 @@ const Geography = forwardRef((props: IGeography, ref) => {
                     variant="outlined"
                   />
                 )}
-              />
+              /> */}
 
-              <TextField
-                required
-                className={classes.NTIWork}
-                id="outlined-basic"
-                label="Countries Worked"
-                variant="outlined"
-                size="small"
-                name="CountriesWorked"
-                value={details.CountriesWorked}
-                onChange={(e) => inputChangeHandler(e, index)}
-                disabled={readOnly}
-              />
+                    <TextField
+                      required
+                      className={classes.NTIWork}
+                      id="outlined-basic"
+                      label="Countries Worked"
+                      variant="outlined"
+                      size="small"
+                      name="CountriesWorked"
+                      value={details.CountriesWorked}
+                      onChange={(e) => inputChangeHandler(e, index)}
+                      disabled={readOnly}
+                    />
+                  </div>
+                  <Autocomplete
+                    multiple
+                    disableCloseOnSelect
+                    id="free-solo-with-text-demo"
+                    size="small"
+                    options={therapeuticArea}
+                    style={{ width: "98%", marginLeft: 10 }}
+                    freeSolo
+                    value={details.TherapaticExperienceId}
+                    getOptionLabel={(option) => option.therapeuticAreaTitle}
+                    onChange={(event: any, newValue: any[]) => {
+                      props.changefunction(true);
+                      let tmpGeographyDetails = geographyDetails;
+                      tmpGeographyDetails[index].TherapaticExperienceId =
+                        newValue;
+                      setGeographyDetails([...tmpGeographyDetails]);
+                    }}
+                    renderOption={(option, { selected }) => (
+                      <React.Fragment>
+                        <Checkbox
+                          icon={icon}
+                          checkedIcon={checkedIcon}
+                          style={{ marginRight: 8 }}
+                          checked={selected}
+                          color="primary"
+                        />
+                        {option.therapeuticAreaTitle}
+                      </React.Fragment>
+                    )}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label="Therapeutic Area Experience"
+                        variant="outlined"
+                      />
+                    )}
+                  />
+                </div>
 
-              {geographyDetails.length == index + 1 && !readOnly && (
-                <AddCircleIcon
-                  onClick={(e) => addGeographyDetails()}
-                  className={classes.addBtn}
-                />
-              )}
+                {geographyDetails.length == index + 1 && !readOnly && (
+                  <AddCircleIcon
+                    onClick={(e) => addGeographyDetails()}
+                    className={classes.addBtn}
+                  />
+                )}
 
-              {geographyDetails.length > 1 && !readOnly && (
-                <CancelIcon
-                  className={classes.cancelBtn}
-                  onClick={(e) => removeGeographyDetails(index)}
-                />
-              )}
+                {geographyDetails.length > 1 && !readOnly && (
+                  <CancelIcon
+                    className={classes.cancelBtn}
+                    onClick={(e) => removeGeographyDetails(index)}
+                  />
+                )}
+              </div>
             </div>
           );
         })}

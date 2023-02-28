@@ -31,7 +31,6 @@
         .Checkbox {
             width: 23%;
             margin: 16px 16px 10px 16px;
-        
         }
     }
 }
@@ -42,50 +41,47 @@
 //         width: 23% !important;
 //     }
 // }
-
 // @media only screen and (min-width:1536px){
 //     .Checkbox {
 //         width: 23% !important;
 //     }
 // }
-
 // @media only screen and (min-width:1745px){
 //     .Checkbox {
 //         width: 25% !important;
 //     }
 // }
-
 // @media only screen and (min-width:1920px){
 //     .Checkbox {
 //         width: 25% !important;
 //     }
 // }
-
-.companyEmailTF{
+.companyEmailTF {
     width: 23%;
     margin: 16px !important;
 }
-@media only screen and (min-width:1280px){
-    .companyEmailTF{
+
+@media only screen and (min-width:1280px) {
+    .companyEmailTF {
         margin: 16px 16px 16px 0px !important;
     }
 }
 
-@media only screen and (min-width:1536px){
-    .companyEmailTF{
+@media only screen and (min-width:1536px) {
+    .companyEmailTF {
         margin: 16px 16px 16px 10px !important;
     }
 }
 
-@media only screen and (min-width:1745px){
-    .companyEmailTF{
+@media only screen and (min-width:1745px) {
+    .companyEmailTF {
         margin: 16px 16px 16px 16px !important;
     }
 }
 
-@media only screen and (min-width:1920px){
-    .companyEmailTF{
-       margin: 16px 16px 16px 16px !important;
+@media only screen and (min-width:1920px) {
+    .companyEmailTF {
+        margin: 16px 16px 16px 16px !important;
     }
 }
 
@@ -95,22 +91,21 @@
     margin: 20px 0;
 }
 
-.idTextField{
-    input{
+.idTextField {
+    input {
         padding: 0 13px;
         // font-size: 0.9vw;
         font: inherit;
-        height:40px;
-        
+        height: 40px;
     }
 }
 
-.modal{
+.modal {
     width: 40%;
     background-color: aliceblue;
     position: absolute;
-    left:30%;
-    top:30%;
+    left: 30%;
+    top: 30%;
     outline: none;
     text-align: center;
     padding: 20px;
@@ -122,18 +117,16 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-
     .modalSize {
         height: 190px;
         width: 30%;
         background-color: #fff;
         // padding: 20px;
         border-radius: 5px;
-
         h3 {
             color: #00589A;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         .header {
             text-align: center;
             height: 42px;
@@ -145,21 +138,24 @@
             button {
                 padding: 0 5px 0 0;
             }
-            
         }
-                .section {
-                    display: block;
-                    font-size: 16px;
-                    width: 70%;
-                    margin: 0 auto;
-                    line-height: 25px;
-                    span {
-                        display: inline-block;
-                        margin-top: 20px;
-                    }
-                }
-        .popupBtn{
+        .section {
+            display: block;
+            font-size: 16px;
+            width: 70%;
+            margin: 0 auto;
+            line-height: 25px;
+            span {
+                display: inline-block;
+                margin-top: 20px;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+        .popupBtn {
             padding-top: 15px;
+            button {
+                margin-right: 10px;
+            }
         }
     }
 }

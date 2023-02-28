@@ -25,31 +25,31 @@
     justify-content: flex-end;
     margin: 20px 0;
 }
-.idTextField{
+
+.idTextField {
     width: 8%;
-    input{
+    input {
         padding: 0 13px;
-        height:40px;
+        height: 40px;
     }
 }
+
 .modalContainer {
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
     height: 100vh;
-
     .modalSize {
         height: 190px;
         width: 30%;
         background-color: #fff;
         // padding: 20px;
         border-radius: 5px;
-
         h3 {
             color: #00589A;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
         .header {
             text-align: center;
             height: 42px;
@@ -58,28 +58,27 @@
             align-items: center;
             border-radius: 5px;
             background: gainsboro;
-
             button {
                 padding: 0 5px 0 0;
             }
-
         }
-
         .section {
             display: block;
             font-size: 16px;
             width: 70%;
             margin: 0 auto;
             line-height: 25px;
-
             span {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 display: inline-block;
                 margin-top: 20px;
             }
         }
-
         .popupBtn {
             padding-top: 15px;
+            button {
+                margin-right: 10px;
+            }
         }
     }
 }
