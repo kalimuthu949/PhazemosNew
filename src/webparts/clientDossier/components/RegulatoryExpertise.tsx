@@ -65,6 +65,28 @@ const CheckboxStyle = withStyles({
   checked: {},
 })(Checkbox);
 
+const ComboCheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 1,
+      "&:after": {
+        content: '""',
+        left: 12,
+        top: 13,
+        height: 13,
+        width: 13,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
+
 // export const RegulatoryExpertise: React.FunctionComponent<
 //   IRegulatoryExpertise
 //   > = (props: IRegulatoryExpertise) => {
@@ -543,24 +565,26 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
                 <Button
                   style={{
                     backgroundColor: "rgb(0,88,154)",
-                    color: "rgb(253, 204, 67)",
+                    color: "#fff",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     setOpen(false);
                   }}
                 >
-                  No
+                  Stay Here
                 </Button>
                 <Button
                   style={{
                     backgroundColor: "rgb(253, 204, 67)",
                     color: "rgb(0,88,154) ",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     successAfterPageSave();
                   }}
                 >
-                  Yes
+                  Move to New Tab
                 </Button>
               </div>
             </div>
@@ -639,7 +663,7 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
           }}
           renderOption={(option, { selected }) => (
             <React.Fragment>
-              <CheckboxStyle
+              <ComboCheckboxStyle
                 icon={icon}
                 checkedIcon={checkedIcon}
                 style={{ marginRight: 8 }}
@@ -743,6 +767,7 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
             style={{
               backgroundColor: "rgb(253, 204, 67)",
               color: "rgb(0,88,154) ",
+              fontWeight: 700,
             }}
             size="large"
             onClick={submitData}

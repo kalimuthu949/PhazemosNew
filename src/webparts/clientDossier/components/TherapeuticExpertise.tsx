@@ -67,6 +67,28 @@ const CheckboxStyle = withStyles({
   checked: {},
 })(Checkbox);
 
+const ComboCheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 1,
+      "&:after": {
+        content: '""',
+        left: 12,
+        top: 13,
+        height: 13,
+        width: 13,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
+
 // export const TherapeuticExpertise: React.FunctionComponent<
 //   ITherapeuticExpertise
 //   > = (props: ITherapeuticExpertise) => {
@@ -624,24 +646,26 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
                 <Button
                   style={{
                     backgroundColor: "rgb(0,88,154)",
-                    color: "rgb(253, 204, 67)",
+                    color: "#fff",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     setOpen(false);
                   }}
                 >
-                  No
+                  Stay Here
                 </Button>
                 <Button
                   style={{
                     backgroundColor: "rgb(253, 204, 67)",
                     color: "rgb(0,88,154) ",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     successAfterPageSave();
                   }}
                 >
-                  Yes
+                  Move to New Tab
                 </Button>
               </div>
             </div>
@@ -730,7 +754,7 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
           }}
           renderOption={(option, { selected }) => (
             <React.Fragment>
-              <CheckboxStyle
+              <ComboCheckboxStyle
                 icon={icon}
                 checkedIcon={checkedIcon}
                 style={{ marginRight: 8 }}
@@ -817,6 +841,7 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
             style={{
               backgroundColor: "rgb(253, 204, 67)",
               color: "rgb(0,88,154) ",
+              fontWeight: 700,
             }}
             onClick={(e) => submitData()}
           >

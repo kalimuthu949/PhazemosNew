@@ -353,24 +353,26 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
                 <Button
                   style={{
                     backgroundColor: "rgb(0,88,154)",
-                    color: "rgb(253, 204, 67)",
+                    color: "#fff",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     setOpen(false);
                   }}
                 >
-                  No
+                  Stay Here
                 </Button>
                 <Button
                   style={{
                     backgroundColor: "rgb(253, 204, 67)",
                     color: "rgb(0,88,154) ",
+                    fontWeight: 600,
                   }}
                   onClick={() => {
                     successAfterPageSave();
                   }}
                 >
-                  Yes
+                  Move to New Tab
                 </Button>
               </div>
             </div>
@@ -436,6 +438,7 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
             style={{
               backgroundColor: "rgb(253, 204, 67)",
               color: "rgb(0,88,154) ",
+              fontWeight: 700,
             }}
             onClick={(e) => submitData()}
           >
