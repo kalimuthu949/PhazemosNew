@@ -184,118 +184,182 @@ const Upload = forwardRef((props: IUpload, ref) => {
     expertiseTherapeutic: [],
     expertiseRegulatory: [],
     expertisePlatform: [],
-    countryofResidence: [],
-    countriesWorked: [],
+    // countryofResidence: [],
+    // countriesWorked: [],
   });
 
-  const _therapeuticExpertise = "Therapeutic Expertise";
-  const _therapeuticExpertiseMap = "Therapeutic Area Experience Mapping";
+  // const _therapeuticExpertise = "Therapeutic Expertise";
+  // const _therapeuticExpertiseMap = "Therapeutic Area Experience Mapping";
+  const _therapeuticExpertiseMaster = "Therapeutic Area Experience Master";
 
-  const _regulatoryExpertise = "Regulatory Expertise";
-  const _regulatoryExpertiseMap =
-    "In House Regulatory Regime Experience Mapping";
+  // const _regulatoryExpertise = "Regulatory Expertise";
+  // const _regulatoryExpertiseMap =
+  //   "In House Regulatory Regime Experience Mapping";
+  const _regulatoryExpertiseMaster =
+    "In House Regulatory Regime Experience Master";
 
-  const _expertisePlatform = "ExpertisePlatform";
-  const _expertisePlatformMap = "Expertise Platform Mapping";
+  // const _expertisePlatform = "ExpertisePlatform";
+  // const _expertisePlatformMap = "Expertise Platform Mapping";
+  const _expertisePlatformMaster = "Expertise Platform Master";
 
   const _geographic = "Geographic";
 
+  // function loadExpertiseTherapeutic() {
+  //   let customProperty = {
+  //     listName: _therapeuticExpertise,
+  //     filter: "CompanyIDId eq '" + props.CompanyID + "'",
+  //   };
+  //   _commonService.getList(customProperty, (res: any) => {
+  //     if (res.length) {
+  //       let mapProperty = {
+  //         listName: _therapeuticExpertiseMap,
+  //         filter:
+  //           "TherapeuticExpertiseIDId eq '" +
+  //           res[0].ID +
+  //           "'  and IsDeleted eq '0'",
+  //         expand: "TherapeuticAreaExpMasterID",
+  //         properties: "*,TherapeuticAreaExpMasterID/Title",
+  //       };
+  //       _commonService.getList(mapProperty, (mapres: any) => {
+  //         let data = masterData;
+  //         data.expertiseTherapeutic = [];
+  //         for (let index = 0; index < mapres.length; index++) {
+  //           if (mapres[index].TherapeuticAreaExpMasterID.Title) {
+  //             data.expertiseTherapeutic.push({
+  //               ID: mapres[index].TherapeuticAreaExpMasterIDId,
+  //               Title: mapres[index].TherapeuticAreaExpMasterID.Title,
+  //             });
+  //           }
+  //         }
+  //         setMasterData({ ...data });
+  //       });
+  //     }
+  //   });
+  // }
+
   function loadExpertiseTherapeutic() {
     let customProperty = {
-      listName: _therapeuticExpertise,
-      filter: "CompanyIDId eq '" + props.CompanyID + "'",
+      listName: _therapeuticExpertiseMaster,
+      filter: "IsActive eq '1'",
     };
     _commonService.getList(customProperty, (res: any) => {
+      let data = masterData;
+      data.expertiseTherapeutic = [];
       if (res.length) {
-        let mapProperty = {
-          listName: _therapeuticExpertiseMap,
-          filter:
-            "TherapeuticExpertiseIDId eq '" +
-            res[0].ID +
-            "'  and IsDeleted eq '0'",
-          expand: "TherapeuticAreaExpMasterID",
-          properties: "*,TherapeuticAreaExpMasterID/Title",
-        };
-        _commonService.getList(mapProperty, (mapres: any) => {
-          let data = masterData;
-          data.expertiseTherapeutic = [];
-          for (let index = 0; index < mapres.length; index++) {
-            if (mapres[index].TherapeuticAreaExpMasterID.Title) {
-              data.expertiseTherapeutic.push({
-                ID: mapres[index].TherapeuticAreaExpMasterIDId,
-                Title: mapres[index].TherapeuticAreaExpMasterID.Title,
-              });
-            }
-          }
-          setMasterData({ ...data });
-        });
+        for (let index = 0; index < res.length; index++) {
+          data.expertiseTherapeutic.push({
+            ID: res[index].ID,
+            Title: res[index].Title,
+          });
+        }
       }
+      setMasterData({ ...data });
     });
   }
+
+  // function loadRegulatoryExpertise() {
+  //   let customProperty = {
+  //     listName: _regulatoryExpertise,
+  //     filter: "CompanyIDId eq '" + props.CompanyID + "'",
+  //   };
+  //   _commonService.getList(customProperty, (res: any) => {
+  //     if (res.length) {
+  //       let mapProperty = {
+  //         listName: _regulatoryExpertiseMap,
+  //         filter:
+  //           "RegulatoryExpertiseIDId eq '" +
+  //           res[0].ID +
+  //           "'  and IsDeleted eq '0'",
+  //         expand: "InHouseRegulatoryRegimeExperienc",
+  //         properties: "*,InHouseRegulatoryRegimeExperienc/Title",
+  //       };
+  //       _commonService.getList(mapProperty, (mapres: any) => {
+  //         let data = masterData;
+  //         data.expertiseRegulatory = [];
+  //         for (let index = 0; index < mapres.length; index++) {
+  //           if (mapres[index].InHouseRegulatoryRegimeExperienc.Title) {
+  //             data.expertiseRegulatory.push({
+  //               ID: mapres[index].InHouseRegulatoryRegimeExperiencId,
+  //               Title: mapres[index].InHouseRegulatoryRegimeExperienc.Title,
+  //             });
+  //           }
+  //         }
+  //         setMasterData({ ...data });
+  //       });
+  //     }
+  //   });
+  // }
 
   function loadRegulatoryExpertise() {
     let customProperty = {
-      listName: _regulatoryExpertise,
-      filter: "CompanyIDId eq '" + props.CompanyID + "'",
+      listName: _regulatoryExpertiseMaster,
+      filter: "IsActive eq '1'",
     };
     _commonService.getList(customProperty, (res: any) => {
+      let data = masterData;
+      data.expertiseRegulatory = [];
       if (res.length) {
-        let mapProperty = {
-          listName: _regulatoryExpertiseMap,
-          filter:
-            "RegulatoryExpertiseIDId eq '" +
-            res[0].ID +
-            "'  and IsDeleted eq '0'",
-          expand: "InHouseRegulatoryRegimeExperienc",
-          properties: "*,InHouseRegulatoryRegimeExperienc/Title",
-        };
-        _commonService.getList(mapProperty, (mapres: any) => {
-          let data = masterData;
-          data.expertiseRegulatory = [];
-          for (let index = 0; index < mapres.length; index++) {
-            if (mapres[index].InHouseRegulatoryRegimeExperienc.Title) {
-              data.expertiseRegulatory.push({
-                ID: mapres[index].InHouseRegulatoryRegimeExperiencId,
-                Title: mapres[index].InHouseRegulatoryRegimeExperienc.Title,
-              });
-            }
-          }
-          setMasterData({ ...data });
-        });
+        for (let index = 0; index < res.length; index++) {
+          data.expertiseRegulatory.push({
+            ID: res[index].ID,
+            Title: res[index].Title,
+          });
+        }
       }
+      setMasterData({ ...data });
     });
   }
 
+  // function loadExpertisePlatform() {
+  //   let customProperty = {
+  //     listName: _expertisePlatform,
+  //     filter: "CompanyIDId eq '" + props.CompanyID + "'",
+  //   };
+  //   _commonService.getList(customProperty, (res: any) => {
+  //     if (res.length) {
+  //       let mapProperty = {
+  //         listName: _expertisePlatformMap,
+  //         filter:
+  //           "ExpertisePlatformIDId eq '" +
+  //           res[0].ID +
+  //           "'  and IsDeleted eq '0'",
+  //         expand: "ExpertisePlatformMasterID",
+  //         properties: "*,ExpertisePlatformMasterID/Title",
+  //       };
+  //       _commonService.getList(mapProperty, (mapres: any) => {
+  //         let data = masterData;
+  //         data.expertisePlatform = [];
+  //         for (let index = 0; index < mapres.length; index++) {
+  //           if (mapres[index].ExpertisePlatformMasterID.Title) {
+  //             data.expertisePlatform.push({
+  //               ID: mapres[index].ExpertisePlatformMasterIDId,
+  //               Title: mapres[index].ExpertisePlatformMasterID.Title,
+  //             });
+  //           }
+  //         }
+  //         setMasterData({ ...data });
+  //       });
+  //     }
+  //   });
+  // }
+
   function loadExpertisePlatform() {
     let customProperty = {
-      listName: _expertisePlatform,
-      filter: "CompanyIDId eq '" + props.CompanyID + "'",
+      listName: _expertisePlatformMaster,
+      filter: "IsActive eq '1'",
     };
     _commonService.getList(customProperty, (res: any) => {
+      let data = masterData;
+      data.expertisePlatform = [];
       if (res.length) {
-        let mapProperty = {
-          listName: _expertisePlatformMap,
-          filter:
-            "ExpertisePlatformIDId eq '" +
-            res[0].ID +
-            "'  and IsDeleted eq '0'",
-          expand: "ExpertisePlatformMasterID",
-          properties: "*,ExpertisePlatformMasterID/Title",
-        };
-        _commonService.getList(mapProperty, (mapres: any) => {
-          let data = masterData;
-          data.expertisePlatform = [];
-          for (let index = 0; index < mapres.length; index++) {
-            if (mapres[index].ExpertisePlatformMasterID.Title) {
-              data.expertisePlatform.push({
-                ID: mapres[index].ExpertisePlatformMasterIDId,
-                Title: mapres[index].ExpertisePlatformMasterID.Title,
-              });
-            }
-          }
-          setMasterData({ ...data });
-        });
+        for (let index = 0; index < res.length; index++) {
+          data.expertisePlatform.push({
+            ID: res[index].ID,
+            Title: res[index].Title,
+          });
+        }
       }
+      setMasterData({ ...data });
     });
   }
 
@@ -304,28 +368,28 @@ const Upload = forwardRef((props: IUpload, ref) => {
       listName: _geographic,
       filter: "CompanyIDId eq '" + props.CompanyID + "'",
     };
-    _commonService.getList(customProperty, (res: any) => {
-      if (res.length) {
-        let data = masterData;
-        data.countryofResidence = [];
-        data.countriesWorked = [];
-        for (let index = 0; index < res.length; index++) {
-          if (res[index].CountryofResidence) {
-            data.countryofResidence.push({
-              ID: res[index].ID,
-              Title: res[index].CountryofResidence,
-            });
-          }
-          if (res[index].CountriesWorked) {
-            data.countriesWorked.push({
-              ID: res[index].ID,
-              Title: res[index].CountriesWorked,
-            });
-          }
-        }
-        setMasterData({ ...data });
-      }
-    });
+    // _commonService.getList(customProperty, (res: any) => {
+    //   if (res.length) {
+    //     let data = masterData;
+    //     data.countryofResidence = [];
+    //     data.countriesWorked = [];
+    //     for (let index = 0; index < res.length; index++) {
+    //       if (res[index].CountryofResidence) {
+    //         data.countryofResidence.push({
+    //           ID: res[index].ID,
+    //           Title: res[index].CountryofResidence,
+    //         });
+    //       }
+    //       if (res[index].CountriesWorked) {
+    //         data.countriesWorked.push({
+    //           ID: res[index].ID,
+    //           Title: res[index].CountriesWorked,
+    //         });
+    //       }
+    //     }
+    //     setMasterData({ ...data });
+    //   }
+    // });
   }
 
   function deleteConfirmation(index: number, objectName: string) {
@@ -412,8 +476,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
       expertiseTherapeutic: [],
       expertiseRegulatory: [],
       expertisePlatform: [],
-      countryofResidence: [],
-      countriesWorked: [],
+      // countryofResidence: [],
+      // countriesWorked: [],
     });
 
     loadMasterData();
@@ -451,8 +515,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
     data["ExpertiseTherapeutic"] = obj.ExpertiseTherapeutic;
     data["ExpertiseRegulatory"] = obj.ExpertiseRegulatory;
     data["ExpertisePlatform"] = obj.ExpertisePlatform;
-    data["CountryofResidence"] = obj.CountryofResidence;
-    data["CountriesWorked"] = obj.CountriesWorked;
+    // data["CountryofResidence"] = obj.CountryofResidence;
+    // data["CountriesWorked"] = obj.CountriesWorked;
     data["CompanyIDId"] = props.CompanyID;
     setMetadata({ ...data });
     setSuccessOpen(true);
@@ -473,8 +537,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
       data["ExpertiseTherapeutic"] = "";
       data["ExpertiseRegulatory"] = "";
       data["ExpertisePlatform"] = "";
-      data["CountryofResidence"] = "";
-      data["CountriesWorked"] = "";
+      // data["CountryofResidence"] = "";
+      // data["CountriesWorked"] = "";
       data["CompanyIDId"] = props.CompanyID;
       setMetadata({ ...data });
     }
@@ -575,8 +639,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
       alldata[index]["ExpertiseTherapeutic"] = postData["ExpertiseTherapeutic"];
       alldata[index]["ExpertiseRegulatory"] = postData["ExpertiseRegulatory"];
       alldata[index]["ExpertisePlatform"] = postData["ExpertisePlatform"];
-      alldata[index]["CountryofResidence"] = postData["CountryofResidence"];
-      alldata[index]["CountriesWorked"] = postData["CountriesWorked"];
+      // alldata[index]["CountryofResidence"] = postData["CountryofResidence"];
+      // alldata[index]["CountriesWorked"] = postData["CountriesWorked"];
       alldata[index]["CompanyIDId"] = props.CompanyID;
       setOtherUploadMetadata([...alldata]);
     } else if (editindex >= 0) {
@@ -585,8 +649,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
       alldata[editindex]["ExpertiseRegulatory"] =
         postData["ExpertiseRegulatory"];
       alldata[editindex]["ExpertisePlatform"] = postData["ExpertisePlatform"];
-      alldata[editindex]["CountryofResidence"] = postData["CountryofResidence"];
-      alldata[editindex]["CountriesWorked"] = postData["CountriesWorked"];
+      // alldata[editindex]["CountryofResidence"] = postData["CountryofResidence"];
+      // alldata[editindex]["CountriesWorked"] = postData["CountriesWorked"];
       alldata[editindex]["CompanyIDId"] = props.CompanyID;
       setOtherUploadMetadata([...alldata]);
     } else {
@@ -963,7 +1027,7 @@ const Upload = forwardRef((props: IUpload, ref) => {
               </div>
 
               {/* geography section */}
-              <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
+              {/* <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
                 Geography
               </h3>
               <div
@@ -977,7 +1041,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
                   className={classes.section}
                   style={{ width: "50%", marginRight: 10 }}
                 >
-                  {/* <h3>Country of Residence</h3> */}
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <FormControl
                       size="small"
@@ -1005,7 +1068,6 @@ const Upload = forwardRef((props: IUpload, ref) => {
                 </div>
 
                 <div className={classes.section} style={{ width: "50%" }}>
-                  {/* <h3>Countries Worked</h3> */}
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <FormControl
                       size="small"
@@ -1031,7 +1093,7 @@ const Upload = forwardRef((props: IUpload, ref) => {
                     </FormControl>
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               {/* Dropdown section ends */}
 
@@ -1090,12 +1152,12 @@ const Upload = forwardRef((props: IUpload, ref) => {
                 <StyledTableCell className={classes.HeaderBottomBorder}>
                   Platform
                 </StyledTableCell>
-                <StyledTableCell className={classes.HeaderBottomBorder}>
+                {/* <StyledTableCell className={classes.HeaderBottomBorder}>
                   Country of Residence
                 </StyledTableCell>
                 <StyledTableCell className={classes.HeaderBottomBorder}>
                   Countries Worked
-                </StyledTableCell>
+                </StyledTableCell> */}
                 <StyledTableCell className={classes.HeaderBottomBorder}>
                   Created On
                 </StyledTableCell>
@@ -1115,8 +1177,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
                     </StyledTableCell>
                     <StyledTableCell>{res.ExpertiseRegulatory}</StyledTableCell>
                     <StyledTableCell>{res.ExpertisePlatform}</StyledTableCell>
-                    <StyledTableCell>{res.CountryofResidence}</StyledTableCell>
-                    <StyledTableCell>{res.CountriesWorked}</StyledTableCell>
+                    {/* <StyledTableCell>{res.CountryofResidence}</StyledTableCell>
+                    <StyledTableCell>{res.CountriesWorked}</StyledTableCell> */}
 
                     <StyledTableCell>
                       {_commonService.formattedDate(new Date(res.Created))}
