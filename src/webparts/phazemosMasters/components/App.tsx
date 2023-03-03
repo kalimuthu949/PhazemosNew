@@ -271,7 +271,11 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
                 <div className={classes.headerBtn}>
                   <Button
                     variant="contained"
-                    color="primary"
+                    style={{
+                      backgroundColor: "rgb(253, 204, 67)",
+                      color: "rgb(0,88,154) ",
+                      fontWeight: 700,
+                    }}
                     startIcon={<AddIcon />}
                     onClick={handleOpen}
                   >
@@ -321,7 +325,11 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
               <div className={classes.btnSubmit}>
                 <Button
                   variant="contained"
-                  color="primary"
+                  style={{
+                    backgroundColor: "rgb(253, 204, 67)",
+                    color: "rgb(0,88,154) ",
+                    fontWeight: 700,
+                  }}
                   onClick={(e) => submitData()}
                 >
                   Submit

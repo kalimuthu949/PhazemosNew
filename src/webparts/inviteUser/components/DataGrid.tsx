@@ -41,16 +41,20 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     // backgroundColor: theme.palette.primary.main,
     // color: theme.palette.common.white,
-    background: "#d3e5f4",
-    color: "#00589A",
+    background: "rgb(0,88,154) ",
+    color: "#fff",
     fontSize: 16,
     fontWeight: 600,
+    minWidth: "82px !important",
+    maxWidth: "100px !important",
+    textAlign: "center",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
   body: {
     fontSize: 15,
     color: "#303133",
     padding: "5px 15px",
+    textAlign: "center",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
 }))(TableCell);

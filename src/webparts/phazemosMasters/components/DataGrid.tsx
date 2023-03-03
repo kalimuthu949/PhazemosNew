@@ -48,18 +48,20 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     // backgroundColor: theme.palette.primary.main,
     // color: theme.palette.common.white,
-    backgroundColor: "#d3e5f4",
-    color: "#00589A",
+    background: "rgb(0,88,154) ",
+    color: "#fff",
     fontSize: 16,
     fontWeight: 600,
+    minWidth: "82px !important",
+    maxWidth: "100px !important",
+    textAlign: "center",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
   body: {
     fontSize: 15,
-    // color: "#636b7a",
     color: "#303133",
-    // background:'#ffffff !important',
     padding: "5px 15px",
+    textAlign: "center",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
 }))(TableCell);
@@ -74,6 +76,28 @@ const StyledTableRow = withStyles((theme) => ({
     //   },
   },
 }))(TableRow);
+
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 2,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 13,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
 
 export const DataGrid: React.FunctionComponent<IDataGrid> = (
   props: IDataGrid
@@ -209,8 +233,8 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
           <TableHead>
             <TableRow>
               <StyledTableCell>Title</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell>Created By</StyledTableCell>
+              <StyledTableCell style={{textAlign:'left'}}>Status</StyledTableCell>
+              <StyledTableCell  style={{textAlign:'left'}}>Created By</StyledTableCell>
               <StyledTableCell>Created On</StyledTableCell>
               <StyledTableCell>Action</StyledTableCell>
             </TableRow>
@@ -338,7 +362,7 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
                   </StyledTableCell>
                   <StyledTableCell>
                     {" "}
-                    <Checkbox
+                    <CheckboxStyle
                       color="primary"
                       style={{ background: "#fff" }}
                       checked={master.IsActive}
