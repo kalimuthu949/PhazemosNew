@@ -61,19 +61,28 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
   const _companyRegistration: string = "Company Registration";
   const _userDetails: string = "User Details";
 
+   ////Test
+//    const _acceptInviteUrl: string =
+//    "http://localhost:51130/Phazemos/Index?id=";
+
+//  const clientDetailsURL =
+//    "https://phazemos.sharepoint.com/sites/Douglas/SitePages/Client.aspx";
+
+
   ////Dev
   //const _acceptInviteUrl: string = "https://douglas-phazemos-new.azurewebsites.net/Phazemos/Index?id=";
 
   ////Dev
   //const clientDetailsURL =    "https://chandrudemo.sharepoint.com/sites/Douglas/SitePages/client1.aspx";
 
-  ////Prod
+  // ////Prod
   const _acceptInviteUrl: string =
     "https://clientdossier.azurewebsites.net/Phazemos/Index?id=";
 
   ////Prod
   const clientDetailsURL =
     "https://phazemos.sharepoint.com/sites/Douglas/SitePages/Client.aspx";
+    
 
   const [formData, setFormData] = useState({
     ID: 0,
