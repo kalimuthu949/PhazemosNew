@@ -253,10 +253,18 @@ const Upload = forwardRef((props: IUpload, ref) => {
           });
         }
       }
+      data.expertiseTherapeutic = sortData(data.expertiseTherapeutic);
       setMasterData({ ...data });
     });
   }
 
+
+  function sortData(Data) {
+    Data.sort((a, b) =>
+      a.Title > b.Title ? 1 : b.Title > a.Title ? -1 : 0
+    );
+    return Data;
+  }
   // function loadRegulatoryExpertise() {
   //   let customProperty = {
   //     listName: _regulatoryExpertise,
@@ -306,6 +314,7 @@ const Upload = forwardRef((props: IUpload, ref) => {
           });
         }
       }
+      data.expertiseRegulatory = sortData(data.expertiseRegulatory);
       setMasterData({ ...data });
     });
   }
@@ -359,6 +368,7 @@ const Upload = forwardRef((props: IUpload, ref) => {
           });
         }
       }
+      data.expertisePlatform = sortData(data.expertisePlatform);
       setMasterData({ ...data });
     });
   }

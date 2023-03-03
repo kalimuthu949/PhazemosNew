@@ -7,7 +7,7 @@ import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import { Button } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import ClearIcon from "@material-ui/icons/Clear";
 import { DataGrid } from "./DataGrid";
@@ -50,6 +50,28 @@ const useStyles = makeStyles((theme) => ({
     // width:'500px'
   },
 }));
+const CheckboxStyle = withStyles({
+  root: {
+    color: "rgba(0, 0, 0, 0.54) ",
+    "&$checked": {
+      color: "rgb(253, 204, 67)",
+      position: "relative",
+      zIndex: 2,
+      "&:after": {
+        content: '""',
+        left: 13,
+        top: 13,
+        height: 15,
+        width: 15,
+        position: "absolute",
+        backgroundColor: "rgb(0,88,154) !important",
+        zIndex: -1,
+      },
+    },
+  },
+  checked: {},
+})(Checkbox);
+
 // Styles
 export const App: React.FunctionComponent<IInviteUserProps> = (
   props: IInviteUserProps
@@ -401,6 +423,11 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                 color="primary"
                 startIcon={<AddIcon />}
                 onClick={handleOpen}
+                style={{
+                  backgroundColor: "rgb(253, 204, 67)",
+                  color: "rgb(0,88,154) ",
+                  fontWeight: 700,
+                }}
               >
                 New
               </Button>
@@ -514,7 +541,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.CompanyProfile}
                           name="CompanyProfile"
                           color="primary"
@@ -529,7 +556,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.TherapeuticExpertise}
                           name="TherapeuticExpertise"
                           color="primary"
@@ -544,7 +571,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.RegulatoryExpertise}
                           name="RegulatoryExpertise"
                           color="primary"
@@ -559,7 +586,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.ExpertisePlatform}
                           name="ExpertisePlatform"
                           color="primary"
@@ -574,7 +601,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.Geography}
                           name="Geography"
                           color="primary"
@@ -589,7 +616,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.ProjectWork}
                           name="ProjectWork"
                           color="primary"
@@ -619,7 +646,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.Uploads}
                           name="Uploads"
                           color="primary"
@@ -633,7 +660,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.bioMarkerQuals}
                           name="bioMarkerQuals"
                           color="primary"
@@ -647,7 +674,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.InHouseTools}
                           name="InHouseTools"
                           color="primary"
@@ -661,7 +688,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.PMExperience}
                           name="PMExperience"
                           color="primary"
@@ -675,7 +702,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                   <div className={classes.CheckBox}>
                     <FormControlLabel
                       control={
-                        <Checkbox
+                        <CheckboxStyle
                           checked={formData.SiteNetwork}
                           name="SiteNetwork"
                           color="primary"
@@ -693,7 +720,11 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                 <div className={classes.btnSubmit}>
                   <Button
                     variant="contained"
-                    color="primary"
+                    style={{
+                      backgroundColor: "rgb(253, 204, 67)",
+                      color: "rgb(0,88,154) ",
+                      fontWeight: 700,
+                    }}
                     onClick={(e) => inviteNewUser()}
                   >
                     Submit

@@ -254,6 +254,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
       }
     }
     if (!isValidForm) {
+      setLoader(false);
       setAlert({
         open: true,
         severity: "warning",
@@ -266,6 +267,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
       companyPostData.RFPContactEmail &&
       !_commonService.validateEmail(companyPostData.RFPContactEmail)
     ) {
+      setLoader(false);
       setAlert({
         open: true,
         severity: "warning",
@@ -278,6 +280,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
       companyPostData.InvoicingContactEmail &&
       !_commonService.validateEmail(companyPostData.InvoicingContactEmail)
     ) {
+      setLoader(false);
       setAlert({
         open: true,
         severity: "warning",
