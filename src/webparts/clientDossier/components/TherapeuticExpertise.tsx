@@ -721,7 +721,7 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
         </div>
       </div>
       <div className={classes.AreaDisease}>
-        <p>Disease Area Experience</p>
+        <p>Indication Experience</p>
         <Autocomplete
           multiple
           style={{ width: "60%" }}
