@@ -76,6 +76,7 @@ export default class CommonService {
             .expand(customProperty.expand)
             .filter(customProperty.filter)
             .orderBy(customProperty.orderby, customProperty.orderbyAsc)
+            .top(5000)
             .get().then(res => {
                 callBack(res);
             });
