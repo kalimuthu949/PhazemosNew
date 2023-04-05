@@ -103,7 +103,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
 
   ////Prod
   const clientDetailsURL =
-    "https://phazemos.sharepoint.com/sites/Douglas/SitePages/Client.aspx";
+    "https://phazemos.sharepoint.com/sites/Client/SitePages/Client.aspx";
     
 
   const [formData, setFormData] = useState({
