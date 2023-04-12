@@ -27,6 +27,7 @@ import {
 export interface IDataGrid {
   render: any;
   EditRecord: any;
+  EditCurrentRecord: any;
 }
 
 // Styles for the Table
@@ -107,7 +108,9 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
             <StyledTableCell>Invite Accepted</StyledTableCell>
             <StyledTableCell>Created By</StyledTableCell>
             <StyledTableCell>Created Date</StyledTableCell>
-            {/* <StyledTableCell>Action</StyledTableCell> */}
+            {/* Deva changes start */}
+            <StyledTableCell>Action</StyledTableCell>
+            {/* Deva changes end */}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -172,13 +175,23 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
               <StyledTableCell>
                 {_commonService.formattedDate(new Date(company.Created))}
               </StyledTableCell>
-
-              {/* <StyledTableCell>
+              {/* Deva changes start */}
+              <StyledTableCell>
                 <EditIcon
-                  style={{ color: theme.palette.primary.main, fontSize: 32 }}
-                  onClick={(e) => props.EditRecord(company)}
+                  style={{
+                    color: theme.palette.primary.main,
+                    fontSize: 32,
+                    cursor: "pointer",
+                  }}
+                  onClick={(e: any) =>
+                    props.EditCurrentRecord(
+                      company.CompanyIDId,
+                      company.UserEmailID
+                    )
+                  }
                 />
-              </StyledTableCell> */}
+              </StyledTableCell>
+              {/* Deva changes end */}
             </StyledTableRow>
           ))}
         </TableBody>

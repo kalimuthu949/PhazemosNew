@@ -562,7 +562,7 @@ const BioQA = forwardRef((props: IProps, ref) => {
               </StyledTableCell>
             </TableRow>
             <TableRow>
-              <StyledTableCell>Bio Marker</StyledTableCell>
+              <StyledTableCell>Biomarker Type</StyledTableCell>
               {tableHeadings.map((heading: IHeading) => {
                 return (
                   <StyledTableCell
