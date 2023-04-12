@@ -185,17 +185,19 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
   function isEmailIDAlreadyExist() {
     /* Deva changes start */
     for (let i = 0; formData.users.length > i; i++) {
-      let isRegisteredRecord: boolean = overAllUserData.some(
-        (e: string) => e == formData.users[i]["EmailID"]
-      );
-      if (isRegisteredRecord) {
-        setAlert({
-          open: true,
-          severity: "warning",
-          message: "EmailID already registered",
-        });
-        setIsLoader(false);
-        return;
+      if (!formData.users[i]["ID"]) {
+        let isRegisteredRecord: boolean = overAllUserData.some(
+          (e: string) => e == formData.users[i]["EmailID"]
+        );
+        if (isRegisteredRecord) {
+          setAlert({
+            open: true,
+            severity: "warning",
+            message: "EmailID already registered",
+          });
+          setIsLoader(false);
+          return;
+        }
       }
       if (formData.users.length == i + 1) {
         if (formData.ID == 0) {
@@ -363,7 +365,8 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
     let customProperty = {
       listName: _userDetails,
       properties: "*",
-      filter: "CompanyIDId eq '" + company.CompanyIDId + "'",
+      //filter: "CompanyIDId eq '" + company.CompanyIDId + "'",
+      filter: "ID eq '" + company.ID + "'",
     };
     _commonService.getList(customProperty, (res: any) => {
       customProperty = {
@@ -372,8 +375,11 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
         filter: "ID eq '" + company.CompanyIDId + "'",
       };
       _commonService.getList(customProperty, (comres: any) => {
+        let _userAccess: string = "";
         res.map((u) => {
+          _userAccess = u.Access ? u.Access : "Read";
           localStorage.setItem("_UserEmail_", u.UserEmailID);
+          localStorage.setItem("_UserAccess_", u._userAccess);
         });
         window.open(clientDetailsURL, "_blank");
 

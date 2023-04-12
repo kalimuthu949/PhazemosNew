@@ -130,7 +130,6 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     } else {
       localStorage.setItem("_IsReadOnly_", "");
     }
-
     let _commonService = new CommonService();
     let customProperty = {
       listName: _userDetails,
@@ -138,6 +137,11 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
     };
     _commonService.getList(customProperty, (userres: any) => {
       if (userres.length) {
+        if (userres[0].Access.toLowerCase() == "read") {
+          localStorage.setItem("_IsReadOnly_", "1");
+        } else {
+          localStorage.setItem("_IsReadOnly_", "");
+        }
         customProperty = {
           listName: _companyRegistration,
           filter: "ID eq '" + userres[0].CompanyIDId + "'",
@@ -446,7 +450,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           />
         </TabPanel>
       )}
-      
+
       {formData.SiteNetwork && (
         <TabPanel value={value} index={tabIndex["SiteNetwork"]}>
           <SiteNetwork
