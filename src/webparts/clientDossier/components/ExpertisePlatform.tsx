@@ -24,11 +24,12 @@ import {
   withStyles,
 } from "@material-ui/core/styles";
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-
+import comStyle from "./CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 
 import { CustomAlert } from "./CustomAlert";
 import { CustomDialog } from "./CustomDialog";
+import styles from "./ClientDossier.module.scss";
 
 export interface IExpertisePlatform {
   CompanyName: string;
@@ -381,55 +382,58 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
       ) : (
         ""
       )}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          size="small"
-          variant="outlined"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
+      <div className={comStyle.Container}>
+        <div className={`${classes.companyDetails} disableInput`}>
+          <TextField
+            style={{ width: "38%", marginRight: 32 }}
+            id="outlined-basic"
+            label="Company Name"
+            size="small"
+            variant="outlined"
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={classes.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
+        </div>
 
-      <div className={classes.AreaExperience}>
-        <p>Platform Area Experience (check "x" all that apply)</p>
+        <div className={classes.AreaExperience}>
+          <p>Platform Area Experience (check "x" all that apply)</p>
 
-        <div className={classes.CheckboxSection}>
-          {expertisePlatform.map((service: any, index: number) => {
-            return (
-              <div className={classes.Checkbox}>
-                <FormControlLabel
-                  control={
-                    <CheckboxStyle
-                      checked={service.IsChecked}
-                      onChange={(e) => expertisePlatformChangeHandler(index, e)}
-                      name="IsChecked"
-                      color="primary"
-                      disabled={readOnly}
-                    />
-                  }
-                  label={service.serviceName}
-                />
-              </div>
-            );
-          })}
+          <div className={classes.CheckboxSection}>
+            {expertisePlatform.map((service: any, index: number) => {
+              return (
+                <div className={classes.Checkbox}>
+                  <FormControlLabel
+                    control={
+                      <CheckboxStyle
+                        checked={service.IsChecked}
+                        onChange={(e) =>
+                          expertisePlatformChangeHandler(index, e)
+                        }
+                        name="IsChecked"
+                        color="primary"
+                        disabled={readOnly}
+                      />
+                    }
+                    label={service.serviceName}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-
       {!readOnly && (
         <div className={classes.bottomBtnSection} style={{ marginTop: 20 }}>
           <Button
@@ -446,7 +450,6 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
           </Button>
         </div>
       )}
-
       <CustomAlert
         open={cusalert.open}
         message={cusalert.message}

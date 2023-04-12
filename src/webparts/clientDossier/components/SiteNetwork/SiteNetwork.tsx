@@ -432,6 +432,7 @@ const SiteNetwork = forwardRef((props: IProps, ref) => {
       ) : (
         ""
       )}
+
       <div className={`${styles.companyDetails} disableInput`}>
         <TextField
           style={{ width: "38%", marginRight: 32 }}
@@ -455,8 +456,8 @@ const SiteNetwork = forwardRef((props: IProps, ref) => {
           disabled
         />
       </div>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+      <TableContainer component={Paper} style={{ maxHeight: 384 }}>
+        <Table aria-label="simple table" stickyHeader>
           <TableHead>
             {/* <TableRow>
               <StyledTableCell colSpan={11} className={styles.SectionHeader}>

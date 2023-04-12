@@ -22,7 +22,7 @@ import {
 } from "@material-ui/core/styles";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
-
+import comStyle from "./CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 
 import { CustomAlert } from "./CustomAlert";
@@ -593,172 +593,174 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
       ) : (
         ""
       )}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          size="small"
-          variant="outlined"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-
-      <div style={{ margin: "20px 0px" }}>
-        <Autocomplete
-          multiple
-          style={{ width: "60%" }}
-          freeSolo
-          id="checkboxes-tags-demo"
-          options={regulatoryExpertises}
-          size="small"
-          disableCloseOnSelect
-          getOptionLabel={(option) => option.Title}
-          value={selExpertises}
-          onChange={(event: any, newValue: any[]) => {
-            props.changefunction(true);
-            let othersChecked = false;
-            var datas = [];
-            newValue.map((d) => {
-              let data = {};
-              if (!d.Title) {
-                data = {
-                  InHouseRegulatoryRegimeExperiencId: 0,
-                  IsChecked: true,
-                  RegulatoryExperienceMappingID: 0,
-                  RegulatoryExpertiseIDId: 0,
-                  Title: d,
-                };
-              } else {
-                if (d.Title == "Other") {
-                  othersChecked = true;
-                }
-                d.IsChecked = true;
-                data = d;
-              }
-              datas.push(data);
-            });
-            let otherComment = {
-              isChecked: othersChecked,
-              comments: othersComment.comments,
-            };
-            if (!othersChecked) {
-              otherComment.comments = null;
-            }
-            setOthersComment({ ...otherComment });
-            setSelRegulatoryExpertises([...datas]);
-          }}
-          renderOption={(option, { selected }) => (
-            <React.Fragment>
-              <ComboCheckboxStyle
-                icon={icon}
-                checkedIcon={checkedIcon}
-                style={{ marginRight: 8 }}
-                checked={selected}
-              />
-              {option.Title}
-            </React.Fragment>
-          )}
-          //   style={{ width: 500 }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="outlined"
-              label="In House Regulatory Regime Experience"
-              placeholder=""
-            />
-          )}
-          disabled={readOnly}
-        />
-      </div>
-
-      {/* <div style={{ display: "flex" }}> */}
-      <div>
-        <FormControlLabel
-          control={<CheckboxStyle name="" disableRipple />}
-          onChange={(e) => toggleOther(e)}
-          checked={showOther}
-          label="Others"
-          disabled={readOnly}
-        />
-
-        <div style={{ alignItems: "center" }}>
-          {others.length > 0
-            ? others.map((o, index) => {
-                return (
-                  <>
-                    <br />
-                    <TextField
-                      required
-                      placeholder=""
-                      style={{ width: "20%" }}
-                      variant="outlined"
-                      size="small"
-                      label="Title"
-                      value={o}
-                      onChange={(e) => otherFieldHandler(e, index)}
-                      disabled={readOnly}
-                    />
-
-                    {others.length == index + 1 && (
-                      <AddCircleIcon
-                        style={{
-                          fontSize: 34,
-                          color: theme.palette.primary.main,
-                          margin: "0px 8px 0px 8px",
-                          cursor: "pointer",
-                        }}
-                        onClick={(e) => addOthers()}
-                      />
-                    )}
-
-                    {others.length > 1 && (
-                      <CancelIcon
-                        style={{
-                          cursor: "pointer",
-                          fontSize: 34,
-                          margin: "0 8px",
-                          color: theme.palette.error.main,
-                        }}
-                        onClick={(e) => removeOthers(index)}
-                      />
-                    )}
-                    <br />
-                  </>
-                );
-              })
-            : ""}
-        </div>
-      </div>
-
-      {othersComment.isChecked && (
-        <div className={classes.companyDetails}>
+      <div className={comStyle.Container}>
+        <div className={`${classes.companyDetails} disableInput`}>
           <TextField
-            required
-            style={{ width: "40%", marginRight: 30 }}
+            style={{ width: "38%", marginRight: 32 }}
             id="outlined-basic"
-            label="Comments"
+            label="Company Name"
+            size="small"
             variant="outlined"
-            name="Comments"
-            value={othersComment.comments}
-            onChange={(e) => changeHandler(e)}
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={classes.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
+        </div>
+
+        <div style={{ margin: "20px 0px" }}>
+          <Autocomplete
+            multiple
+            style={{ width: "60%" }}
+            freeSolo
+            id="checkboxes-tags-demo"
+            options={regulatoryExpertises}
+            size="small"
+            disableCloseOnSelect
+            getOptionLabel={(option) => option.Title}
+            value={selExpertises}
+            onChange={(event: any, newValue: any[]) => {
+              props.changefunction(true);
+              let othersChecked = false;
+              var datas = [];
+              newValue.map((d) => {
+                let data = {};
+                if (!d.Title) {
+                  data = {
+                    InHouseRegulatoryRegimeExperiencId: 0,
+                    IsChecked: true,
+                    RegulatoryExperienceMappingID: 0,
+                    RegulatoryExpertiseIDId: 0,
+                    Title: d,
+                  };
+                } else {
+                  if (d.Title == "Other") {
+                    othersChecked = true;
+                  }
+                  d.IsChecked = true;
+                  data = d;
+                }
+                datas.push(data);
+              });
+              let otherComment = {
+                isChecked: othersChecked,
+                comments: othersComment.comments,
+              };
+              if (!othersChecked) {
+                otherComment.comments = null;
+              }
+              setOthersComment({ ...otherComment });
+              setSelRegulatoryExpertises([...datas]);
+            }}
+            renderOption={(option, { selected }) => (
+              <React.Fragment>
+                <ComboCheckboxStyle
+                  icon={icon}
+                  checkedIcon={checkedIcon}
+                  style={{ marginRight: 8 }}
+                  checked={selected}
+                />
+                {option.Title}
+              </React.Fragment>
+            )}
+            //   style={{ width: 500 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="In House Regulatory Regime Experience"
+                placeholder=""
+              />
+            )}
             disabled={readOnly}
           />
         </div>
-      )}
+
+        {/* <div style={{ display: "flex" }}> */}
+        <div>
+          <FormControlLabel
+            control={<CheckboxStyle name="" disableRipple />}
+            onChange={(e) => toggleOther(e)}
+            checked={showOther}
+            label="Others"
+            disabled={readOnly}
+          />
+
+          <div style={{ alignItems: "center" }}>
+            {others.length > 0
+              ? others.map((o, index) => {
+                  return (
+                    <>
+                      <br />
+                      <TextField
+                        required
+                        placeholder=""
+                        style={{ width: "20%" }}
+                        variant="outlined"
+                        size="small"
+                        label="Title"
+                        value={o}
+                        onChange={(e) => otherFieldHandler(e, index)}
+                        disabled={readOnly}
+                      />
+
+                      {others.length == index + 1 && (
+                        <AddCircleIcon
+                          style={{
+                            fontSize: 34,
+                            color: theme.palette.primary.main,
+                            margin: "0px 8px 0px 8px",
+                            cursor: "pointer",
+                          }}
+                          onClick={(e) => addOthers()}
+                        />
+                      )}
+
+                      {others.length > 1 && (
+                        <CancelIcon
+                          style={{
+                            cursor: "pointer",
+                            fontSize: 34,
+                            margin: "0 8px",
+                            color: theme.palette.error.main,
+                          }}
+                          onClick={(e) => removeOthers(index)}
+                        />
+                      )}
+                      <br />
+                    </>
+                  );
+                })
+              : ""}
+          </div>
+        </div>
+
+        {othersComment.isChecked && (
+          <div className={classes.companyDetails}>
+            <TextField
+              required
+              style={{ width: "40%", marginRight: 30 }}
+              id="outlined-basic"
+              label="Comments"
+              variant="outlined"
+              name="Comments"
+              value={othersComment.comments}
+              onChange={(e) => changeHandler(e)}
+              disabled={readOnly}
+            />
+          </div>
+        )}
+      </div>
 
       {!readOnly && (
         <div className={classes.bottomBtnSection}>

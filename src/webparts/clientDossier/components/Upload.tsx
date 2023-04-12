@@ -20,6 +20,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 import { CustomAlert } from "./CustomAlert";
 import { CustomDialog } from "./CustomDialog";
+import comStyle from "./CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 import {
   FormControl,
@@ -258,11 +259,8 @@ const Upload = forwardRef((props: IUpload, ref) => {
     });
   }
 
-
   function sortData(Data) {
-    Data.sort((a, b) =>
-      a.Title > b.Title ? 1 : b.Title > a.Title ? -1 : 0
-    );
+    Data.sort((a, b) => (a.Title > b.Title ? 1 : b.Title > a.Title ? -1 : 0));
     return Data;
   }
   // function loadRegulatoryExpertise() {
@@ -820,224 +818,225 @@ const Upload = forwardRef((props: IUpload, ref) => {
       ) : (
         ""
       )}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          variant="outlined"
-          size="small"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-      <div className={classes.uploadSection}>
-        <p className={classes.infoTitleSection}>
-          Please upload any of the following (pdf, xls, doc, ppt)
-        </p>
-        {/* <div className={classes.uploadSection}> */}
-        <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
-          {Object.keys(allFile).map((module) => {
-            return (
-              <div className={classes.upload} style={{ width: "25%" }}>
-                <p>{allFile[module].title}</p>
-                <div className={classes.uploadItem}>
-                  <label htmlFor={module}>
-                    <input
-                      style={{ display: "none" }}
-                      id={module}
-                      name={module}
-                      type="file"
-                      // multiple
-                      onChange={(e) => {
-                        handleFileChange(e, allFile[module].objectName);
-                      }}
-                      disabled={readOnly}
-                    />
-                    <Button
-                      color="secondary"
-                      variant="contained"
-                      component="span"
-                      disabled={readOnly}
-                    >
-                      Upload File
-                    </Button>
-                  </label>
-
-                  {allFile[module].data.map((file: any, index: number) => {
-                    return (
-                      <div className={classes.SelectedFiles}>
-                        <div>
-                          <span className={classes.File}>
-                            <span
-                              className="link"
-                              onClick={(e) => {
-                                openFile(file);
-                              }}
-                            >
-                              {file.Name ? file.Name : file.name}
-                            </span>
-
-                            {!readOnly && (
-                              <span
-                                className={classes.fileDelete}
-                                onClick={(e) =>
-                                  deleteConfirmation(
-                                    index,
-                                    allFile[module].objectName
-                                  )
-                                }
-                              >
-                                x
-                              </span>
-                            )}
-                          </span>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
+      <div className={comStyle.Container}>
+        <div className={`${classes.companyDetails} disableInput`}>
+          <TextField
+            style={{ width: "38%", marginRight: 32 }}
+            id="outlined-basic"
+            label="Company Name"
+            variant="outlined"
+            size="small"
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={classes.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
         </div>
-      </div>
+        <div className={classes.uploadSection}>
+          <p className={classes.infoTitleSection}>
+            Please upload any of the following (pdf, xls, doc, ppt)
+          </p>
+          {/* <div className={classes.uploadSection}> */}
+          <div style={{ display: "flex", width: "100%", flexWrap: "wrap" }}>
+            {Object.keys(allFile).map((module) => {
+              return (
+                <div className={classes.upload} style={{ width: "25%" }}>
+                  <p>{allFile[module].title}</p>
+                  <div className={classes.uploadItem}>
+                    <label htmlFor={module}>
+                      <input
+                        style={{ display: "none" }}
+                        id={module}
+                        name={module}
+                        type="file"
+                        // multiple
+                        onChange={(e) => {
+                          handleFileChange(e, allFile[module].objectName);
+                        }}
+                        disabled={readOnly}
+                      />
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        component="span"
+                        disabled={readOnly}
+                      >
+                        Upload File
+                      </Button>
+                    </label>
 
-      {/* Modal design */}
-      <Modal
-        open={successOpen}
-        // onClose={()=>[<
-        //   setOpen(false);
-        // ]}
-      >
-        <div className={classes.tablemodalContainer}>
-          <div></div>
-          <div className={classes.tablemodalSize}>
-            {/* header section */}
-            <div>
-              <div className={classes.header}>
-                <h3
-                  style={{
-                    margin: "0px 5px",
-                    width: "100%",
-                    textAlign: "center",
-                  }}
-                >
-                  Meta Data Mapping
-                </h3>
-                <IconButton>
-                  <CloseIcon
-                    onClick={() => {
-                      setSuccessOpen(false);
+                    {allFile[module].data.map((file: any, index: number) => {
+                      return (
+                        <div className={classes.SelectedFiles}>
+                          <div>
+                            <span className={classes.File}>
+                              <span
+                                className="link"
+                                onClick={(e) => {
+                                  openFile(file);
+                                }}
+                              >
+                                {file.Name ? file.Name : file.name}
+                              </span>
+
+                              {!readOnly && (
+                                <span
+                                  className={classes.fileDelete}
+                                  onClick={(e) =>
+                                    deleteConfirmation(
+                                      index,
+                                      allFile[module].objectName
+                                    )
+                                  }
+                                >
+                                  x
+                                </span>
+                              )}
+                            </span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Modal design */}
+        <Modal
+          open={successOpen}
+          // onClose={()=>[<
+          //   setOpen(false);
+          // ]}
+        >
+          <div className={classes.tablemodalContainer}>
+            <div></div>
+            <div className={classes.tablemodalSize}>
+              {/* header section */}
+              <div>
+                <div className={classes.header}>
+                  <h3
+                    style={{
+                      margin: "0px 5px",
+                      width: "100%",
+                      textAlign: "center",
                     }}
-                  />
-                </IconButton>
-              </div>
-            </div>
-
-            <div style={{ padding: 20 }}>
-              {/* Dropdown Section starts*/}
-              {/* Expertise Therapeutic */}
-              <div className={classes.section}>
-                <h3>Expertise Therapeutic</h3>
-                <div>
-                  <FormControl
-                    variant="outlined"
-                    size="small"
-                    style={{ width: "100%", margin: "10px 0 6px 0" }}
                   >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Expertise Therapeutic
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label="Expertise Therapeutic"
-                      name="ExpertiseTherapeutic"
-                      value={metadata["ExpertiseTherapeutic"]}
-                      onChange={(e) => selHandleChange(e)}
-                    >
-                      {masterData.expertiseTherapeutic.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
+                    Meta Data Mapping
+                  </h3>
+                  <IconButton>
+                    <CloseIcon
+                      onClick={() => {
+                        setSuccessOpen(false);
+                      }}
+                    />
+                  </IconButton>
                 </div>
               </div>
 
-              {/* Regulatory section */}
-              <div className={classes.section}>
-                <h3>Regulatory</h3>
-                <div>
-                  <FormControl
-                    size="small"
-                    variant="outlined"
-                    style={{ width: "100%", margin: "10px 0px 6px 0" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Regulatory
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label=" Regulatory"
-                      name="ExpertiseRegulatory"
-                      value={metadata["ExpertiseRegulatory"]}
-                      onChange={(e) => selHandleChange(e)}
+              <div style={{ padding: 20 }}>
+                {/* Dropdown Section starts*/}
+                {/* Expertise Therapeutic */}
+                <div className={classes.section}>
+                  <h3>Expertise Therapeutic</h3>
+                  <div>
+                    <FormControl
+                      variant="outlined"
+                      size="small"
+                      style={{ width: "100%", margin: "10px 0 6px 0" }}
                     >
-                      {masterData.expertiseRegulatory.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Expertise Therapeutic
+                      </InputLabel>
+                      <Select
+                        disabled={readOnly}
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        label="Expertise Therapeutic"
+                        name="ExpertiseTherapeutic"
+                        value={metadata["ExpertiseTherapeutic"]}
+                        onChange={(e) => selHandleChange(e)}
+                      >
+                        {masterData.expertiseTherapeutic.map((m) => {
+                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
-              </div>
 
-              {/* Platform section */}
-              <div className={classes.section}>
-                <h3>Platform</h3>
-                <div>
-                  <FormControl
-                    size="small"
-                    variant="outlined"
-                    style={{ width: "100%", margin: "10px 0px 6px 0" }}
-                  >
-                    <InputLabel id="demo-simple-select-outlined-label">
-                      Platform
-                    </InputLabel>
-                    <Select
-                      disabled={readOnly}
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      label="Category"
-                      name="ExpertisePlatform"
-                      value={metadata["ExpertisePlatform"]}
-                      onChange={(e) => selHandleChange(e)}
+                {/* Regulatory section */}
+                <div className={classes.section}>
+                  <h3>Regulatory</h3>
+                  <div>
+                    <FormControl
+                      size="small"
+                      variant="outlined"
+                      style={{ width: "100%", margin: "10px 0px 6px 0" }}
                     >
-                      {masterData.expertisePlatform.map((m) => {
-                        return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
-                      })}
-                    </Select>
-                  </FormControl>
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Regulatory
+                      </InputLabel>
+                      <Select
+                        disabled={readOnly}
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        label=" Regulatory"
+                        name="ExpertiseRegulatory"
+                        value={metadata["ExpertiseRegulatory"]}
+                        onChange={(e) => selHandleChange(e)}
+                      >
+                        {masterData.expertiseRegulatory.map((m) => {
+                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
-              </div>
 
-              {/* geography section */}
-              {/* <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
+                {/* Platform section */}
+                <div className={classes.section}>
+                  <h3>Platform</h3>
+                  <div>
+                    <FormControl
+                      size="small"
+                      variant="outlined"
+                      style={{ width: "100%", margin: "10px 0px 6px 0" }}
+                    >
+                      <InputLabel id="demo-simple-select-outlined-label">
+                        Platform
+                      </InputLabel>
+                      <Select
+                        disabled={readOnly}
+                        labelId="demo-controlled-open-select-label"
+                        id="demo-controlled-open-select"
+                        label="Category"
+                        name="ExpertisePlatform"
+                        value={metadata["ExpertisePlatform"]}
+                        onChange={(e) => selHandleChange(e)}
+                      >
+                        {masterData.expertisePlatform.map((m) => {
+                          return <MenuItem value={m.Title}>{m.Title}</MenuItem>;
+                        })}
+                      </Select>
+                    </FormControl>
+                  </div>
+                </div>
+
+                {/* geography section */}
+                {/* <h3 style={{ color: "#00589A", marginTop: 8, fontSize: 16 }}>
                 Geography
               </h3>
               <div
@@ -1105,26 +1104,27 @@ const Upload = forwardRef((props: IUpload, ref) => {
                 </div>
               </div> */}
 
-              {/* Dropdown section ends */}
+                {/* Dropdown section ends */}
 
-              <div className={classes.footerSection}>
-                <Button
-                  variant="contained"
-                  style={{
-                    backgroundColor: "rgb(253, 204, 67)",
-                    color: "rgb(0,88,154) ",
-                    fontWeight: 700,
-                  }}
-                  size="large"
-                  onClick={(e) => submitMetadata()}
-                >
-                  Submit
-                </Button>
+                <div className={classes.footerSection}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      backgroundColor: "rgb(253, 204, 67)",
+                      color: "rgb(0,88,154) ",
+                      fontWeight: 700,
+                    }}
+                    size="large"
+                    onClick={(e) => submitMetadata()}
+                  >
+                    Submit
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      </div>
 
       {!readOnly && (
         <div className={classes.bottomBtnSection}>

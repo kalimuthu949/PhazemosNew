@@ -16,7 +16,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Button } from "@material-ui/core";
 import classes from "./ProjectWork.module.scss";
-
+import comStyle from "./CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 import CancelIcon from "@material-ui/icons/Cancel";
 
@@ -454,98 +454,100 @@ const ProjectWork = forwardRef((props: IProjectWork, ref) => {
       ) : (
         ""
       )}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          size="small"
-          variant="outlined"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-      <h4 className={classes.headerTitle}>
-        List and describe up to five (5) Key Company Differentiators (things
-        that your team does often and well)
-      </h4>
-      {keyCompanies.map((company: any, index: number) => {
-        return (
-          <div className={classes.CategorySection}>
-            <div>
-              <FormControl
-                variant="outlined"
-                style={{ width: "30%", margin: "8px 8px 8px 0" }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Category
-                </InputLabel>
-                <Select
-                  disabled={readOnly}
-                  labelId="demo-controlled-open-select-label"
-                  id="demo-controlled-open-select"
-                  label="Category"
-                  value={company.CategoryIDId}
-                  onChange={(e) => selHandleChange(e, index)}
+      <div className={comStyle.Container}>
+        <div className={`${classes.companyDetails} disableInput`}>
+          <TextField
+            style={{ width: "38%", marginRight: 32 }}
+            id="outlined-basic"
+            label="Company Name"
+            size="small"
+            variant="outlined"
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={classes.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
+        </div>
+        <h4 className={classes.headerTitle}>
+          List and describe up to five (5) Key Company Differentiators (things
+          that your team does often and well)
+        </h4>
+        {keyCompanies.map((company: any, index: number) => {
+          return (
+            <div className={classes.CategorySection}>
+              <div>
+                <FormControl
+                  variant="outlined"
+                  style={{ width: "30%", margin: "8px 8px 8px 0" }}
                 >
-                  {allCategories.map((m) => {
-                    return <MenuItem value={m.ID}>{m.Title}</MenuItem>;
-                  })}
-                </Select>
-              </FormControl>
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    Category
+                  </InputLabel>
+                  <Select
+                    disabled={readOnly}
+                    labelId="demo-controlled-open-select-label"
+                    id="demo-controlled-open-select"
+                    label="Category"
+                    value={company.CategoryIDId}
+                    onChange={(e) => selHandleChange(e, index)}
+                  >
+                    {allCategories.map((m) => {
+                      return <MenuItem value={m.ID}>{m.Title}</MenuItem>;
+                    })}
+                  </Select>
+                </FormControl>
+              </div>
+
+              <TextField
+                required
+                id="outlined-basic"
+                size="small"
+                label="Description"
+                variant="outlined"
+                multiline
+                className={classes.multiText}
+                value={company.Description}
+                name="Description"
+                onChange={(e) => inputChangeHandler(e, index)}
+                disabled={readOnly}
+              />
+              {keyCompanies.length == index + 1 && !readOnly && (
+                <AddCircleIcon
+                  onClick={(e) => addKeyCompanies()}
+                  style={{
+                    fontSize: 34,
+                    color: theme.palette.primary.main,
+                    marginLeft: 8,
+                    cursor: "pointer",
+                  }}
+                />
+              )}
+
+              {keyCompanies.length > 1 && !readOnly && (
+                <CancelIcon
+                  style={{
+                    cursor: "pointer",
+                    fontSize: 34,
+                    margin: "0px 8px",
+                    color: theme.palette.error.main,
+                  }}
+                  onClick={(e) => removeKeyCompanies(index)}
+                />
+              )}
             </div>
-
-            <TextField
-              required
-              id="outlined-basic"
-              size="small"
-              label="Description"
-              variant="outlined"
-              multiline
-              className={classes.multiText}
-              value={company.Description}
-              name="Description"
-              onChange={(e) => inputChangeHandler(e, index)}
-              disabled={readOnly}
-            />
-            {keyCompanies.length == index + 1 && !readOnly && (
-              <AddCircleIcon
-                onClick={(e) => addKeyCompanies()}
-                style={{
-                  fontSize: 34,
-                  color: theme.palette.primary.main,
-                  marginLeft: 8,
-                  cursor: "pointer",
-                }}
-              />
-            )}
-
-            {keyCompanies.length > 1 && !readOnly && (
-              <CancelIcon
-                style={{
-                  cursor: "pointer",
-                  fontSize: 34,
-                  margin: "0px 8px",
-                  color: theme.palette.error.main,
-                }}
-                onClick={(e) => removeKeyCompanies(index)}
-              />
-            )}
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
       {!readOnly && (
         <div className={classes.bottomBtnSection}>
           <Button

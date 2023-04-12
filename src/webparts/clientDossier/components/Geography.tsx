@@ -22,7 +22,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-
+import comStyle from "./CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 import CancelIcon from "@material-ui/icons/Cancel";
 
@@ -440,67 +440,72 @@ const Geography = forwardRef((props: IGeography, ref) => {
       ) : (
         ""
       )}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          size="small"
-          variant="outlined"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-      <div>
-        <h4 className={classes.headerTitle}>
-          Number and Type of Resource by Geography
-        </h4>
+      <div className={comStyle.Container}>
+        <div className={`${classes.companyDetails} disableInput`}>
+          <TextField
+            style={{ width: "38%", marginRight: 32 }}
+            id="outlined-basic"
+            label="Company Name"
+            size="small"
+            variant="outlined"
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={classes.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
+        </div>
+        <div>
+          <h4 className={classes.headerTitle}>
+            Number and Type of Resource by Geography
+          </h4>
 
-        {geographyDetails.map((details: any, index: number) => {
-          return (
-            <div className={classes.NumberTypeSection}>
-              <div
-                style={{ display: "flex", alignItems: "center", width: "100%" }}
-              >
-                <div style={{ width: "92%" }}>
-                  <div style={{ width: "100%" }}>
-                    <TextField
-                      required
-                      className={classes.NTITitle}
-                      id="outlined-basic"
-                      label="Employee Title"
-                      size="small"
-                      variant="outlined"
-                      name="Title"
-                      value={details.Title}
-                      onChange={(e) => inputChangeHandler(e, index)}
-                      disabled={readOnly}
-                    />
-                    <TextField
-                      required
-                      className={classes.NTICountry}
-                      id="outlined-basic"
-                      label="Country of Residence"
-                      size="small"
-                      variant="outlined"
-                      name="CountryofResidence"
-                      value={details.CountryofResidence}
-                      onChange={(e) => inputChangeHandler(e, index)}
-                      disabled={readOnly}
-                    />
-                    {/* <TextField
+          {geographyDetails.map((details: any, index: number) => {
+            return (
+              <div className={classes.NumberTypeSection}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                  }}
+                >
+                  <div style={{ width: "92%" }}>
+                    <div style={{ width: "100%" }}>
+                      <TextField
+                        required
+                        className={classes.NTITitle}
+                        id="outlined-basic"
+                        label="Employee Title"
+                        size="small"
+                        variant="outlined"
+                        name="Title"
+                        value={details.Title}
+                        onChange={(e) => inputChangeHandler(e, index)}
+                        disabled={readOnly}
+                      />
+                      <TextField
+                        required
+                        className={classes.NTICountry}
+                        id="outlined-basic"
+                        label="Country of Residence"
+                        size="small"
+                        variant="outlined"
+                        name="CountryofResidence"
+                        value={details.CountryofResidence}
+                        onChange={(e) => inputChangeHandler(e, index)}
+                        disabled={readOnly}
+                      />
+                      {/* <TextField
                         required
                         className={classes.NTINum}
                         id="outlined-basic"
@@ -514,7 +519,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
                         style={{ display: "none" }}
                       /> */}
 
-                    {/* <Autocomplete
+                      {/* <Autocomplete
                 multiple
                 disableCloseOnSelect
                 id="free-solo-with-text-demo"
@@ -551,76 +556,77 @@ const Geography = forwardRef((props: IGeography, ref) => {
                 )}
               /> */}
 
-                    <TextField
-                      required
-                      className={classes.NTIWork}
-                      id="outlined-basic"
-                      label="Countries Worked"
-                      variant="outlined"
+                      <TextField
+                        required
+                        className={classes.NTIWork}
+                        id="outlined-basic"
+                        label="Countries Worked"
+                        variant="outlined"
+                        size="small"
+                        name="CountriesWorked"
+                        value={details.CountriesWorked}
+                        onChange={(e) => inputChangeHandler(e, index)}
+                        disabled={readOnly}
+                      />
+                    </div>
+
+                    <Autocomplete
+                      multiple
+                      disableCloseOnSelect
+                      id="free-solo-with-text-demo"
                       size="small"
-                      name="CountriesWorked"
-                      value={details.CountriesWorked}
-                      onChange={(e) => inputChangeHandler(e, index)}
-                      disabled={readOnly}
+                      options={therapeuticArea}
+                      style={{ width: "calc(100% - 20px)", marginLeft: 10 }}
+                      freeSolo
+                      value={details.TherapaticExperienceId}
+                      getOptionLabel={(option) => option.therapeuticAreaTitle}
+                      onChange={(event: any, newValue: any[]) => {
+                        props.changefunction(true);
+                        let tmpGeographyDetails = geographyDetails;
+                        tmpGeographyDetails[index].TherapaticExperienceId =
+                          newValue;
+                        setGeographyDetails([...tmpGeographyDetails]);
+                      }}
+                      renderOption={(option, { selected }) => (
+                        <React.Fragment>
+                          <CheckboxStyle
+                            icon={icon}
+                            checkedIcon={checkedIcon}
+                            style={{ marginRight: 8 }}
+                            checked={selected}
+                            color="primary"
+                          />
+                          {option.therapeuticAreaTitle}
+                        </React.Fragment>
+                      )}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Therapeutic Area Experience"
+                          variant="outlined"
+                        />
+                      )}
                     />
                   </div>
 
-                  <Autocomplete
-                    multiple
-                    disableCloseOnSelect
-                    id="free-solo-with-text-demo"
-                    size="small"
-                    options={therapeuticArea}
-                    style={{ width: "calc(100% - 20px)", marginLeft: 10 }}
-                    freeSolo
-                    value={details.TherapaticExperienceId}
-                    getOptionLabel={(option) => option.therapeuticAreaTitle}
-                    onChange={(event: any, newValue: any[]) => {
-                      props.changefunction(true);
-                      let tmpGeographyDetails = geographyDetails;
-                      tmpGeographyDetails[index].TherapaticExperienceId =
-                        newValue;
-                      setGeographyDetails([...tmpGeographyDetails]);
-                    }}
-                    renderOption={(option, { selected }) => (
-                      <React.Fragment>
-                        <CheckboxStyle
-                          icon={icon}
-                          checkedIcon={checkedIcon}
-                          style={{ marginRight: 8 }}
-                          checked={selected}
-                          color="primary"
-                        />
-                        {option.therapeuticAreaTitle}
-                      </React.Fragment>
-                    )}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        label="Therapeutic Area Experience"
-                        variant="outlined"
-                      />
-                    )}
-                  />
+                  {geographyDetails.length == index + 1 && !readOnly && (
+                    <AddCircleIcon
+                      onClick={(e) => addGeographyDetails()}
+                      className={classes.addBtn}
+                    />
+                  )}
+
+                  {geographyDetails.length > 1 && !readOnly && (
+                    <CancelIcon
+                      className={classes.cancelBtn}
+                      onClick={(e) => removeGeographyDetails(index)}
+                    />
+                  )}
                 </div>
-
-                {geographyDetails.length == index + 1 && !readOnly && (
-                  <AddCircleIcon
-                    onClick={(e) => addGeographyDetails()}
-                    className={classes.addBtn}
-                  />
-                )}
-
-                {geographyDetails.length > 1 && !readOnly && (
-                  <CancelIcon
-                    className={classes.cancelBtn}
-                    onClick={(e) => removeGeographyDetails(index)}
-                  />
-                )}
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       {!readOnly && (

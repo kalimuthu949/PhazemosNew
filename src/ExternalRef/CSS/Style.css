@@ -14,24 +14,37 @@
     max-width: 100% !important;
 }
 
+
 /* disable field style */
-.disableInput fieldset{
+
+.disableInput fieldset {
     border-color: rgba(0, 0, 0, 0.23) !important;
 }
-.disableInput input{
+
+.disableInput input {
     color: rgba(0, 0, 0, 0.87) !important;
 }
-.disableInput fieldset:hover{
+
+.disableInput fieldset:hover {
     border-color: rgba(0, 0, 0, 0.23) !important;
 }
+
 .Mui-disabled {
     color: rgba(0, 0, 0, 0.87) !important;
 }
 
-.Mui-disabled .MuiChip{
+.Mui-disabled .MuiChip {
     color: rgba(0, 0, 0, 0.87) !important;
 }
 
-.link{
+.link {
     cursor: pointer;
+}
+
+.CanvasComponent.LCS .CanvasSection--read:not(.CanvasSection--fullWidth) .ControlZone {
+    margin: 0 !important;
+}
+
+.CanvasComponent.LCS .CanvasSection--read:not(.CanvasSection--fullWidth) .ControlZone:last-of-type {
+    margin: 0 !important;
 }

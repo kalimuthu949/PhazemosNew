@@ -18,6 +18,7 @@ import {
   ThemeProvider,
   withStyles,
 } from "@material-ui/core/styles";
+import comStyle from "./CommonStyle.module.scss";
 
 import CommonService from "../services/CommonService";
 
@@ -536,160 +537,162 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
         ) : (
           ""
         )}
-        <div className={`${classes.companyDetails} disableInput`}>
-          <TextField
-            style={{ width: "38%", marginRight: 32 }}
-            id="outlined-basic"
-            label="Company Name"
-            variant="outlined"
-            aria-readonly={true}
-            size="small"
-            name="CompanyName"
-            value={props.CompanyName}
-            disabled
-          />
-          <TextField
-            id="outlined-basic"
-            label="ID"
-            size="small"
-            variant="outlined"
-            className={classes.idTextField}
-            style={{ width: "8%" }}
-            aria-readonly={true}
-            value={props.CompanyCode}
-            disabled
-          />
-        </div>
-        <div className={classes.CompanyContactInfo}>
-          <TextField
-            required
-            className={classes.CompanyContact}
-            id="outlined-basic"
-            size="small"
-            label="RFP Contact"
-            variant="outlined"
-            name="RFPContact"
-            value={companyProfile.RFPContact}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-          <TextField
-            className={classes.CompanyContact}
-            id="outlined-basic"
-            size="small"
-            label="Email"
-            variant="outlined"
-            name="RFPContactEmail"
-            value={companyProfile.RFPContactEmail}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-          <TextField
-            required
-            className={classes.CompanyContact}
-            id="outlined-basic"
-            size="small"
-            label="Invoicing Contact"
-            name="InvoicingContact"
-            value={companyProfile.InvoicingContact}
-            onChange={(e) => inputChangeHandler(e)}
-            variant="outlined"
-            disabled={readOnly}
-          />
-          <TextField
-            className={classes.companyEmailTF}
-            size="small"
-            id="outlined-basic"
-            label="Email"
-            // style={{ margin: "16px 16px 16px 16px" }}
-            variant="outlined"
-            name="InvoicingContactEmail"
-            value={companyProfile.InvoicingContactEmail}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-        </div>
-        <h4 className={classes.headerTitle}>Digital Media Links</h4>
-        <div className={classes.CompanyContactInfo}>
-          <TextField
-            className={classes.CompanyContact}
-            size="small"
-            id="outlined-basic"
-            label="Website URL"
-            variant="outlined"
-            name="WebsiteURL"
-            value={companyProfile.WebsiteURL}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-          <TextField
-            className={classes.CompanyContact}
-            id="outlined-basic"
-            size="small"
-            label="LinkedIN"
-            variant="outlined"
-            name="LinkedIn"
-            value={companyProfile.LinkedIn}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-          <TextField
-            className={classes.CompanyContact}
-            size="small"
-            id="outlined-basic"
-            label="Facebook"
-            variant="outlined"
-            name="Facebook"
-            value={companyProfile.Facebook}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-          <TextField
-            className={classes.companyEmailTF}
-            id="outlined-basic"
-            label="Twitter"
-            size="small"
-            variant="outlined"
-            name="Twitter"
-            value={companyProfile.Twitter}
-            onChange={(e) => inputChangeHandler(e)}
-            disabled={readOnly}
-          />
-        </div>
-        <h4 className={classes.headerTitle}>Primary Services Offered</h4>
-        <div className={classes.PrimaryServices}>
-          <div className={classes.CheckboxSection}>
-            {primaryServices.map((service: any, index: number) => {
-              return (
-                <div className={classes.Checkbox}>
-                  <p>{service.serviceName}</p>
-                  <FormControlLabel
-                    control={
-                      <CheckboxStyle
-                        checked={service.Home}
-                        onChange={(e) => checkboxChangeHandler(index, e)}
-                        name="Home"
-                        color="primary"
-                        disabled={readOnly}
-                      />
-                    }
-                    label="In-House"
-                  />
-                  <FormControlLabel
-                    control={
-                      <CheckboxStyle
-                        checked={service.Sub}
-                        onChange={(e) => checkboxChangeHandler(index, e)}
-                        name="Sub"
-                        color="primary"
-                        disabled={readOnly}
-                      />
-                    }
-                    label="Sub"
-                  />
-                </div>
-              );
-            })}
+        <div className={comStyle.Container}>
+          <div className={`${classes.companyDetails} disableInput`}>
+            <TextField
+              style={{ width: "38%", marginRight: 32 }}
+              id="outlined-basic"
+              label="Company Name"
+              variant="outlined"
+              aria-readonly={true}
+              size="small"
+              name="CompanyName"
+              value={props.CompanyName}
+              disabled
+            />
+            <TextField
+              id="outlined-basic"
+              label="ID"
+              size="small"
+              variant="outlined"
+              className={classes.idTextField}
+              style={{ width: "8%" }}
+              aria-readonly={true}
+              value={props.CompanyCode}
+              disabled
+            />
+          </div>
+          <div className={classes.CompanyContactInfo}>
+            <TextField
+              required
+              className={classes.CompanyContact}
+              id="outlined-basic"
+              size="small"
+              label="RFP Contact"
+              variant="outlined"
+              name="RFPContact"
+              value={companyProfile.RFPContact}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+            <TextField
+              className={classes.CompanyContact}
+              id="outlined-basic"
+              size="small"
+              label="Email"
+              variant="outlined"
+              name="RFPContactEmail"
+              value={companyProfile.RFPContactEmail}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+            <TextField
+              required
+              className={classes.CompanyContact}
+              id="outlined-basic"
+              size="small"
+              label="Invoicing Contact"
+              name="InvoicingContact"
+              value={companyProfile.InvoicingContact}
+              onChange={(e) => inputChangeHandler(e)}
+              variant="outlined"
+              disabled={readOnly}
+            />
+            <TextField
+              className={classes.companyEmailTF}
+              size="small"
+              id="outlined-basic"
+              label="Email"
+              // style={{ margin: "16px 16px 16px 16px" }}
+              variant="outlined"
+              name="InvoicingContactEmail"
+              value={companyProfile.InvoicingContactEmail}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+          </div>
+          <h4 className={classes.headerTitle}>Digital Media Links</h4>
+          <div className={classes.CompanyContactInfo}>
+            <TextField
+              className={classes.CompanyContact}
+              size="small"
+              id="outlined-basic"
+              label="Website URL"
+              variant="outlined"
+              name="WebsiteURL"
+              value={companyProfile.WebsiteURL}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+            <TextField
+              className={classes.CompanyContact}
+              id="outlined-basic"
+              size="small"
+              label="LinkedIN"
+              variant="outlined"
+              name="LinkedIn"
+              value={companyProfile.LinkedIn}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+            <TextField
+              className={classes.CompanyContact}
+              size="small"
+              id="outlined-basic"
+              label="Facebook"
+              variant="outlined"
+              name="Facebook"
+              value={companyProfile.Facebook}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+            <TextField
+              className={classes.companyEmailTF}
+              id="outlined-basic"
+              label="Twitter"
+              size="small"
+              variant="outlined"
+              name="Twitter"
+              value={companyProfile.Twitter}
+              onChange={(e) => inputChangeHandler(e)}
+              disabled={readOnly}
+            />
+          </div>
+          <h4 className={classes.headerTitle}>Primary Services Offered</h4>
+          <div className={classes.PrimaryServices}>
+            <div className={classes.CheckboxSection}>
+              {primaryServices.map((service: any, index: number) => {
+                return (
+                  <div className={classes.Checkbox}>
+                    <p>{service.serviceName}</p>
+                    <FormControlLabel
+                      control={
+                        <CheckboxStyle
+                          checked={service.Home}
+                          onChange={(e) => checkboxChangeHandler(index, e)}
+                          name="Home"
+                          color="primary"
+                          disabled={readOnly}
+                        />
+                      }
+                      label="In-House"
+                    />
+                    <FormControlLabel
+                      control={
+                        <CheckboxStyle
+                          checked={service.Sub}
+                          onChange={(e) => checkboxChangeHandler(index, e)}
+                          name="Sub"
+                          color="primary"
+                          disabled={readOnly}
+                        />
+                      }
+                      label="Sub"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
         {!readOnly && (

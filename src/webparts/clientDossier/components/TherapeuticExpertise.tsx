@@ -24,7 +24,7 @@ import {
   withStyles,
 } from "@material-ui/core/styles";
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-
+import comStyle from "./CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 
 import { CustomAlert } from "./CustomAlert";
@@ -674,162 +674,164 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
       ) : (
         ""
       )}
-      <div className={`${classes.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          size="small"
-          variant="outlined"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={classes.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-      <div className={classes.AreaExperience}>
-        <p>Therapeutic Area Experience (check "x" all that apply)</p>
-
-        <div className={classes.CheckboxSection}>
-          {therapeuticArea.map((service: any, index: number) => {
-            return (
-              <div className={classes.Checkbox}>
-                <FormControlLabel
-                  control={
-                    <CheckboxStyle
-                      checked={service.IsChecked}
-                      onChange={(e) => therapeuticAreaChangeHandler(index, e)}
-                      name="IsChecked"
-                      disabled={readOnly}
-                    />
-                  }
-                  label={service.serviceName}
-                />
-              </div>
-            );
-          })}
+      <div className={comStyle.Container}>
+        <div className={`${classes.companyDetails} disableInput`}>
+          <TextField
+            style={{ width: "38%", marginRight: 32 }}
+            id="outlined-basic"
+            label="Company Name"
+            size="small"
+            variant="outlined"
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={classes.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
         </div>
-      </div>
-      <div className={classes.AreaDisease}>
-        <p>Indication Experience</p>
-        <Autocomplete
-          multiple
-          style={{ width: "60%" }}
-          freeSolo
-          id="checkboxes-tags-demo"
-          size="small"
-          options={diseaseArea}
-          disableCloseOnSelect
-          getOptionLabel={(option) => option.serviceName}
-          value={selDiseaseArea}
-          onChange={(event: any, newValue: any[]) => {
-            props.changefunction(true);
-            var datas = [];
-            newValue.map((d) => {
-              if (!d.DiseaseAreaExperienceIDId) {
-                var newDisease = {
-                  DiseaseAreaExperienceIDId: 0,
-                  ID: 0,
-                  IsChecked: true,
-                  TherapeuticExpertiseIDId: 0,
-                  serviceName: d,
-                };
-                datas.push(newDisease);
-              } else {
-                d.IsChecked = true;
-                datas.push(d);
-              }
-            });
-            setSelDiseaseArea([...datas]);
-          }}
-          renderOption={(option, { selected }) => (
-            <React.Fragment>
-              <ComboCheckboxStyle
-                icon={icon}
-                checkedIcon={checkedIcon}
-                style={{ marginRight: 8 }}
-                checked={selected}
+        <div className={classes.AreaExperience}>
+          <p>Therapeutic Area Experience (check "x" all that apply)</p>
+
+          <div className={classes.CheckboxSection}>
+            {therapeuticArea.map((service: any, index: number) => {
+              return (
+                <div className={classes.Checkbox}>
+                  <FormControlLabel
+                    control={
+                      <CheckboxStyle
+                        checked={service.IsChecked}
+                        onChange={(e) => therapeuticAreaChangeHandler(index, e)}
+                        name="IsChecked"
+                        disabled={readOnly}
+                      />
+                    }
+                    label={service.serviceName}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className={classes.AreaDisease}>
+          <p>Indication Experience</p>
+          <Autocomplete
+            multiple
+            style={{ width: "60%" }}
+            freeSolo
+            id="checkboxes-tags-demo"
+            size="small"
+            options={diseaseArea}
+            disableCloseOnSelect
+            getOptionLabel={(option) => option.serviceName}
+            value={selDiseaseArea}
+            onChange={(event: any, newValue: any[]) => {
+              props.changefunction(true);
+              var datas = [];
+              newValue.map((d) => {
+                if (!d.DiseaseAreaExperienceIDId) {
+                  var newDisease = {
+                    DiseaseAreaExperienceIDId: 0,
+                    ID: 0,
+                    IsChecked: true,
+                    TherapeuticExpertiseIDId: 0,
+                    serviceName: d,
+                  };
+                  datas.push(newDisease);
+                } else {
+                  d.IsChecked = true;
+                  datas.push(d);
+                }
+              });
+              setSelDiseaseArea([...datas]);
+            }}
+            renderOption={(option, { selected }) => (
+              <React.Fragment>
+                <ComboCheckboxStyle
+                  icon={icon}
+                  checkedIcon={checkedIcon}
+                  style={{ marginRight: 8 }}
+                  checked={selected}
+                />
+                {option.serviceName}
+              </React.Fragment>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                label="Disease Area Experience"
               />
-              {option.serviceName}
-            </React.Fragment>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="outlined"
-              label="Disease Area Experience"
-            />
-          )}
-          disabled={readOnly}
-        />
-      </div>
+            )}
+            disabled={readOnly}
+          />
+        </div>
 
-      {/* Other CheckBox */}
-      <div style={{ marginTop: 20 }}>
-        <FormControlLabel
-          control={<CheckboxStyle name="" disableRipple color="primary" />}
-          onChange={(e) => toggleOther(e)}
-          checked={showOther}
-          label="Others"
-          disabled={readOnly}
-        />
+        {/* Other CheckBox */}
+        <div style={{ marginTop: 20 }}>
+          <FormControlLabel
+            control={<CheckboxStyle name="" disableRipple color="primary" />}
+            onChange={(e) => toggleOther(e)}
+            checked={showOther}
+            label="Others"
+            disabled={readOnly}
+          />
 
-        <div style={{ alignItems: "center" }}>
-          {others.length > 0
-            ? others.map((o, index) => {
-                return (
-                  <>
-                    <br />
-                    <TextField
-                      required
-                      placeholder=""
-                      style={{ width: "20%" }}
-                      variant="outlined"
-                      size="small"
-                      label="Title"
-                      value={o}
-                      onChange={(e) => otherFieldHandler(e, index)}
-                      disabled={readOnly}
-                    />
-
-                    {others.length == index + 1 && (
-                      <AddCircleIcon
-                        style={{
-                          fontSize: 34,
-                          color: theme.palette.primary.main,
-                          margin: "0px 8px 0px 8px",
-                          cursor: "pointer",
-                        }}
-                        onClick={(e) => addOthers()}
+          <div style={{ alignItems: "center" }}>
+            {others.length > 0
+              ? others.map((o, index) => {
+                  return (
+                    <>
+                      <br />
+                      <TextField
+                        required
+                        placeholder=""
+                        style={{ width: "20%" }}
+                        variant="outlined"
+                        size="small"
+                        label="Title"
+                        value={o}
+                        onChange={(e) => otherFieldHandler(e, index)}
+                        disabled={readOnly}
                       />
-                    )}
 
-                    {others.length > 1 && (
-                      <CancelIcon
-                        style={{
-                          cursor: "pointer",
-                          fontSize: 34,
-                          margin: "0 8px",
-                          color: theme.palette.error.main,
-                        }}
-                        onClick={(e) => removeOthers(index)}
-                      />
-                    )}
-                    <br />
-                  </>
-                );
-              })
-            : ""}
+                      {others.length == index + 1 && (
+                        <AddCircleIcon
+                          style={{
+                            fontSize: 34,
+                            color: theme.palette.primary.main,
+                            margin: "0px 8px 0px 8px",
+                            cursor: "pointer",
+                          }}
+                          onClick={(e) => addOthers()}
+                        />
+                      )}
+
+                      {others.length > 1 && (
+                        <CancelIcon
+                          style={{
+                            cursor: "pointer",
+                            fontSize: 34,
+                            margin: "0 8px",
+                            color: theme.palette.error.main,
+                          }}
+                          onClick={(e) => removeOthers(index)}
+                        />
+                      )}
+                      <br />
+                    </>
+                  );
+                })
+              : ""}
+          </div>
         </div>
       </div>
 

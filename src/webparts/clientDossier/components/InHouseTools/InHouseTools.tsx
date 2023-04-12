@@ -413,8 +413,8 @@ const InHouseTools = forwardRef((props: IProps, ref) => {
           disabled
         />
       </div>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+      <TableContainer component={Paper} style={{ maxHeight: 384 }}>
+        <Table aria-label="simple table" stickyHeader>
           <TableHead>
             {/* <TableRow>
               <StyledTableCell colSpan={11} className={styles.SectionHeader}>
