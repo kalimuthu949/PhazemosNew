@@ -98,8 +98,8 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
   }, [props.render]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="customized table">
+    <TableContainer component={Paper} style={{ maxHeight: 540 }}>
+      <Table aria-label="customized table" stickyHeader>
         <TableHead>
           <TableRow>
             <StyledTableCell>Company Name</StyledTableCell>

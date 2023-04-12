@@ -129,6 +129,18 @@ const CheckboxStyle = withStyles({
   checked: {},
 })(Checkbox);
 
+// fixed column
+// const useStyles = makeStyles({
+//   // table: {
+//   //   minWidth: 650
+//   // },
+//   sticky: {
+//     position: "sticky",
+//     left: 0,
+//   },
+// });
+// const classes = useStyles();
+
 let isUpdated: boolean = false;
 
 // export const PMExperience = (props: IProps): JSX.Element => {
@@ -943,8 +955,8 @@ const PMExperience = forwardRef((props: IProps, ref) => {
           </div>
         ) : (
           <>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
+            <TableContainer component={Paper} style={{ maxHeight: 384 }}>
+              <Table aria-label="simple table" stickyHeader>
                 <TableHead>
                   <TableRow>
                     <StyledTableCell></StyledTableCell>
@@ -1009,7 +1021,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                   {data.cnsPlatform.map((row: IRowData, index: number) => {
                     return (
                       <TableRow>
-                        <StyledTableCell style={{ textAlign: "left" }}>
+                        <StyledTableCell
+                          style={{
+                            textAlign: "left",
+                            position: "sticky",
+                            left: "0",
+                            zIndex: 10,
+                            background: "#fff",
+                          }}
+                        >
                           {row.heading}
                         </StyledTableCell>
                         {tableHeadings.map((heading: IHeading) => {
@@ -1040,7 +1060,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                   {data.cnsDiseaseType.map((row: IRowData, index: number) => {
                     return (
                       <TableRow>
-                        <StyledTableCell style={{ textAlign: "left" }}>
+                        <StyledTableCell
+                          style={{
+                            textAlign: "left",
+                            position: "sticky",
+                            left: "0",
+                            zIndex: 10,
+                            background: "#fff",
+                          }}
+                        >
                           {row.heading}
                         </StyledTableCell>
                         {tableHeadings.map((heading: IHeading) => {
@@ -1080,7 +1108,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                     (row: IRowData, index: number) => {
                       return (
                         <TableRow>
-                          <StyledTableCell style={{ textAlign: "left" }}>
+                          <StyledTableCell
+                            style={{
+                              textAlign: "left",
+                              position: "sticky",
+                              left: "0",
+                              zIndex: 10,
+                              background: "#fff",
+                            }}
+                          >
                             {row.heading}
                           </StyledTableCell>
                           {tableHeadings.map((heading: IHeading) => {
@@ -1113,7 +1149,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                     (row: IRowData, index: number) => {
                       return (
                         <TableRow>
-                          <StyledTableCell style={{ textAlign: "left" }}>
+                          <StyledTableCell
+                            style={{
+                              textAlign: "left",
+                              position: "sticky",
+                              left: "0",
+                              zIndex: 10,
+                              background: "#fff",
+                            }}
+                          >
                             {row.heading}
                           </StyledTableCell>
                           {tableHeadings.map((heading: IHeading) => {
@@ -1154,7 +1198,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                     (row: IRowData, index: number) => {
                       return (
                         <TableRow>
-                          <StyledTableCell style={{ textAlign: "left" }}>
+                          <StyledTableCell
+                            style={{
+                              textAlign: "left",
+                              position: "sticky",
+                              left: "0",
+                              zIndex: 10,
+                              background: "#fff",
+                            }}
+                          >
                             {row.heading}
                           </StyledTableCell>
                           {tableHeadings.map((heading: IHeading) => {
@@ -1186,7 +1238,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                   {data.rareDiseaseType.map((row: IRowData, index: number) => {
                     return (
                       <TableRow>
-                        <StyledTableCell style={{ textAlign: "left" }}>
+                        <StyledTableCell
+                          style={{
+                            textAlign: "left",
+                            position: "sticky",
+                            left: "0",
+                            zIndex: 10,
+                            background: "#fff",
+                          }}
+                        >
                           {row.heading}
                         </StyledTableCell>
                         {tableHeadings.map((heading: IHeading) => {
@@ -1225,7 +1285,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                   {data.oncologyPlatform.map((row: IRowData, index: number) => {
                     return (
                       <TableRow>
-                        <StyledTableCell style={{ textAlign: "left" }}>
+                        <StyledTableCell
+                          style={{
+                            textAlign: "left",
+                            position: "sticky",
+                            left: "0",
+                            zIndex: 10,
+                            background: "#fff",
+                          }}
+                        >
                           {row.heading}
                         </StyledTableCell>
                         {tableHeadings.map((heading: IHeading) => {

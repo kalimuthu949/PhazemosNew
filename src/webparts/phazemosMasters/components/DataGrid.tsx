@@ -228,13 +228,17 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table">
+      <TableContainer component={Paper} style={{ maxHeight: 520 }}>
+        <Table aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>
               <StyledTableCell>Title</StyledTableCell>
-              <StyledTableCell style={{textAlign:'left'}}>Status</StyledTableCell>
-              <StyledTableCell  style={{textAlign:'left'}}>Created By</StyledTableCell>
+              <StyledTableCell style={{ textAlign: "left" }}>
+                Status
+              </StyledTableCell>
+              <StyledTableCell style={{ textAlign: "left" }}>
+                Created By
+              </StyledTableCell>
               <StyledTableCell>Created On</StyledTableCell>
               <StyledTableCell>Action</StyledTableCell>
             </TableRow>
