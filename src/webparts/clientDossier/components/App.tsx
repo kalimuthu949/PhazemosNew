@@ -170,44 +170,44 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             tab["therapeuticExpertise"] = index;
             index++;
           }
-          if (data.regulatoryExpertise) {
-            tab["regulatoryExpertise"] = index;
-            index++;
-          }
           if (data.expertisePlatform) {
             tab["expertisePlatform"] = index;
+            index++;
+          }
+          if (data.regulatoryExpertise) {
+            tab["regulatoryExpertise"] = index;
             index++;
           }
           if (data.geography) {
             tab["geography"] = index;
             index++;
           }
+          if (data.SiteNetwork) {
+            tab["SiteNetwork"] = index;
+            index++;
+          }
           if (data.projectWork) {
             tab["projectWork"] = index;
-            index++;
-          }
-          if (data.primaryServicesOffered) {
-            tab["primaryServicesOffered"] = index;
-            index++;
-          }
-          if (data.uploads) {
-            tab["uploads"] = index;
             index++;
           }
           if (data.bioQA) {
             tab["bioQA"] = index;
             index++;
           }
-          if (data.inHouseTools) {
-            tab["inHouseTools"] = index;
-            index++;
-          }
           if (data.PMExperience) {
             tab["PMExperience"] = index;
             index++;
           }
-          if (data.SiteNetwork) {
-            tab["SiteNetwork"] = index;
+          if (data.inHouseTools) {
+            tab["inHouseTools"] = index;
+            index++;
+          }
+          if (data.uploads) {
+            tab["uploads"] = index;
+            index++;
+          }
+          if (data.primaryServicesOffered) {
+            tab["primaryServicesOffered"] = index;
             index++;
           }
           setTabIndex({ ...tab });
@@ -239,16 +239,11 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
               {...a11yProps(tabIndex["companyProfile"])}
             />
           )}
+
           {formData.therapeuticExpertise && (
             <Tab
               label="Expertise - Therapeutic"
               {...a11yProps(tabIndex["therapeuticExpertise"])}
-            />
-          )}
-          {formData.regulatoryExpertise && (
-            <Tab
-              label="Expertise - Regulatory"
-              {...a11yProps(tabIndex["regulatoryExpertise"])}
             />
           )}
 
@@ -259,25 +254,30 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             />
           )}
 
+          {formData.regulatoryExpertise && (
+            <Tab
+              label="Expertise - Regulatory"
+              {...a11yProps(tabIndex["regulatoryExpertise"])}
+            />
+          )}
+
           {formData.geography && (
             <Tab
-              label="Resource Locations"
+              label="Key Resources and Geographies"
+              // label="Resource Locations"
               {...a11yProps(tabIndex["geography"])}
             />
           )}
-          {formData.projectWork && (
-            <Tab label="Project Work" {...a11yProps(tabIndex["projectWork"])} />
-          )}
 
-          {formData.companyProfile && (
+          {formData.SiteNetwork && (
             <Tab
-              label="Primary Services Offered"
-              {...a11yProps(tabIndex["primaryServicesOffered"])}
+              label="Site Relationships"
+              {...a11yProps(tabIndex["SiteNetwork"])}
             />
           )}
 
-          {formData.uploads && (
-            <Tab label="Uploads" {...a11yProps(tabIndex["uploads"])} />
+          {formData.projectWork && (
+            <Tab label="Project Work" {...a11yProps(tabIndex["projectWork"])} />
           )}
 
           {formData.bioQA && (
@@ -286,24 +286,31 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
               {...a11yProps(tabIndex["bioQA"])}
             />
           )}
-          {formData.inHouseTools && (
-            <Tab
-              label="In House Tools"
-              {...a11yProps(tabIndex["inHouseTools"])}
-            />
-          )}
+
           {formData.PMExperience && (
             <Tab
               label="PM Experience"
               {...a11yProps(tabIndex["PMExperience"])}
             />
           )}
-          {formData.SiteNetwork && (
+
+          {formData.inHouseTools && (
             <Tab
-              label="Site Relationships"
-              {...a11yProps(tabIndex["SiteNetwork"])}
+              label="In House Tools"
+              {...a11yProps(tabIndex["inHouseTools"])}
             />
           )}
+
+          {formData.uploads && (
+            <Tab label="Uploads" {...a11yProps(tabIndex["uploads"])} />
+          )}
+
+          {/* {formData.primaryServicesOffered && (
+            <Tab
+              label="Primary Services Offered"
+              {...a11yProps(tabIndex["primaryServicesOffered"])}
+            />
+          )} */}
         </Tabs>
       </AppBar>
 
@@ -379,7 +386,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
         </TabPanel>
       )}
 
-      {formData.companyProfile && (
+      {/* {formData.companyProfile && (
         <TabPanel value={value} index={tabIndex["primaryServicesOffered"]}>
           <PrimaryServicesOffered
             CompanyName={formData.companyName}
@@ -389,7 +396,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
             ref={ref}
           />
         </TabPanel>
-      )}
+      )} */}
 
       {formData.uploads && (
         <TabPanel value={value} index={tabIndex["uploads"]}>
@@ -427,6 +434,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           />
         </TabPanel>
       )}
+
       {formData.PMExperience && (
         <TabPanel value={value} index={tabIndex["PMExperience"]}>
           <PMExperience
@@ -438,6 +446,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
           />
         </TabPanel>
       )}
+      
       {formData.SiteNetwork && (
         <TabPanel value={value} index={tabIndex["SiteNetwork"]}>
           <SiteNetwork
