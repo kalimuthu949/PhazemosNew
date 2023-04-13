@@ -572,6 +572,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
 
                     <Autocomplete
                       multiple
+                      disabled={readOnly}
                       disableCloseOnSelect
                       id="free-solo-with-text-demo"
                       size="small"

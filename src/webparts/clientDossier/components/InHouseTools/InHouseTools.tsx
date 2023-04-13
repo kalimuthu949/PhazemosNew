@@ -448,6 +448,7 @@ const InHouseTools = forwardRef((props: IProps, ref) => {
                       return (
                         <StyledTableCell>
                           <CheckboxStyle
+                            disabled={readOnly}
                             checked={row[heading.key]}
                             onChange={(ev) => {
                               handler(
