@@ -16,7 +16,7 @@ import classes from "./App.module.scss";
 
 import DoneIcon from "@material-ui/icons/Done";
 import { Link } from "@material-ui/core";
-
+import comStyle from "../../clientDossier/components/CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 import {
   CollapseAllVisibility,
@@ -98,7 +98,11 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
   }, [props.render]);
 
   return (
-    <TableContainer component={Paper} style={{ maxHeight: 540 }}>
+    <TableContainer
+      component={Paper}
+      style={{ maxHeight: 540 }}
+      className={comStyle.tableContainer}
+    >
       <Table aria-label="customized table" stickyHeader>
         <TableHead>
           <TableRow>

@@ -267,6 +267,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
 
           {formData.geography && (
             <Tab
+              style={{ textAlign: "start", padding: 0, margin: "0 10px" }}
               label="Key Resources and Geographies"
               // label="Resource Locations"
               {...a11yProps(tabIndex["geography"])}

@@ -457,7 +457,6 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
       });
     });
   };
-
   const addInput = () => {
     let lastUserData: any = formData.users.pop();
     let _userObject: any = {
@@ -1121,173 +1120,198 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
 
               {/* user section */}
               {/* Edit User */}
-              {isEdit &&
-                formData.users[0]["EmailID"] &&
-                formData.users.map((user: any, index: number) => {
-                  return (
-                    <div style={{ display: "flex" }}>
-                      {/* Email section */}
-                      <div style={{ width: "48%" }}>
-                        <TextField
-                          style={{ width: "100%" }}
-                          required
-                          size="small"
-                          className={classes.modalTextbox}
-                          id="outlined-basic"
-                          label="Email ID"
-                          variant="outlined"
-                          name="user"
-                          value={user.EmailID}
-                          onChange={(e) =>
-                            userChangeHandler("EmailID", e, index)
-                          }
-                          disabled={isEdit && user["ID"] ? isEdit : viewMode}
-                        />
-                      </div>
-
-                      {/* Access section */}
-                      <div style={{ width: "30%", margin: "0px 42px" }}>
-                        <FormControl
-                          variant="outlined"
-                          size="small"
-                          style={{ width: "100%", margin: "8px 0px" }}
-                        >
-                          <InputLabel id="demo-simple-select-outlined-label">
-                            Access
-                          </InputLabel>
-                          <Select
-                            labelId="demo-controlled-open-select-label"
-                            id="demo-controlled-open-select"
-                            label="Access"
-                            name="Access"
-                            value={user.Access}
-                            onChange={(e) =>
-                              userChangeHandler("Access", e, index)
-                            }
-                          >
-                            {dropValue.length > 0 &&
-                              dropValue.map((m) => {
-                                return (
-                                  <MenuItem value={m.text}>{m.text}</MenuItem>
-                                );
-                              })}
-                          </Select>
-                        </FormControl>
-                      </div>
-
-                      {/* Actions section */}
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        {isEdit && formData.users.length == 1 ? (
-                          <AddIcon
-                            style={{ cursor: "pointer" }}
-                            onClick={addInput}
-                          />
-                        ) : isEdit &&
-                          _TotalUser <= formData.users.length &&
-                          formData.users.length == index + 1 ? (
-                          <div>
-                            <AddIcon
-                              style={{ cursor: "pointer" }}
-                              onClick={addInput}
-                            />
-                            <DeleteIcon
-                              style={{ cursor: "pointer" }}
-                              onClick={() => removeInput(index)}
+              {isEdit && (
+                <div className={classes.modalScroll}>
+                  {formData.users[0]["EmailID"] &&
+                    formData.users.map((user: any, index: number) => {
+                      return (
+                        <div style={{ display: "flex" }}>
+                          {/* Email section */}
+                          <div style={{ width: "48%" }}>
+                            <TextField
+                              style={{ width: "100%" }}
+                              required
+                              size="small"
+                              className={classes.modalTextbox}
+                              id="outlined-basic"
+                              label="Email ID"
+                              variant="outlined"
+                              name="user"
+                              value={user.EmailID}
+                              onChange={(e) =>
+                                userChangeHandler("EmailID", e, index)
+                              }
+                              disabled={
+                                isEdit && user["ID"] ? isEdit : viewMode
+                              }
                             />
                           </div>
-                        ) : (
-                          <DeleteIcon
-                            style={{ cursor: "pointer" }}
-                            onClick={() => removeInput(index)}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+
+                          {/* Access section */}
+                          <div style={{ width: "30%", margin: "0px 34px" }}>
+                            <FormControl
+                              variant="outlined"
+                              size="small"
+                              style={{ width: "100%", margin: "8px 0px" }}
+                            >
+                              <InputLabel id="demo-simple-select-outlined-label">
+                                Access
+                              </InputLabel>
+                              <Select
+                                labelId="demo-controlled-open-select-label"
+                                id="demo-controlled-open-select"
+                                label="Access"
+                                name="Access"
+                                value={user.Access}
+                                onChange={(e) =>
+                                  userChangeHandler("Access", e, index)
+                                }
+                              >
+                                {dropValue.length > 0 &&
+                                  dropValue.map((m) => {
+                                    return (
+                                      <MenuItem value={m.text}>
+                                        {m.text}
+                                      </MenuItem>
+                                    );
+                                  })}
+                              </Select>
+                            </FormControl>
+                          </div>
+
+                          {/* Actions section */}
+                          <div
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            {isEdit && formData.users.length == 1 ? (
+                              <AddIcon
+                                style={{
+                                  cursor: "pointer",
+                                  color: "rgb(0,88,154)",
+                                }}
+                                onClick={addInput}
+                              />
+                            ) : isEdit &&
+                              _TotalUser <= formData.users.length &&
+                              formData.users.length == index + 1 ? (
+                              <div>
+                                <AddIcon
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "rgb(0,88,154)",
+                                    marginRight: 8,
+                                  }}
+                                  onClick={addInput}
+                                />
+                                <DeleteIcon
+                                  style={{ cursor: "pointer", color: "red" }}
+                                  onClick={() => removeInput(index)}
+                                />
+                              </div>
+                            ) : (
+                              <DeleteIcon
+                                style={{ cursor: "pointer", color: "red" }}
+                                onClick={() => removeInput(index)}
+                              />
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
 
               {/* New User */}
-              {!isEdit &&
-                formData.users.map((user: any, index: number) => {
-                  return (
-                    <div style={{ display: "flex" }}>
-                      {/* Email section */}
-                      <div style={{ width: "48%" }}>
-                        <TextField
-                          style={{ width: "100%" }}
-                          required
-                          size="small"
-                          className={classes.modalTextbox}
-                          id="outlined-basic"
-                          label="Email ID"
-                          variant="outlined"
-                          name="user"
-                          value={user.EmailID}
-                          onChange={(e) =>
-                            userChangeHandler("EmailID", e, index)
-                          }
-                          disabled={viewMode}
-                        />
-                      </div>
-
-                      {/* Access section */}
-                      <div style={{ width: "30%", margin: "0px 42px" }}>
-                        <FormControl
-                          variant="outlined"
-                          size="small"
-                          style={{ width: "100%", margin: "8px 0px" }}
-                        >
-                          <InputLabel id="demo-simple-select-outlined-label">
-                            Access
-                          </InputLabel>
-                          <Select
-                            labelId="demo-controlled-open-select-label"
-                            id="demo-controlled-open-select"
-                            label="Access"
-                            name="Access"
-                            value={user.Access}
+              {!isEdit && (
+                <div className={classes.modalScroll}>
+                  {formData.users.map((user: any, index: number) => {
+                    return (
+                      <div style={{ display: "flex" }}>
+                        {/* Email section */}
+                        <div style={{ width: "48%" }}>
+                          <TextField
+                            style={{ width: "100%" }}
+                            required
+                            size="small"
+                            className={classes.modalTextbox}
+                            id="outlined-basic"
+                            label="Email ID"
+                            variant="outlined"
+                            name="user"
+                            value={user.EmailID}
                             onChange={(e) =>
-                              userChangeHandler("Access", e, index)
+                              userChangeHandler("EmailID", e, index)
                             }
-                          >
-                            {dropValue.length > 0 &&
-                              dropValue.map((m) => {
-                                return (
-                                  <MenuItem value={m.text}>{m.text}</MenuItem>
-                                );
-                              })}
-                          </Select>
-                        </FormControl>
-                      </div>
-
-                      {/* Actions section */}
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        {formData.users.length == 1 ? (
-                          <AddIcon
-                            style={{ cursor: "pointer" }}
-                            onClick={addInput}
+                            disabled={viewMode}
                           />
-                        ) : formData.users.length == index + 1 ? (
-                          <div>
+                        </div>
+                        {/* Access section */}
+                        <div style={{ width: "30%", margin: "0px 34px" }}>
+                          <FormControl
+                            variant="outlined"
+                            size="small"
+                            style={{ width: "100%", margin: "8px 0px" }}
+                          >
+                            <InputLabel id="demo-simple-select-outlined-label">
+                              Access
+                            </InputLabel>
+                            <Select
+                              labelId="demo-controlled-open-select-label"
+                              id="demo-controlled-open-select"
+                              label="Access"
+                              name="Access"
+                              value={user.Access}
+                              onChange={(e) =>
+                                userChangeHandler("Access", e, index)
+                              }
+                            >
+                              {dropValue.length > 0 &&
+                                dropValue.map((m) => {
+                                  return (
+                                    <MenuItem value={m.text}>{m.text}</MenuItem>
+                                  );
+                                })}
+                            </Select>
+                          </FormControl>
+                        </div>
+
+                        {/* Actions section */}
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          {formData.users.length == 1 ? (
                             <AddIcon
-                              style={{ cursor: "pointer" }}
+                              style={{
+                                cursor: "pointer",
+                                color: "rgb(0,88,154)",
+                              }}
                               onClick={addInput}
                             />
+                          ) : formData.users.length == index + 1 ? (
+                            <div>
+                              <AddIcon
+                                style={{
+                                  cursor: "pointer",
+                                  color: "rgb(0,88,154)",
+                                  marginRight: 8,
+                                }}
+                                onClick={addInput}
+                              />
+                              <DeleteIcon
+                                style={{ cursor: "pointer", color: "red" }}
+                                onClick={() => removeInput(index)}
+                              />
+                            </div>
+                          ) : (
                             <DeleteIcon
-                              style={{ cursor: "pointer" }}
+                              style={{ cursor: "pointer", color: "red" }}
                               onClick={() => removeInput(index)}
                             />
-                          </div>
-                        ) : (
-                          <DeleteIcon
-                            style={{ cursor: "pointer" }}
-                            onClick={() => removeInput(index)}
-                          />
-                        )}
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              )}
 
               {/* List of Modules section */}
               <div className={classes.AreaExperience}>

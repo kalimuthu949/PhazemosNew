@@ -26,7 +26,7 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 12px;
-    h6{
+    h6 {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 }
@@ -51,14 +51,15 @@
         flex-wrap: wrap;
         .CheckBox {
             width: 47%;
-            span{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            span {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
         }
     }
 }
+
 .modalTextbox {
-    width: 48%; 
+    width: 48%;
     margin: 8px 0 8px 0 !important;
 }
 
@@ -66,4 +67,19 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 24px;
+}
+
+.modalScroll {
+    min-height: 56px;
+    max-height: 170px;
+    overflow: auto;
+}
+
+.modalScroll::-webkit-scrollbar {
+    width: 10px;
+}
+
+.modalScroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(160, 160, 160);
 }
