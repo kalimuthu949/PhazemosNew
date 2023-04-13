@@ -414,7 +414,6 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
       filter: "CompanyIDId eq '" + currentId + "'",
     };
     _commonService.getList(customProperty, (res: any) => {
-      console.log(res);
       _TotalUser = res.length;
       _UserOverAllDetails = [];
       if (res.length > 0) {
@@ -426,7 +425,6 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
           });
         }
       }
-      console.log(_UserOverAllDetails, "gdgdhghdhg");
       setArrGlopalData([..._UserOverAllDetails]);
       customProperty = {
         listName: _companyRegistration,
@@ -1122,7 +1120,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
               {/* Edit User */}
               {isEdit && (
                 <div className={classes.modalScroll}>
-                  {formData.users[0]["EmailID"] &&
+                  {formData.users[0]["Access"] &&
                     formData.users.map((user: any, index: number) => {
                       return (
                         <div style={{ display: "flex" }}>
@@ -1192,7 +1190,6 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                                 onClick={addInput}
                               />
                             ) : isEdit &&
-                              _TotalUser <= formData.users.length &&
                               formData.users.length == index + 1 ? (
                               <div>
                                 <AddIcon
