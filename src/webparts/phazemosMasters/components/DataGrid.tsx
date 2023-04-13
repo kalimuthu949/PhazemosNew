@@ -17,7 +17,7 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./App.module.scss";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
-
+import comStyle from "../../clientDossier/components/CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 
 import { CustomAlert } from "./CustomAlert";
@@ -119,6 +119,7 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
       expand: "Author",
     };
     _commonService.getList(customProperty, (res: any) => {
+      res.sort((a: any, b: any) => -1 * b.Title.localeCompare(a.Title));
       setMasterData([...res]);
     });
   }
@@ -228,7 +229,11 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
 
   return (
     <>
-      <TableContainer component={Paper} style={{ maxHeight: 520 }}>
+      <TableContainer
+        component={Paper}
+        style={{ maxHeight: 488 }}
+        className={comStyle.tableContainer}
+      >
         <Table aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>

@@ -2,3 +2,35 @@
     height: 450px;
     overflow: auto;
 }
+
+.Container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.Container::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(160, 160, 160);
+}
+
+.hideScroll {
+    height: 400px;
+    overflow: auto;
+}
+
+.hideScroll::-webkit-scrollbar {
+    display: none;
+}
+
+.tableContainer {
+    max-height: 384px;
+}
+
+.tableContainer::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(160, 160, 160);
+}

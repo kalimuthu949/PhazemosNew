@@ -17,6 +17,7 @@ import {
   useImperativeHandle,
 } from "react";
 import Modal from "@material-ui/core/Modal";
+import comStyle from "../CommonStyle.module.scss";
 import CommonService from "../../services/CommonService";
 import { Button } from "@material-ui/core";
 import { CustomAlert } from "../CustomAlert";
@@ -390,76 +391,82 @@ const InHouseTools = forwardRef((props: IProps, ref) => {
       ) : (
         ""
       )}
-      <div className={`${styles.companyDetails} disableInput`}>
-        <TextField
-          style={{ width: "38%", marginRight: 32 }}
-          id="outlined-basic"
-          label="Company Name"
-          size="small"
-          variant="outlined"
-          aria-readonly={true}
-          name="CompanyName"
-          value={props.CompanyName}
-          disabled
-        />
-        <TextField
-          id="outlined-basic"
-          size="small"
-          label="ID"
-          variant="outlined"
-          className={styles.idTextField}
-          aria-readonly={true}
-          value={props.CompanyCode}
-          disabled
-        />
-      </div>
-      <TableContainer component={Paper} style={{ maxHeight: 384 }}>
-        <Table aria-label="simple table" stickyHeader>
-          <TableHead>
-            {/* <TableRow>
+      <div className={comStyle.hideScroll}>
+        <div className={`${styles.companyDetails} disableInput`}>
+          <TextField
+            style={{ width: "38%", marginRight: 32 }}
+            id="outlined-basic"
+            label="Company Name"
+            size="small"
+            variant="outlined"
+            aria-readonly={true}
+            name="CompanyName"
+            value={props.CompanyName}
+            disabled
+          />
+          <TextField
+            id="outlined-basic"
+            size="small"
+            label="ID"
+            variant="outlined"
+            className={styles.idTextField}
+            aria-readonly={true}
+            value={props.CompanyCode}
+            disabled
+          />
+        </div>
+        <TableContainer component={Paper} className={comStyle.tableContainer}>
+          <Table aria-label="simple table" stickyHeader>
+            <TableHead>
+              {/* <TableRow>
               <StyledTableCell colSpan={11} className={styles.SectionHeader}>
                 In-house Study Enablement Tools
               </StyledTableCell>
             </TableRow> */}
-            <TableRow>
-              <StyledTableCell></StyledTableCell>
-              {tableHeadings.map((heading: IHeading) => {
+              <TableRow>
+                <StyledTableCell></StyledTableCell>
+                {tableHeadings.map((heading: IHeading) => {
+                  return (
+                    <StyledTableCell
+                      colSpan={1}
+                      className={styles.HeaderBottomBorder}
+                    >
+                      {heading.text}
+                    </StyledTableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {inHouseToolsMaster.map((row: IRowData, index: number) => {
                 return (
-                  <StyledTableCell
-                    colSpan={1}
-                    className={styles.HeaderBottomBorder}
-                  >
-                    {heading.text}
-                  </StyledTableCell>
+                  <TableRow>
+                    <StyledTableCell style={{ textAlign: "left" }}>
+                      {row.heading}
+                    </StyledTableCell>
+                    {tableHeadings.map((heading: IHeading) => {
+                      return (
+                        <StyledTableCell>
+                          <CheckboxStyle
+                            checked={row[heading.key]}
+                            onChange={(ev) => {
+                              handler(
+                                !row[heading.key],
+                                `${heading.key}`,
+                                index
+                              );
+                            }}
+                          />
+                        </StyledTableCell>
+                      );
+                    })}
+                  </TableRow>
                 );
               })}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {inHouseToolsMaster.map((row: IRowData, index: number) => {
-              return (
-                <TableRow>
-                  <StyledTableCell style={{ textAlign: "left" }}>
-                    {row.heading}
-                  </StyledTableCell>
-                  {tableHeadings.map((heading: IHeading) => {
-                    return (
-                      <StyledTableCell>
-                        <CheckboxStyle
-                          checked={row[heading.key]}
-                          onChange={(ev) => {
-                            handler(!row[heading.key], `${heading.key}`, index);
-                          }}
-                        />
-                      </StyledTableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
 
       {!readOnly && (
         <div

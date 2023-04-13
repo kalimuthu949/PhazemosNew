@@ -531,9 +531,7 @@ const BioQA = forwardRef((props: IProps, ref) => {
       ) : (
         ""
       )}
-      <div
-      // className={comStyle.Container}
-      >
+      <div className={comStyle.hideScroll}>
         <div className={`${styles.companyDetails} disableInput`}>
           <TextField
             style={{ width: "38%", marginRight: 32 }}
@@ -557,7 +555,7 @@ const BioQA = forwardRef((props: IProps, ref) => {
             disabled
           />
         </div>
-        <TableContainer component={Paper} style={{ maxHeight: 384 }}>
+        <TableContainer component={Paper} className={comStyle.tableContainer}>
           <Table aria-label="simple table" stickyHeader>
             <TableHead>
               <TableRow>

@@ -18,6 +18,7 @@ import {
 } from "react";
 import Modal from "@material-ui/core/Modal";
 import { CustomAlert } from "../CustomAlert";
+import comStyle from "../CommonStyle.module.scss";
 import CommonService from "../../services/CommonService";
 import { Button } from "@material-ui/core";
 import styles from "./PMEXperience.module.scss";
@@ -918,194 +919,173 @@ const PMExperience = forwardRef((props: IProps, ref) => {
         ) : (
           ""
         )}
-        <div className={`${styles.companyDetails} disableInput`}>
-          <TextField
-            style={{ width: "38%", marginRight: 32 }}
-            id="outlined-basic"
-            label="Company Name"
-            size="small"
-            variant="outlined"
-            aria-readonly={true}
-            name="CompanyName"
-            value={props.CompanyName}
-            disabled
-          />
-          <TextField
-            id="outlined-basic"
-            size="small"
-            label="ID"
-            variant="outlined"
-            className={styles.idTextField}
-            aria-readonly={true}
-            value={props.CompanyCode}
-            disabled
-          />
-        </div>
-        {loader ? (
-          <div
-            style={{
-              height: 200,
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <CircularProgress />
+        <div className={comStyle.hideScroll}>
+          <div className={`${styles.companyDetails} disableInput`}>
+            <TextField
+              style={{ width: "38%", marginRight: 32 }}
+              id="outlined-basic"
+              label="Company Name"
+              size="small"
+              variant="outlined"
+              aria-readonly={true}
+              name="CompanyName"
+              value={props.CompanyName}
+              disabled
+            />
+            <TextField
+              id="outlined-basic"
+              size="small"
+              label="ID"
+              variant="outlined"
+              className={styles.idTextField}
+              aria-readonly={true}
+              value={props.CompanyCode}
+              disabled
+            />
           </div>
-        ) : (
-          <>
-            <TableContainer component={Paper} style={{ maxHeight: 384 }}>
-              <Table aria-label="simple table" stickyHeader>
-                <TableHead>
-                  <TableRow>
-                    <StyledTableCell></StyledTableCell>
-                    <StyledTableCell
-                      colSpan={3}
-                      className={styles.HeaderBottomBorder}
-                    >
-                      Protocol / Planning
-                    </StyledTableCell>
-                    <StyledTableCell
-                      colSpan={2}
-                      className={styles.HeaderBottomBorder}
-                    >
-                      Resourcing
-                    </StyledTableCell>
-                    <StyledTableCell
-                      colSpan={3}
-                      className={styles.HeaderBottomBorder}
-                    >
-                      Patient Relations
-                    </StyledTableCell>
-                    <StyledTableCell
-                      colSpan={4}
-                      className={styles.HeaderBottomBorder}
-                    >
-                      Data Collection
-                    </StyledTableCell>
-                    <StyledTableCell
-                      colSpan={3}
-                      className={styles.HeaderBottomBorder}
-                    >
-                      Safety and Quality
-                    </StyledTableCell>
-                  </TableRow>
-                  <TableRow>
-                    <StyledTableCell
-                      className={styles.HeaderColBorder}
-                    ></StyledTableCell>
-                    {tableHeadings.map((heading: IHeading) => {
+          {loader ? (
+            <div
+              style={{
+                height: 200,
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress />
+            </div>
+          ) : (
+            <div>
+              <TableContainer
+                component={Paper}
+                className={comStyle.tableContainer}
+              >
+                <Table aria-label="simple table" stickyHeader>
+                  <TableHead
+                    style={{
+                      position: "sticky",
+                      top: "0",
+                      zIndex: 11,
+                    }}
+                  >
+                    <TableRow>
+                      <StyledTableCell
+                        style={{
+                          position: "sticky",
+                          left: "0",
+                          zIndex: 12,
+                        }}
+                      ></StyledTableCell>
+                      <StyledTableCell
+                        colSpan={3}
+                        className={styles.HeaderBottomBorder}
+                      >
+                        Protocol / Planning
+                      </StyledTableCell>
+                      <StyledTableCell
+                        colSpan={2}
+                        className={styles.HeaderBottomBorder}
+                      >
+                        Resourcing
+                      </StyledTableCell>
+                      <StyledTableCell
+                        colSpan={3}
+                        className={styles.HeaderBottomBorder}
+                      >
+                        Patient Relations
+                      </StyledTableCell>
+                      <StyledTableCell
+                        colSpan={4}
+                        className={styles.HeaderBottomBorder}
+                      >
+                        Data Collection
+                      </StyledTableCell>
+                      <StyledTableCell
+                        colSpan={3}
+                        className={styles.HeaderBottomBorder}
+                      >
+                        Safety and Quality
+                      </StyledTableCell>
+                    </TableRow>
+                    <TableRow>
+                      <StyledTableCell
+                        className={styles.HeaderColBorder}
+                        style={{
+                          position: "sticky",
+                          left: "0",
+                          zIndex: 12,
+                        }}
+                      ></StyledTableCell>
+                      {tableHeadings.map((heading: IHeading) => {
+                        return (
+                          <StyledTableCell className={styles.HeaderColBorder}>
+                            {heading.text}
+                          </StyledTableCell>
+                        );
+                      })}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.SectionHeader}
+                      >
+                        CNS
+                      </StyledTableCell>
+                    </TableRow>
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Platform
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.cnsPlatform.map((row: IRowData, index: number) => {
                       return (
-                        <StyledTableCell className={styles.HeaderColBorder}>
-                          {heading.text}
-                        </StyledTableCell>
+                        <TableRow>
+                          <StyledTableCell
+                            style={{
+                              textAlign: "left",
+                              position: "sticky",
+                              left: "0",
+                              zIndex: 10,
+                              background: "#fff",
+                            }}
+                          >
+                            {row.heading}
+                          </StyledTableCell>
+                          {tableHeadings.map((heading: IHeading) => {
+                            return (
+                              <StyledTableCell>
+                                <CheckboxStyle
+                                  checked={row[heading.key]}
+                                  onChange={(ev) => {
+                                    onChangeHandler(
+                                      "cnsPlatform",
+                                      index,
+                                      heading.key,
+                                      !row[heading.key]
+                                    );
+                                  }}
+                                />
+                              </StyledTableCell>
+                            );
+                          })}
+                        </TableRow>
                       );
                     })}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <StyledTableCell
-                      colSpan={19}
-                      className={styles.SectionHeader}
-                    >
-                      CNS
-                    </StyledTableCell>
-                  </TableRow>
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Platform
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.cnsPlatform.map((row: IRowData, index: number) => {
-                    return (
-                      <TableRow>
-                        <StyledTableCell
-                          style={{
-                            textAlign: "left",
-                            position: "sticky",
-                            left: "0",
-                            zIndex: 10,
-                            background: "#fff",
-                          }}
-                        >
-                          {row.heading}
-                        </StyledTableCell>
-                        {tableHeadings.map((heading: IHeading) => {
-                          return (
-                            <StyledTableCell>
-                              <CheckboxStyle
-                                checked={row[heading.key]}
-                                onChange={(ev) => {
-                                  onChangeHandler(
-                                    "cnsPlatform",
-                                    index,
-                                    heading.key,
-                                    !row[heading.key]
-                                  );
-                                }}
-                              />
-                            </StyledTableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Disease Types
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.cnsDiseaseType.map((row: IRowData, index: number) => {
-                    return (
-                      <TableRow>
-                        <StyledTableCell
-                          style={{
-                            textAlign: "left",
-                            position: "sticky",
-                            left: "0",
-                            zIndex: 10,
-                            background: "#fff",
-                          }}
-                        >
-                          {row.heading}
-                        </StyledTableCell>
-                        {tableHeadings.map((heading: IHeading) => {
-                          return (
-                            <StyledTableCell>
-                              <CheckboxStyle
-                                checked={row[heading.key]}
-                                onChange={(ev) => {
-                                  onChangeHandler(
-                                    "cnsDiseaseType",
-                                    index,
-                                    heading.key,
-                                    !row[heading.key]
-                                  );
-                                }}
-                              />
-                            </StyledTableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-                  <TableRow>
-                    <StyledTableCell
-                      colSpan={19}
-                      className={styles.SectionHeader}
-                    >
-                      Ophthalmology
-                    </StyledTableCell>
-                  </TableRow>
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Platform
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.ophthalmologyPlatform.map(
-                    (row: IRowData, index: number) => {
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Disease Types
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.cnsDiseaseType.map((row: IRowData, index: number) => {
                       return (
                         <TableRow>
                           <StyledTableCell
@@ -1126,7 +1106,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                                   checked={row[heading.key]}
                                   onChange={(ev) => {
                                     onChangeHandler(
-                                      "ophthalmologyPlatform",
+                                      "cnsDiseaseType",
                                       index,
                                       heading.key,
                                       !row[heading.key]
@@ -1138,264 +1118,335 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                           })}
                         </TableRow>
                       );
-                    }
-                  )}
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Disease Types
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.ophthalmologyDiseaseType.map(
-                    (row: IRowData, index: number) => {
-                      return (
-                        <TableRow>
-                          <StyledTableCell
-                            style={{
-                              textAlign: "left",
-                              position: "sticky",
-                              left: "0",
-                              zIndex: 10,
-                              background: "#fff",
-                            }}
-                          >
-                            {row.heading}
-                          </StyledTableCell>
-                          {tableHeadings.map((heading: IHeading) => {
-                            return (
-                              <StyledTableCell>
-                                <CheckboxStyle
-                                  checked={row[heading.key]}
-                                  onChange={(ev) => {
-                                    onChangeHandler(
-                                      "ophthalmologyDiseaseType",
-                                      index,
-                                      heading.key,
-                                      !row[heading.key]
-                                    );
-                                  }}
-                                />
-                              </StyledTableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    }
-                  )}
-                  <TableRow>
-                    <StyledTableCell
-                      colSpan={19}
-                      className={styles.SectionHeader}
-                    >
-                      Rare Disease
-                    </StyledTableCell>
-                  </TableRow>
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Platform
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.rareDiseasePlatform.map(
-                    (row: IRowData, index: number) => {
-                      return (
-                        <TableRow>
-                          <StyledTableCell
-                            style={{
-                              textAlign: "left",
-                              position: "sticky",
-                              left: "0",
-                              zIndex: 10,
-                              background: "#fff",
-                            }}
-                          >
-                            {row.heading}
-                          </StyledTableCell>
-                          {tableHeadings.map((heading: IHeading) => {
-                            return (
-                              <StyledTableCell>
-                                <CheckboxStyle
-                                  checked={row[heading.key]}
-                                  onChange={(ev) => {
-                                    onChangeHandler(
-                                      "rareDiseasePlatform",
-                                      index,
-                                      heading.key,
-                                      !row[heading.key]
-                                    );
-                                  }}
-                                />
-                              </StyledTableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    }
-                  )}
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Disease Types
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.rareDiseaseType.map((row: IRowData, index: number) => {
-                    return (
-                      <TableRow>
-                        <StyledTableCell
-                          style={{
-                            textAlign: "left",
-                            position: "sticky",
-                            left: "0",
-                            zIndex: 10,
-                            background: "#fff",
-                          }}
-                        >
-                          {row.heading}
-                        </StyledTableCell>
-                        {tableHeadings.map((heading: IHeading) => {
-                          return (
-                            <StyledTableCell>
-                              <CheckboxStyle
-                                checked={row[heading.key]}
-                                onChange={(ev) => {
-                                  onChangeHandler(
-                                    "rareDiseaseType",
-                                    index,
-                                    heading.key,
-                                    !row[heading.key]
-                                  );
-                                }}
-                              />
+                    })}
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.SectionHeader}
+                      >
+                        Ophthalmology
+                      </StyledTableCell>
+                    </TableRow>
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Platform
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.ophthalmologyPlatform.map(
+                      (row: IRowData, index: number) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell
+                              style={{
+                                textAlign: "left",
+                                position: "sticky",
+                                left: "0",
+                                zIndex: 10,
+                                background: "#fff",
+                              }}
+                            >
+                              {row.heading}
                             </StyledTableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-                  <TableRow>
-                    <StyledTableCell
-                      colSpan={19}
-                      className={styles.SectionHeader}
-                    >
-                      Oncology
-                    </StyledTableCell>
-                  </TableRow>
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Platform
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.oncologyPlatform.map((row: IRowData, index: number) => {
-                    return (
-                      <TableRow>
-                        <StyledTableCell
-                          style={{
-                            textAlign: "left",
-                            position: "sticky",
-                            left: "0",
-                            zIndex: 10,
-                            background: "#fff",
-                          }}
-                        >
-                          {row.heading}
-                        </StyledTableCell>
-                        {tableHeadings.map((heading: IHeading) => {
-                          return (
-                            <StyledTableCell>
-                              <CheckboxStyle
-                                checked={row[heading.key]}
-                                onChange={(ev) => {
-                                  onChangeHandler(
-                                    "oncologyPlatform",
-                                    index,
-                                    heading.key,
-                                    !row[heading.key]
-                                  );
-                                }}
-                              />
+                            {tableHeadings.map((heading: IHeading) => {
+                              return (
+                                <StyledTableCell>
+                                  <CheckboxStyle
+                                    checked={row[heading.key]}
+                                    onChange={(ev) => {
+                                      onChangeHandler(
+                                        "ophthalmologyPlatform",
+                                        index,
+                                        heading.key,
+                                        !row[heading.key]
+                                      );
+                                    }}
+                                  />
+                                </StyledTableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Disease Types
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.ophthalmologyDiseaseType.map(
+                      (row: IRowData, index: number) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell
+                              style={{
+                                textAlign: "left",
+                                position: "sticky",
+                                left: "0",
+                                zIndex: 10,
+                                background: "#fff",
+                              }}
+                            >
+                              {row.heading}
                             </StyledTableCell>
-                          );
-                        })}
-                      </TableRow>
-                    );
-                  })}
-                  <TableRow>
-                    <StyledTableCell colSpan={19} className={styles.subHeader}>
-                      Disease Types
-                    </StyledTableCell>
-                  </TableRow>
-                  {data.oncologyDiseaseType.map(
-                    (row: IRowData, index: number) => {
-                      return (
-                        <TableRow>
-                          <StyledTableCell style={{ textAlign: "left" }}>
-                            {row.heading}
-                          </StyledTableCell>
-                          {tableHeadings.map((heading: IHeading) => {
-                            return (
-                              <StyledTableCell>
-                                <CheckboxStyle
-                                  checked={row[heading.key]}
-                                  onChange={(ev) => {
-                                    onChangeHandler(
-                                      "oncologyDiseaseType",
-                                      index,
-                                      heading.key,
-                                      !row[heading.key]
-                                    );
-                                  }}
-                                />
-                              </StyledTableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    }
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            {!readOnly && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  margin: "20px 0",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  style={{
-                    backgroundColor: "rgb(253, 204, 67)",
-                    color: "rgb(0,88,154) ",
-                    fontWeight: 700,
-                  }}
-                  size="large"
-                  // onClick={(e) => submitData()}
-                  onClick={(e) =>
-                    submitFunction(
-                      "CNS",
-                      [...data.cnsPlatform, ...data.cnsDiseaseType],
-                      _cnsMapping,
-                      0
-                    )
-                  }
-                >
-                  Submit
-                </Button>
-              </div>
-            )}
-            <CustomAlert
-              open={cusalert.open}
-              message={cusalert.message}
-              severity={cusalert.severity}
-              handleClose={(e) => {
-                setAlert({
-                  open: false,
-                  severity: "",
-                  message: "",
-                });
+                            {tableHeadings.map((heading: IHeading) => {
+                              return (
+                                <StyledTableCell>
+                                  <CheckboxStyle
+                                    checked={row[heading.key]}
+                                    onChange={(ev) => {
+                                      onChangeHandler(
+                                        "ophthalmologyDiseaseType",
+                                        index,
+                                        heading.key,
+                                        !row[heading.key]
+                                      );
+                                    }}
+                                  />
+                                </StyledTableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.SectionHeader}
+                      >
+                        Rare Disease
+                      </StyledTableCell>
+                    </TableRow>
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Platform
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.rareDiseasePlatform.map(
+                      (row: IRowData, index: number) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell
+                              style={{
+                                textAlign: "left",
+                                position: "sticky",
+                                left: "0",
+                                zIndex: 10,
+                                background: "#fff",
+                              }}
+                            >
+                              {row.heading}
+                            </StyledTableCell>
+                            {tableHeadings.map((heading: IHeading) => {
+                              return (
+                                <StyledTableCell>
+                                  <CheckboxStyle
+                                    checked={row[heading.key]}
+                                    onChange={(ev) => {
+                                      onChangeHandler(
+                                        "rareDiseasePlatform",
+                                        index,
+                                        heading.key,
+                                        !row[heading.key]
+                                      );
+                                    }}
+                                  />
+                                </StyledTableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Disease Types
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.rareDiseaseType.map(
+                      (row: IRowData, index: number) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell
+                              style={{
+                                textAlign: "left",
+                                position: "sticky",
+                                left: "0",
+                                zIndex: 10,
+                                background: "#fff",
+                              }}
+                            >
+                              {row.heading}
+                            </StyledTableCell>
+                            {tableHeadings.map((heading: IHeading) => {
+                              return (
+                                <StyledTableCell>
+                                  <CheckboxStyle
+                                    checked={row[heading.key]}
+                                    onChange={(ev) => {
+                                      onChangeHandler(
+                                        "rareDiseaseType",
+                                        index,
+                                        heading.key,
+                                        !row[heading.key]
+                                      );
+                                    }}
+                                  />
+                                </StyledTableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.SectionHeader}
+                      >
+                        Oncology
+                      </StyledTableCell>
+                    </TableRow>
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Platform
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.oncologyPlatform.map(
+                      (row: IRowData, index: number) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell
+                              style={{
+                                textAlign: "left",
+                                position: "sticky",
+                                left: "0",
+                                zIndex: 10,
+                                background: "#fff",
+                              }}
+                            >
+                              {row.heading}
+                            </StyledTableCell>
+                            {tableHeadings.map((heading: IHeading) => {
+                              return (
+                                <StyledTableCell>
+                                  <CheckboxStyle
+                                    checked={row[heading.key]}
+                                    onChange={(ev) => {
+                                      onChangeHandler(
+                                        "oncologyPlatform",
+                                        index,
+                                        heading.key,
+                                        !row[heading.key]
+                                      );
+                                    }}
+                                  />
+                                </StyledTableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                    <TableRow>
+                      <StyledTableCell
+                        colSpan={19}
+                        className={styles.subHeader}
+                      >
+                        Disease Types
+                      </StyledTableCell>
+                    </TableRow>
+                    {data.oncologyDiseaseType.map(
+                      (row: IRowData, index: number) => {
+                        return (
+                          <TableRow>
+                            <StyledTableCell style={{ textAlign: "left" }}>
+                              {row.heading}
+                            </StyledTableCell>
+                            {tableHeadings.map((heading: IHeading) => {
+                              return (
+                                <StyledTableCell>
+                                  <CheckboxStyle
+                                    checked={row[heading.key]}
+                                    onChange={(ev) => {
+                                      onChangeHandler(
+                                        "oncologyDiseaseType",
+                                        index,
+                                        heading.key,
+                                        !row[heading.key]
+                                      );
+                                    }}
+                                  />
+                                </StyledTableCell>
+                              );
+                            })}
+                          </TableRow>
+                        );
+                      }
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
+          )}
+        </div>
+        {!readOnly && (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              margin: "20px 0",
+            }}
+          >
+            <Button
+              variant="contained"
+              style={{
+                backgroundColor: "rgb(253, 204, 67)",
+                color: "rgb(0,88,154) ",
+                fontWeight: 700,
               }}
-            ></CustomAlert>
-          </>
+              size="large"
+              // onClick={(e) => submitData()}
+              onClick={(e) =>
+                submitFunction(
+                  "CNS",
+                  [...data.cnsPlatform, ...data.cnsDiseaseType],
+                  _cnsMapping,
+                  0
+                )
+              }
+            >
+              Submit
+            </Button>
+          </div>
         )}
+        <CustomAlert
+          open={cusalert.open}
+          message={cusalert.message}
+          severity={cusalert.severity}
+          handleClose={(e) => {
+            setAlert({
+              open: false,
+              severity: "",
+              message: "",
+            });
+          }}
+        ></CustomAlert>
       </ThemeProvider>
     </>
   );
