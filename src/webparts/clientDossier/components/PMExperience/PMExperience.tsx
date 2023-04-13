@@ -248,6 +248,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
 
   const [open, setOpen] = useState(true);
   const [isPageChanged, setIsPageChanged] = useState(false);
+
   function pageAlert() {
     setIsPageChanged(true);
     setOpen(true);
@@ -1061,6 +1062,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                             return (
                               <StyledTableCell>
                                 <CheckboxStyle
+                                  disabled={readOnly}
                                   checked={row[heading.key]}
                                   onChange={(ev) => {
                                     onChangeHandler(
@@ -1103,6 +1105,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                             return (
                               <StyledTableCell>
                                 <CheckboxStyle
+                                  disabled={readOnly}
                                   checked={row[heading.key]}
                                   onChange={(ev) => {
                                     onChangeHandler(
@@ -1154,6 +1157,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                               return (
                                 <StyledTableCell>
                                   <CheckboxStyle
+                                    disabled={readOnly}
                                     checked={row[heading.key]}
                                     onChange={(ev) => {
                                       onChangeHandler(
@@ -1198,6 +1202,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                               return (
                                 <StyledTableCell>
                                   <CheckboxStyle
+                                    disabled={readOnly}
                                     checked={row[heading.key]}
                                     onChange={(ev) => {
                                       onChangeHandler(
@@ -1250,6 +1255,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                               return (
                                 <StyledTableCell>
                                   <CheckboxStyle
+                                    disabled={readOnly}
                                     checked={row[heading.key]}
                                     onChange={(ev) => {
                                       onChangeHandler(
@@ -1294,6 +1300,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                               return (
                                 <StyledTableCell>
                                   <CheckboxStyle
+                                    disabled={readOnly}
                                     checked={row[heading.key]}
                                     onChange={(ev) => {
                                       onChangeHandler(
@@ -1346,6 +1353,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                               return (
                                 <StyledTableCell>
                                   <CheckboxStyle
+                                    disabled={readOnly}
                                     checked={row[heading.key]}
                                     onChange={(ev) => {
                                       onChangeHandler(
@@ -1390,6 +1398,7 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                               return (
                                 <StyledTableCell>
                                   <CheckboxStyle
+                                    disabled={readOnly}
                                     checked={row[heading.key]}
                                     onChange={(ev) => {
                                       onChangeHandler(

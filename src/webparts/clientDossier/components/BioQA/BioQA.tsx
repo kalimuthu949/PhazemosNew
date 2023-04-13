@@ -593,6 +593,7 @@ const BioQA = forwardRef((props: IProps, ref) => {
                       return (
                         <StyledTableCell>
                           <CheckboxStyle
+                            disabled={readOnly}
                             checked={row[heading.key]}
                             onChange={(ev) => {
                               onChangeHandler(
@@ -624,6 +625,7 @@ const BioQA = forwardRef((props: IProps, ref) => {
                       return (
                         <StyledTableCell>
                           <CheckboxStyle
+                            disabled={readOnly}
                             checked={row[heading.key]}
                             onChange={(ev) => {
                               onChangeHandler(
