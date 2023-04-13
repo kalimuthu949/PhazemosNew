@@ -1375,7 +1375,15 @@ const PMExperience = forwardRef((props: IProps, ref) => {
                       (row: IRowData, index: number) => {
                         return (
                           <TableRow>
-                            <StyledTableCell style={{ textAlign: "left" }}>
+                            <StyledTableCell
+                              style={{
+                                textAlign: "left",
+                                position: "sticky",
+                                left: "0",
+                                zIndex: 10,
+                                background: "#fff",
+                              }}
+                            >
                               {row.heading}
                             </StyledTableCell>
                             {tableHeadings.map((heading: IHeading) => {
