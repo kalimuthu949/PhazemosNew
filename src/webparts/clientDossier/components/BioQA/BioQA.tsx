@@ -557,13 +557,17 @@ const BioQA = forwardRef((props: IProps, ref) => {
         </div>
         <TableContainer component={Paper} className={comStyle.tableContainer}>
           <Table aria-label="simple table" stickyHeader>
-            <TableHead>
-              <TableRow>
+            <TableHead 
+           
+            >
+              <TableRow 
+                          >
                 <StyledTableCell colSpan={11} className={styles.SectionHeader}>
                   Experience
                 </StyledTableCell>
               </TableRow>
-              <TableRow>
+              <TableRow
+              >
                 <StyledTableCell>Biomarker Type</StyledTableCell>
                 {tableHeadings.map((heading: IHeading) => {
                   return (

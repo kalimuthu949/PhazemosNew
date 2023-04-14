@@ -231,7 +231,7 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
     <>
       <TableContainer
         component={Paper}
-        style={{ maxHeight: 422 }}
+        style={{ maxHeight:"calc(100vh-228px)"}}
         className={comStyle.tableContainer}
       >
         <Table aria-label="customized table" stickyHeader>

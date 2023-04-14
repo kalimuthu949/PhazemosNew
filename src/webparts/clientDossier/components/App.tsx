@@ -320,8 +320,8 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
       </AppBar>
 
       {formData.companyProfile && (
-        <TabPanel value={value} index={tabIndex["companyProfile"]}>
-          <CompanyProfile
+        <TabPanel value={value} index={tabIndex["companyProfile"]} className={classes.tabSectionStyles}>
+          <CompanyProfile 
             CompanyName={formData.companyName}
             CompanyID={formData.companyID}
             CompanyCode={formData.companyCode}

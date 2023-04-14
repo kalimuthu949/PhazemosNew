@@ -481,7 +481,7 @@ const CompanyProfile = forwardRef((props: ICompanyProfile, ref) => {
   }, []);
 
   return (
-    <div>
+    <div className="hi">
       <ThemeProvider theme={theme}>
         {/* <h3 className={classes.headerTitle}>Company Profile</h3> */}
         {isPageChanged ? (
