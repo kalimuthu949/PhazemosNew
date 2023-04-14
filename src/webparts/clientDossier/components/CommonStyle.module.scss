@@ -1,5 +1,6 @@
 .Container {
-    height: 428px;
+    // height: 428px;
+    height: calc(100vh - 366px);
     overflow: auto;
 }
 
@@ -13,7 +14,7 @@
 }
 
 .hideScroll {
-    height: 400px;
+    // height: 400px;
     overflow: auto;
 }
 
@@ -22,7 +23,15 @@
 }
 
 .tableContainer {
-    max-height: 384px;
+    // max-height: 384px;
+    // max-height: calc(100vh - 446px);
+    max-height: calc(100vh - 336px);
+    th{
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        min-width: 114px !important;
+        padding: 3px !important;
+    }
 }
 
 .tableContainer::-webkit-scrollbar {
