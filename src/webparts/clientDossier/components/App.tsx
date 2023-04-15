@@ -276,7 +276,7 @@ export const App: React.FunctionComponent<IApp> = (props: IApp) => {
 
           {formData.SiteNetwork && (
             <Tab
-              label="Site Relationships"
+              label="Site Networks"
               {...a11yProps(tabIndex["SiteNetwork"])}
             />
           )}
