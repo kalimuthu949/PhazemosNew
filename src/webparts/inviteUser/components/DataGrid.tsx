@@ -16,7 +16,7 @@ import classes from "./App.module.scss";
 
 import DoneIcon from "@material-ui/icons/Done";
 import { Link } from "@material-ui/core";
-import comStyle from "../../clientDossier/components/CommonStyle.module.scss";
+// import comStyle from "../../clientDossier/components/CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 import {
   CollapseAllVisibility,
@@ -48,14 +48,14 @@ const StyledTableCell = withStyles((theme) => ({
     fontWeight: 600,
     minWidth: "82px !important",
     maxWidth: "100px !important",
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
   body: {
     fontSize: 15,
     color: "#303133",
     padding: "5px 15px",
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
 }))(TableCell);
@@ -98,11 +98,7 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
   }, [props.render]);
 
   return (
-    <TableContainer
-      component={Paper}
-      style={{ maxHeight: "calc(100vh-228px)" }}
-      className={comStyle.tableContainer}
-    >
+    <TableContainer component={Paper} className={classes.tableContainer}>
       <Table aria-label="customized table" stickyHeader>
         <TableHead>
           <TableRow>

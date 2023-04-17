@@ -1047,7 +1047,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                           disabled={isEdit ? !isEdit : viewMode}
                         />
                       }
-                      label="Site Network"
+                      label="Site Networks"
                     />
                   </div>
                 </div>
@@ -1189,8 +1189,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                                 }}
                                 onClick={addInput}
                               />
-                            ) : isEdit &&
-                              formData.users.length == index + 1 ? (
+                            ) : isEdit && formData.users.length == index + 1 ? (
                               <div>
                                 <AddIcon
                                   style={{
@@ -1490,7 +1489,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
                           disabled={isEdit ? !isEdit : viewMode}
                         />
                       }
-                      label="Site Network"
+                      label="Site Networks"
                     />
                   </div>
                 </div>
