@@ -98,21 +98,21 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
   //  const clientDetailsURL =
   //    "https://phazemos.sharepoint.com/sites/Douglas/SitePages/Client.aspx";
 
-  //Dev
-  const _acceptInviteUrl: string =
-    "https://douglas-phazemos-new.azurewebsites.net/Phazemos/Index?id=";
-
-  //Dev
-  const clientDetailsURL =
-    "https://chandrudemo.sharepoint.com/sites/Douglas/SitePages/client1.aspx";
-
-  // ////Prod
+  // //Dev
   // const _acceptInviteUrl: string =
-  //   "https://clientdossier.azurewebsites.net/Phazemos/Index?id=";
+  //   "https://douglas-phazemos-new.azurewebsites.net/Phazemos/Index?id=";
 
-  // ////Prod
+  // //Dev
   // const clientDetailsURL =
-  //   "https://phazemos.sharepoint.com/sites/Client/SitePages/Client.aspx";
+  //   "https://chandrudemo.sharepoint.com/sites/Douglas/SitePages/client1.aspx";
+
+  ////Prod
+  const _acceptInviteUrl: string =
+    "https://clientdossier.azurewebsites.net/Phazemos/Index?id=";
+
+  ////Prod
+  const clientDetailsURL =
+    "https://phazemos.sharepoint.com/sites/Client/SitePages/Client.aspx";
 
   const [formData, setFormData] = useState({
     ID: 0,
@@ -272,6 +272,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
             customProperty,
             userData,
             (userres: any) => {
+              console.log("Invite send to"+ userres.data.Id + "-" + companyData.Title);
               let graphProperty = {
                 UserEmailID: users[index]["EmailID"],
                 InviteRedirectUrl:
@@ -361,6 +362,7 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
   }
 
   function editRecord(company: any) {
+    debugger;
     _commonService = new CommonService();
     let customProperty = {
       listName: _userDetails,
@@ -576,6 +578,8 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
       ID: formData.ID,
     };
 
+    let _companyName=formData.companyName;
+
     let data: any = {};
     data.CompanyProfile = formData.CompanyProfile;
     data.TherapeuticExpertise = formData.TherapeuticExpertise;
@@ -672,11 +676,12 @@ export const App: React.FunctionComponent<IInviteUserProps> = (
             userData,
             (response: any) => {
               _arrAllEditRecords.push(addRecord[i]);
+              console.log("Invite send to"+ response.data.Id + "-" + formData.companyName);
               let graphProperty = {
                 UserEmailID: users[i]["EmailID"],
                 InviteRedirectUrl:
                   _acceptInviteUrl +
-                  btoa(response.data.Id + "-" + response.Title),
+                  btoa(response.data.Id + "-" + formData.companyName),
               };
               setRender(!render);
               _commonService.graphCallToInviteUser(

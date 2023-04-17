@@ -235,7 +235,7 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
               <StyledTableCell>Title</StyledTableCell>
               <StyledTableCell>Status</StyledTableCell>
               <StyledTableCell>Created By</StyledTableCell>
-              <StyledTableCell>Created On</StyledTableCell>
+              <StyledTableCell>Created Date</StyledTableCell>
               <StyledTableCell>Action</StyledTableCell>
             </TableRow>
           </TableHead>
