@@ -17,7 +17,6 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./App.module.scss";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
-import comStyle from "../../clientDossier/components/CommonStyle.module.scss";
 import CommonService from "../services/CommonService";
 
 import { CustomAlert } from "./CustomAlert";
@@ -54,14 +53,14 @@ const StyledTableCell = withStyles((theme) => ({
     fontWeight: 600,
     minWidth: "82px !important",
     maxWidth: "100px !important",
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
   body: {
     fontSize: 15,
     color: "#303133",
     padding: "5px 15px",
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important",
   },
 }))(TableCell);
@@ -229,21 +228,13 @@ export const DataGrid: React.FunctionComponent<IDataGrid> = (
 
   return (
     <>
-      <TableContainer
-        component={Paper}
-        style={{ maxHeight:"calc(100vh-228px)"}}
-        className={comStyle.tableContainer}
-      >
+      <TableContainer component={Paper} className={styles.tableContainer}>
         <Table aria-label="customized table" stickyHeader>
           <TableHead>
             <TableRow>
               <StyledTableCell>Title</StyledTableCell>
-              <StyledTableCell style={{ textAlign: "left" }}>
-                Status
-              </StyledTableCell>
-              <StyledTableCell style={{ textAlign: "left" }}>
-                Created By
-              </StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Created By</StyledTableCell>
               <StyledTableCell>Created On</StyledTableCell>
               <StyledTableCell>Action</StyledTableCell>
             </TableRow>
