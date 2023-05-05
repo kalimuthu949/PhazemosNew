@@ -228,29 +228,35 @@ const Geography = forwardRef((props: IGeography, ref) => {
 
     _commonService = new CommonService();
 
+    let _geographyDatas = geographyDetails.concat(deleteGeographyDetails);
+
     /* start for multiple area update */
-    for (let i = 0; i < geographyDetails.length; i++) {
+    for (let i = 0; i < _geographyDatas.length; i++) {
       let newValues = [];
-      for (
-        let j = 0;
-        j < geographyDetails[i].TherapaticExperienceId.length;
-        j++
-      ) {
-        newValues.push(
-          geographyDetails[i].TherapaticExperienceId[j].therapeuticAreaID
-        );
+      if (_geographyDatas[i].TherapaticExperienceId.length) {
+        for (
+          let j = 0;
+          j < _geographyDatas[i].TherapaticExperienceId.length;
+          j++
+        ) {
+          newValues.push(
+            _geographyDatas[i].TherapaticExperienceId[j].therapeuticAreaID
+          );
+        }
+        _geographyDatas[i].TherapaticExperienceId = {
+          results: newValues,
+        };
+      } else {
+        _geographyDatas[i].TherapaticExperienceId = {
+          results: newValues,
+        };
       }
-      geographyDetails[i].TherapaticExperienceId = {
-        results: newValues,
-      };
     }
     /* end for multiple area update */
 
-    let allData = geographyDetails.slice();
+    let allData = _geographyDatas.slice();
     let addData = allData.filter((c) => c.ID == 0);
-    let editData = allData.filter((c) => c.ID != 0);
-
-    let _editData = editData.concat(deleteGeographyDetails);
+    let _editData = allData.filter((c) => c.ID != 0);
 
     if (allData && allData.length > 0) {
       if (_editData && _editData.length > 0) {
