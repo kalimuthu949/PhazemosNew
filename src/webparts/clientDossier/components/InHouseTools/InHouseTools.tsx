@@ -85,7 +85,7 @@ const CheckboxStyle = withStyles({
     "&$checked": {
       color: "rgb(253, 204, 67)",
       position: "relative",
-      zIndex: 2,
+      zIndex: 1,
       "&:after": {
         content: '""',
         left: 13,
