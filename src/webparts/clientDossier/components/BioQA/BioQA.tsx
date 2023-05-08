@@ -92,7 +92,7 @@ const CheckboxStyle = withStyles({
     "&$checked": {
       color: "rgb(253, 204, 67)",
       position: "relative",
-      zIndex: 2,
+      zIndex: 1,
       "&:after": {
         content: '""',
         left: 13,
@@ -557,17 +557,13 @@ const BioQA = forwardRef((props: IProps, ref) => {
         </div>
         <TableContainer component={Paper} className={comStyle.tableContainer}>
           <Table aria-label="simple table" stickyHeader>
-            <TableHead 
-           
-            >
-              <TableRow 
-                          >
+            <TableHead>
+              <TableRow>
                 <StyledTableCell colSpan={11} className={styles.SectionHeader}>
                   Experience
                 </StyledTableCell>
               </TableRow>
-              <TableRow
-              >
+              <TableRow>
                 <StyledTableCell>Biomarker Type</StyledTableCell>
                 {tableHeadings.map((heading: IHeading) => {
                   return (
