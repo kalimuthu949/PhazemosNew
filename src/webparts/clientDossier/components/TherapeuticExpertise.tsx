@@ -135,9 +135,9 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
   });
 
   function successAfterPageSave() {
-    props.changefunction(false);
     setOpen(false);
     setIsPageChanged(false);
+    props.changefunction(false);
   }
 
   function loadActiveTherapeuticAreaExperience(editData: any) {
@@ -463,6 +463,7 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
       severity: "success",
       message: "Updated successfully",
     });
+    props.changefunction(false);
   }
 
   function updateTherapeuticArea() {
@@ -792,7 +793,7 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
                     <>
                       <br />
                       <TextField
-                        required
+                        // required
                         placeholder=""
                         style={{ width: "20%" }}
                         variant="outlined"
