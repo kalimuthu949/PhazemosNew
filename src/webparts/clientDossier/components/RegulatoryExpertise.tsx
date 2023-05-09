@@ -249,6 +249,7 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
   }
 
   function submitData() {
+    props.changefunction(false);
     let checkedDatas = regulatoryExpertises.filter((d) => d.IsChecked == true);
     // if (checkedDatas.length == 0) {
     //   setAlert({
@@ -367,6 +368,7 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
     );
 
     let allLocRegulatoryExpertises = selExpertises.slice();
+
     let locRegulatoryExpertises = allLocRegulatoryExpertises.filter(
       (c) => c.InHouseRegulatoryRegimeExperiencId != 0
     );
@@ -703,7 +705,7 @@ const RegulatoryExpertise = forwardRef((props: IRegulatoryExpertise, ref) => {
                     <>
                       <br />
                       <TextField
-                        required
+                        // required
                         placeholder=""
                         style={{ width: "20%" }}
                         variant="outlined"

@@ -240,6 +240,7 @@ const ProjectWork = forwardRef((props: IProjectWork, ref) => {
       Description: "",
     });
     setKeyCompanies([...keyCompany]);
+    props.changefunction(true);
   }
 
   function removeKeyCompanies(index) {
@@ -252,6 +253,7 @@ const ProjectWork = forwardRef((props: IProjectWork, ref) => {
     allKeyCompanies.splice(index, 1);
     setKeyCompanies([...allKeyCompanies]);
     setDeleteKeyCompanies([...delData]);
+    props.changefunction(true);
   }
 
   function selHandleChange(event: any, index: number) {
