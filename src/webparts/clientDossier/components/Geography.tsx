@@ -174,7 +174,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
       TherapaticExperienceId: [],
     });
     setGeographyDetails([...geographyDetailsModel]);
-    props.changefunction(true);
+    //props.changefunction(true);
   }
 
   function removeGeographyDetails(index: number) {
@@ -620,7 +620,11 @@ const Geography = forwardRef((props: IGeography, ref) => {
 
                   {geographyDetails.length == index + 1 && !readOnly && (
                     <AddCircleIcon
-                      onClick={(e) => addGeographyDetails()}
+                      onClick={(e) => 
+                      {
+                        addGeographyDetails();
+                        props.changefunction(true);
+                      }}
                       className={classes.addBtn}
                     />
                   )}

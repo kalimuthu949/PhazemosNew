@@ -275,6 +275,16 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
     let removedExpertise = locExpertisePlatform.filter(
       (c) => c.ExpertisePlatformIDId != 0 && c.IsChecked == false
     );
+  
+    if(addExpertise.length==0&&removedExpertise.length==0)
+    {
+      setAlert({
+        open: true,
+        severity: "success",
+        message: "Updated successfully",
+      });
+    }
+
     if (addExpertise.length) {
       addExpertise.forEach((v) => {
         v.ExpertisePlatformIDId =
