@@ -463,6 +463,7 @@ const TherapeuticExpertise = forwardRef((props: ITherapeuticExpertise, ref) => {
       severity: "success",
       message: "Updated successfully",
     });
+    
     props.changefunction(false);
   }
 
