@@ -174,6 +174,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
       TherapaticExperienceId: [],
     });
     setGeographyDetails([...geographyDetailsModel]);
+    props.changefunction(true);
   }
 
   function removeGeographyDetails(index: number) {
@@ -186,6 +187,7 @@ const Geography = forwardRef((props: IGeography, ref) => {
     geographyDetailsModel.splice(index, 1);
     setGeographyDetails([...geographyDetailsModel]);
     setDeleteGeographyDetails([...deleteGeographyDetails]);
+    props.changefunction(true);
   }
 
   function submitData() {
