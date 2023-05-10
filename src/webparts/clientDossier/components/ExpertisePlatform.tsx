@@ -106,9 +106,9 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
   });
 
   function successAfterPageSave() {
-    props.changefunction(false);
     setOpen(false);
     setIsPageChanged(false);
+    props.changefunction(false);
   }
 
   function loadActiveExpertisePlatformExperience(editData: any) {
@@ -283,6 +283,7 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
         severity: "success",
         message: "Updated successfully",
       });
+      props.changefunction(false);
     }
 
     if (addExpertise.length) {
@@ -304,6 +305,7 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
             severity: "success",
             message: "Updated successfully",
           });
+          props.changefunction(false);
         }
       );
     }
@@ -324,9 +326,11 @@ const ExpertisePlatform = forwardRef((props: IExpertisePlatform, ref) => {
             severity: "success",
             message: "Updated successfully",
           });
+          props.changefunction(false);
         }
       );
     }
+    props.changefunction(false);
   }
 
   useEffect((): any => {
